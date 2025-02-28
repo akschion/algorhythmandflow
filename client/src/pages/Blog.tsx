@@ -50,7 +50,7 @@ export default function Blog() {
                   >
                     <Badge 
                       variant={selectedTags.includes(tag) ? "default" : "secondary"}
-                      className={`px-3 py-1 hover:bg-primary hover:text-primary-foreground transition-colors ${
+                      className={`hover:bg-primary hover:text-primary-foreground transition-colors ${
                         selectedTags.includes(tag) 
                           ? 'bg-primary text-primary-foreground' 
                           : ''
