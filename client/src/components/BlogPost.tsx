@@ -89,6 +89,14 @@ export function BlogPost({ post, preview = false, isPreview = false, showContent
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </motion.div>
         )}
+        {!showContent && summary && (
+          <motion.p
+            variants={item}
+            className="text-foreground/80 line-clamp-3 mb-4 text-base leading-relaxed tracking-wide"
+          >
+            {summary}
+          </motion.p>
+        )}
       </div>
     </motion.article>
   );
