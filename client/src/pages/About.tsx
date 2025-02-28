@@ -35,27 +35,27 @@ export default function About() {
                 enhance musical expression in hip-hop.
               </p>
               <h3 className="text-xl font-semibold mt-8 mb-4 text-foreground">Research Interests</h3>
-              <ul className="space-y-4 list-none pl-0">
-                <li className="flex items-start gap-4">
-                  <div className="w-1 h-1 mt-3 rounded-full bg-primary" />
-                  <p className="text-foreground">
-                    <strong className="text-foreground">Signal Processing in Music:</strong> Analyzing beat patterns
+              <ul className="space-y-6 list-none pl-0">
+                <li className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-gradient-to-br from-primary to-primary-foreground/80 flex items-center justify-center text-primary-foreground text-xs font-bold">1</div>
+                  <div className="text-foreground">
+                    <strong className="text-foreground/90 font-semibold">Signal Processing in Music:</strong> Analyzing beat patterns
                     and rhythmic structures using advanced mathematical techniques.
-                  </p>
+                  </div>
                 </li>
-                <li className="flex items-start gap-4">
-                  <div className="w-1 h-1 mt-3 rounded-full bg-primary" />
-                  <p className="text-foreground">
-                    <strong className="text-foreground">AI in Composition:</strong> Developing neural networks
+                <li className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-gradient-to-br from-primary to-primary-foreground/80 flex items-center justify-center text-primary-foreground text-xs font-bold">2</div>
+                  <div className="text-foreground">
+                    <strong className="text-foreground/90 font-semibold">AI in Composition:</strong> Developing neural networks
                     for algorithmic music composition and style transfer.
-                  </p>
+                  </div>
                 </li>
-                <li className="flex items-start gap-4">
-                  <div className="w-1 h-1 mt-3 rounded-full bg-primary" />
-                  <p className="text-foreground">
-                    <strong className="text-foreground">Machine Learning Applications:</strong> Building tools
+                <li className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-gradient-to-br from-primary to-primary-foreground/80 flex items-center justify-center text-primary-foreground text-xs font-bold">3</div>
+                  <div className="text-foreground">
+                    <strong className="text-foreground/90 font-semibold">Machine Learning Applications:</strong> Building tools
                     for music production and analysis using cutting-edge ML techniques.
-                  </p>
+                  </div>
                 </li>
               </ul>
             </CardContent>

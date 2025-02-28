@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/components/BlogPost";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,72 +32,69 @@ export default function Blog() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Topics Sidebar - Fixed on desktop, top on mobile */}
-        <div className="order-2 md:order-1 md:col-span-1">
-          <Card className="bg-gradient-to-br from-background via-background/95 to-muted border-none shadow-lg md:sticky md:top-24">
-            <CardHeader>
-              <CardTitle className="text-xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
-                Topics
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {allTags.map(tag => (
-                  <button
-                    key={tag}
-                    onClick={() => toggleTag(tag)}
-                    className="no-underline focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-full"
-                  >
-                    <Badge 
-                      variant={selectedTags.includes(tag) ? "default" : "secondary"}
-                      className={`
-                        transition-colors duration-200
-                        ${selectedTags.includes(tag) 
-                          ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
-                          : 'hover:bg-primary hover:text-primary-foreground'
-                        }
-                      `}
-                    >
-                      {tag}
-                    </Badge>
-                  </button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+      <div className="space-y-8">
+        {/* Title Card */}
+        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 via-primary/10 to-background">
+          <div className="absolute inset-0 w-full h-full">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
+            <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+          </div>
+
+          <div className="relative p-6 md:p-8">
+            <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent pb-2">
+              {selectedTags.length > 0 
+                ? `Posts tagged: ${selectedTags.join(", ")}`
+                : "All Posts"
+              }
+            </h1>
+          </div>
         </div>
 
-        {/* Main Content */}
-        <div className="order-1 md:order-2 md:col-span-3">
-          <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 via-primary/10 to-background mb-8">
-            <div className="absolute inset-0 w-full h-full">
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
-              <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        {/* Topics Filter Module */}
+        <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
+              Topics
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {allTags.map(tag => (
+                <button
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  className="no-underline focus:outline-none rounded-full"
+                >
+                  <Badge 
+                    variant={selectedTags.includes(tag) ? "default" : "secondary"}
+                    className={`
+                      transition-colors duration-200
+                      ${selectedTags.includes(tag) 
+                        ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                        : 'hover:bg-primary hover:text-primary-foreground'
+                      }
+                    `}
+                  >
+                    {tag}
+                  </Badge>
+                </button>
+              ))}
             </div>
+          </CardContent>
+        </Card>
 
-            <div className="relative p-6 md:p-8">
-              <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent pb-2">
-                {selectedTags.length > 0 
-                  ? `Posts tagged: ${selectedTags.join(", ")}`
-                  : "All Posts"
-                }
-              </h1>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            {filteredPosts.map(post => (
-              <motion.div
-                key={post.id}
-                whileHover={{ scale: 1.01 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="transform-gpu" // Enable hardware acceleration
-              >
-                <BlogPost post={post} preview />
-              </motion.div>
-            ))}
-          </div>
+        {/* Posts List */}
+        <div className="space-y-6">
+          {filteredPosts.map(post => (
+            <motion.div
+              key={post.id}
+              whileHover={{ scale: 1.01 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="transform-gpu" // Enable hardware acceleration
+            >
+              <BlogPost post={post} preview className="text-foreground/80" />
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>

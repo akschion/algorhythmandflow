@@ -72,11 +72,11 @@ export function BlogPost({ post, preview = false, isPreview = false, showContent
           <motion.div 
             variants={item}
             className="prose prose-slate dark:prose-invert 
-                       prose-headings:text-foreground 
-                       prose-p:text-foreground 
+                       prose-headings:text-foreground/90 
+                       prose-p:text-foreground/80 
                        prose-p:leading-relaxed 
                        prose-p:text-base
-                       prose-a:text-primary 
+                       prose-a:text-primary/90 
                        prose-a:no-underline 
                        hover:prose-a:underline 
                        prose-blockquote:border-l-primary 

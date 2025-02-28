@@ -1,4 +1,8 @@
+
 import { posts, type Post, type InsertPost } from "@shared/schema";
+import fs from "fs/promises";
+import path from "path";
+import matter from "gray-matter";
 
 export interface IStorage {
   getPosts(): Promise<Post[]>;
@@ -8,91 +12,115 @@ export interface IStorage {
   createPost(post: InsertPost): Promise<Post>;
 }
 
-export class MemStorage implements IStorage {
-  private posts: Map<number, Post>;
-  private currentId: number;
+export class FileStorage implements IStorage {
+  private postsDir: string;
+  private postsCache: Post[] | null = null;
+  private currentId: number = 1;
 
-  constructor() {
-    this.posts = new Map();
-    this.currentId = 1;
+  constructor(postsDir: string) {
+    this.postsDir = postsDir;
+  }
+
+  private async loadPostsIfNeeded(): Promise<Post[]> {
+    if (this.postsCache) {
+      return this.postsCache;
+    }
+
+    try {
+      const files = await fs.readdir(this.postsDir);
+      const markdownFiles = files.filter(file => file.endsWith('.md'));
+      
+      const posts: Post[] = [];
+      
+      for (const file of markdownFiles) {
+        const filePath = path.join(this.postsDir, file);
+        const content = await fs.readFile(filePath, 'utf-8');
+        const { data, content: markdownContent } = matter(content);
+        
+        // Extract data from frontmatter
+        const post: Post = {
+          id: this.currentId++,
+          title: data.title || 'Untitled',
+          slug: data.slug || file.replace('.md', ''),
+          content: markdownContent,
+          excerpt: data.excerpt || markdownContent.slice(0, 150) + '...',
+          publishedAt: data.date ? new Date(data.date) : new Date(),
+          tags: data.tags || []
+        };
+        
+        posts.push(post);
+      }
+      
+      // Sort by publication date (newest first)
+      posts.sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
+      
+      this.postsCache = posts;
+      return posts;
+    } catch (error) {
+      console.error('Error loading posts:', error);
+      return [];
+    }
   }
 
   async getPosts(): Promise<Post[]> {
-    return Array.from(this.posts.values())
-      .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
+    return this.loadPostsIfNeeded();
   }
 
   async getPost(slug: string): Promise<Post | undefined> {
-    return Array.from(this.posts.values()).find(post => post.slug === slug);
+    const posts = await this.loadPostsIfNeeded();
+    return posts.find(post => post.slug === slug);
   }
 
   async getPostsByTag(tag: string): Promise<Post[]> {
-    return Array.from(this.posts.values())
-      .filter(post => post.tags.includes(tag))
-      .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
+    const posts = await this.loadPostsIfNeeded();
+    return posts.filter(post => post.tags.includes(tag));
   }
 
   async searchPosts(query: string): Promise<Post[]> {
+    const posts = await this.loadPostsIfNeeded();
     const searchRegex = new RegExp(query, 'i');
-    return Array.from(this.posts.values())
-      .filter(post => 
-        searchRegex.test(post.title) || 
-        searchRegex.test(post.content) ||
-        searchRegex.test(post.excerpt)
-      )
-      .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
-  }
-
-  // Add a sample post for demonstration purposes
-  async addSamplePost(): Promise<void> {
-    const samplePost: Post = {
-      id: 999,
-      title: "Exploring Modern Web Development Techniques",
-      slug: "exploring-modern-web-development",
-      content: "This is a sample blog post added to demonstrate vertical card layout. Modern web development involves various frameworks and libraries that make building interactive and responsive applications easier than ever before.",
-      excerpt: "A look at current trends and best practices in web development.",
-      publishedAt: new Date(2023, 11, 15),
-      tags: ["Web Development", "JavaScript", "React"]
-    };
     
-    this.posts.set(samplePost.id, samplePost);
+    return posts.filter(post => 
+      searchRegex.test(post.title) || 
+      searchRegex.test(post.content) ||
+      searchRegex.test(post.excerpt)
+    );
   }
 
   async createPost(insertPost: InsertPost): Promise<Post> {
+    // For file-based storage, we'll create a new markdown file
+    const { title, slug, content, excerpt, tags } = insertPost;
+    
+    // Create frontmatter
+    const frontmatter = {
+      title,
+      slug,
+      excerpt,
+      date: new Date().toISOString(),
+      tags
+    };
+    
+    const fileContent = matter.stringify(content, frontmatter);
+    const fileName = `${slug}.md`;
+    
+    await fs.writeFile(path.join(this.postsDir, fileName), fileContent);
+    
+    // Invalidate cache to reload posts
+    this.postsCache = null;
+    
+    // Return the newly created post
     const id = this.currentId++;
     const post: Post = {
       ...insertPost,
       id,
       publishedAt: new Date()
     };
-    this.posts.set(id, post);
+    
     return post;
   }
 }
 
-export const storage = new MemStorage();
+// Initialize storage with posts directory
+export const storage = new FileStorage(path.join(process.cwd(), 'server', 'posts'));
 
-// Add some sample content
-storage.createPost({
-  title: "Introduction to Fourier Transforms",
-  slug: "fourier-transforms-intro",
-  content: `
-# Introduction to Fourier Transforms
-
-The Fourier transform is a fundamental tool in signal processing and analysis. It decomposes a function into the frequencies that make it up.
-
-$$F(\\omega) = \\int_{-\\infty}^{\\infty} f(t)e^{-i\\omega t}dt$$
-
-## Applications in Signal Processing
-
-Code example:
-\`\`\`python
-import numpy as np
-
-def fourier_transform(signal):
-    return np.fft.fft(signal)
-\`\`\`
-`,
-  excerpt: "An introduction to Fourier transforms and their applications in signal processing",
-  tags: ["math", "signal-processing"]
-});
+// Add gray-matter to package.json
