@@ -10,7 +10,7 @@ interface BlogPostProps {
 
 export function BlogPost({ post, preview = false }: BlogPostProps) {
   return (
-    <Card className="mb-8 overflow-hidden bg-gradient-to-br from-background via-background/95 to-muted border-none shadow-lg">
+    <Card className="overflow-hidden bg-gradient-to-br from-background via-background/95 to-muted border-none shadow-lg w-full">
       <CardHeader className="space-y-4">
         <CardTitle className="text-2xl md:text-3xl font-bold bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
           {preview ? (

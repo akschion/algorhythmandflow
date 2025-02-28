@@ -3,10 +3,15 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Add sample post for demonstration
+  if ('addSamplePost' in storage) {
+    (storage as any).addSamplePost();
+  }
+
   app.get("/api/posts", async (req, res) => {
     const tag = req.query.tag as string | undefined;
     const search = req.query.search as string | undefined;
-    
+
     let posts;
     if (tag) {
       posts = await storage.getPostsByTag(tag);
@@ -15,7 +20,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } else {
       posts = await storage.getPosts();
     }
-    
+
     res.json(posts);
   });
 

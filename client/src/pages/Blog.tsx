@@ -36,11 +36,11 @@ export default function Blog() {
 
         <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
           <CardContent className="pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-col space-y-6">
               {recentPosts.map(post => (
                 <motion.div
                   key={post.id}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.01 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <BlogPost post={post} preview />
