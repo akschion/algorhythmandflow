@@ -12,24 +12,6 @@ export function BlogSidebar() {
 
   return (
     <div className="space-y-8 sticky top-24">
-      <Card className="bg-gradient-to-br from-background to-muted">
-        <CardHeader>
-          <CardTitle>About Me</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="relative w-32 h-32 mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-foreground opacity-10 rounded-full" />
-            <img
-              src="https://images.unsplash.com/photo-1507679799987-c73779587ccf"
-              alt="Author"
-              className="rounded-full w-full h-full object-cover relative z-10"
-            />
-          </div>
-          <p className="text-sm leading-relaxed">
-            A passionate researcher exploring the intersections of mathematics, technology, and hip-hop culture.
-          </p>
-        </CardContent>
-      </Card>
 
       <Card>
         <CardHeader>

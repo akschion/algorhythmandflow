@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BlogSidebar } from "@/components/BlogSidebar";
 import { 
   Carousel,
   CarouselContent,
@@ -21,10 +20,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="md:col-span-1">
-          <BlogSidebar />
-        </div>
+      <div className="space-y-12">
         <div className="md:col-span-3 space-y-12">
           <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 via-primary/10 to-background">
             <div className="absolute inset-0 w-full h-full">
