@@ -1,13 +1,6 @@
 import { BlogPost } from "@/components/BlogPost";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from "@/components/ui/carousel";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
@@ -43,22 +36,17 @@ export default function Blog() {
 
         <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
           <CardContent className="pt-6">
-            <Carousel className="w-full">
-              <CarouselContent>
-                {recentPosts.map(post => (
-                  <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <BlogPost post={post} preview />
-                    </motion.div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {recentPosts.map(post => (
+                <motion.div
+                  key={post.id}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <BlogPost post={post} preview />
+                </motion.div>
+              ))}
+            </div>
           </CardContent>
         </Card>
 

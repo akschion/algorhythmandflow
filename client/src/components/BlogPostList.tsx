@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { BlogPost } from "./BlogPost";
 import { type Post } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
+import { motion } from "framer-motion";
 
 interface BlogPostListProps {
   tag?: string;
@@ -27,9 +28,15 @@ export function BlogPostList({ tag }: BlogPostListProps) {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {posts.map(post => (
-        <BlogPost key={post.id} post={post} preview />
+        <motion.div
+          key={post.id}
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <BlogPost key={post.id} post={post} preview />
+        </motion.div>
       ))}
     </div>
   );
