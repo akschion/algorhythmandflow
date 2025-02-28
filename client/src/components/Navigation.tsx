@@ -18,7 +18,7 @@ export function Navigation() {
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/blog", label: "Blog" }
+    { href: "/blog", label: "Posts" }
   ];
 
   return (
@@ -26,7 +26,7 @@ export function Navigation() {
       <div className="container flex h-14 items-center justify-between">
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
+          <Link href="/" className="mr-6 flex items-center space-x-2 pl-4">
             <motion.span 
               className="font-bold bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent transition-opacity hover:opacity-80"
               whileHover={{ scale: 1.05 }}
@@ -64,7 +64,7 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         <div className="md:hidden flex w-full items-center justify-between">
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center pl-4">
             <motion.span 
               className="font-bold text-sm bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent"
               whileHover={{ scale: 1.05 }}
