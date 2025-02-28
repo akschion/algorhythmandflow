@@ -26,7 +26,8 @@ export function Navigation() {
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {[
               { href: "/", label: "Home" },
-              { href: "/blog", label: "Blog" }
+              { href: "/about", label: "About" },
+              { href: "/blog", label: "Posts" }
             ].map(({ href, label }) => (
               <Link 
                 key={href} 
