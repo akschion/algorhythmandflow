@@ -27,7 +27,7 @@ export function Navigation() {
             {[
               { href: "/", label: "Home" },
               { href: "/about", label: "About" },
-              { href: "/blog", label: "Posts" }
+              { href: "/blog", label: "Blog" } // Changed "Posts" to "Blog"
             ].map(({ href, label }) => (
               <Link 
                 key={href} 

@@ -43,6 +43,21 @@ export class MemStorage implements IStorage {
       .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
   }
 
+  // Add a sample post for demonstration purposes
+  async addSamplePost(): Promise<void> {
+    const samplePost: Post = {
+      id: 999,
+      title: "Exploring Modern Web Development Techniques",
+      slug: "exploring-modern-web-development",
+      content: "This is a sample blog post added to demonstrate vertical card layout. Modern web development involves various frameworks and libraries that make building interactive and responsive applications easier than ever before.",
+      excerpt: "A look at current trends and best practices in web development.",
+      publishedAt: new Date(2023, 11, 15),
+      tags: ["Web Development", "JavaScript", "React"]
+    };
+    
+    this.posts.set(samplePost.id, samplePost);
+  }
+
   async createPost(insertPost: InsertPost): Promise<Post> {
     const id = this.currentId++;
     const post: Post = {

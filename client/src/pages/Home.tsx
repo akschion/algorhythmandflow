@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BlogSidebar } from "@/components/BlogSidebar";
 import { 
   Carousel,
   CarouselContent,
@@ -17,14 +16,11 @@ export default function Home() {
     queryKey: ["/api/posts"]
   });
 
-  const recentPosts = posts?.slice(0, 5) || [];
+  const recentPosts = posts?.slice(0, 3) || [];
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="md:col-span-1">
-          <BlogSidebar />
-        </div>
+      <div className="space-y-12">
         <div className="md:col-span-3 space-y-12">
           <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 via-primary/10 to-background">
             <div className="absolute inset-0 w-full h-full">
@@ -72,7 +68,23 @@ export default function Home() {
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
-                        <BlogPost post={post} preview />
+                        <div className="p-4 rounded-lg border bg-card shadow-sm h-[160px] flex flex-col">
+                          <h3 className="text-lg font-medium hover:text-primary transition-colors line-clamp-2 mb-1">
+                            <a href={`/post/${post.slug}`} className="no-underline">
+                              {post.title.length > 60 ? post.title.substring(0, 57) + '...' : post.title}
+                            </a>
+                          </h3>
+                          <div className="text-sm text-muted-foreground mb-1">
+                            {new Date(post.publishedAt).toLocaleDateString()}
+                          </div>
+                          <div className="flex flex-wrap gap-1.5 mt-auto">
+                            {post.tags.slice(0, 2).map(tag => (
+                              <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary-foreground">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </motion.div>
                     </CarouselItem>
                   ))}
