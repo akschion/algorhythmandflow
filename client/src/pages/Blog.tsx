@@ -89,6 +89,8 @@ export default function Blog() {
                 key={post.id}
                 whileHover={{ scale: 1.01 }}
                 transition={{ type: "spring", stiffness: 300 }}
+                className="cursor-pointer"
+                onClick={() => window.location.href = `/post/${post.slug}`}
               >
                 <BlogPost post={post} preview />
               </motion.div>
