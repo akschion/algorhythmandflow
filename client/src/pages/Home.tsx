@@ -8,8 +8,17 @@ import {
   CarouselPrevious
 } from "@/components/ui/carousel";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { BlogPost } from "@/components/BlogPost";
+import type { Post } from "@shared/schema";
 
 export default function Home() {
+  const { data: posts } = useQuery<Post[]>({
+    queryKey: ["/api/posts"]
+  });
+
+  const recentPosts = posts?.slice(0, 5) || [];
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -51,51 +60,22 @@ export default function Home() {
           <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
             <CardHeader>
               <CardTitle className="text-2xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
-                Research Focus
+                Recent Posts
               </CardTitle>
             </CardHeader>
             <CardContent>
               <Carousel className="w-full">
                 <CarouselContent>
-                  <CarouselItem className="md:basis-1/3">
-                    <Card className="bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-background/60 hover:bg-background/80 transition-colors">
-                      <CardContent className="pt-6">
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ type: "spring", stiffness: 300 }}
-                        >
-                          <h3 className="font-semibold mb-2">Fourier Analysis</h3>
-                          <p className="text-sm text-muted-foreground">Analyzing beat patterns and rhythmic structures using advanced signal processing</p>
-                        </motion.div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                  <CarouselItem className="md:basis-1/3">
-                    <Card className="bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-background/60 hover:bg-background/80 transition-colors">
-                      <CardContent className="pt-6">
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ type: "spring", stiffness: 300 }}
-                        >
-                          <h3 className="font-semibold mb-2">AI Composition</h3>
-                          <p className="text-sm text-muted-foreground">Developing algorithmic composition systems with neural networks</p>
-                        </motion.div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                  <CarouselItem className="md:basis-1/3">
-                    <Card className="bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-background/60 hover:bg-background/80 transition-colors">
-                      <CardContent className="pt-6">
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ type: "spring", stiffness: 300 }}
-                        >
-                          <h3 className="font-semibold mb-2">ML Applications</h3>
-                          <p className="text-sm text-muted-foreground">Applying machine learning to music production and analysis</p>
-                        </motion.div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
+                  {recentPosts.map(post => (
+                    <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <BlogPost post={post} preview />
+                      </motion.div>
+                    </CarouselItem>
+                  ))}
                 </CarouselContent>
                 <CarouselPrevious />
                 <CarouselNext />

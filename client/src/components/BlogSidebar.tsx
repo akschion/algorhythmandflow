@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { type Post } from "@shared/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
 export function BlogSidebar() {
@@ -9,7 +8,6 @@ export function BlogSidebar() {
     queryKey: ["/api/posts"] 
   });
 
-  const recentPosts = posts?.slice(0, 5) || [];
   const allTags = Array.from(new Set(posts?.flatMap(p => p.tags) || []));
 
   return (
@@ -30,29 +28,6 @@ export function BlogSidebar() {
           <p className="text-sm leading-relaxed">
             A passionate researcher exploring the intersections of mathematics, technology, and hip-hop culture.
           </p>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Posts</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul className="space-y-4">
-            {recentPosts.map(post => (
-              <li key={post.id}>
-                <a 
-                  href={`/post/${post.slug}`}
-                  className="text-sm hover:text-primary block transition-colors"
-                >
-                  {post.title}
-                  <div className="text-xs text-muted-foreground mt-1">
-                    {format(new Date(post.publishedAt), "MMM d, yyyy")}
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
         </CardContent>
       </Card>
 
