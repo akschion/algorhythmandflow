@@ -36,9 +36,11 @@ export function BlogPost({ post, preview = false }: BlogPostProps) {
           ))}
         </div>
       </CardHeader>
-      <CardContent className="prose prose-lg dark:prose-invert max-w-none">
-        <MathRenderer content={preview ? post.excerpt : post.content} />
-      </CardContent>
+      {!preview && (
+        <CardContent className="prose prose-lg dark:prose-invert max-w-none">
+          <MathRenderer content={post.content} />
+        </CardContent>
+      )}
     </Card>
   );
 }
