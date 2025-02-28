@@ -5,12 +5,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface BlogPostListProps {
   tag?: string;
-  search?: string;
 }
 
-export function BlogPostList({ tag, search }: BlogPostListProps) {
+export function BlogPostList({ tag }: BlogPostListProps) {
   const { data: posts, isLoading } = useQuery<Post[]>({
-    queryKey: ["/api/posts", { tag, search }]
+    queryKey: ["/api/posts", { tag }]
   });
 
   if (isLoading) {
@@ -28,7 +27,7 @@ export function BlogPostList({ tag, search }: BlogPostListProps) {
   }
 
   return (
-    <div>
+    <div className="space-y-8">
       {posts.map(post => (
         <BlogPost key={post.id} post={post} preview />
       ))}
