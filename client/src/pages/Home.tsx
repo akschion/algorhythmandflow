@@ -69,12 +69,12 @@ export default function Home() {
                         transition={{ type: "spring", stiffness: 300 }}
                       >
                         <div className="p-4 rounded-lg border bg-card shadow-sm h-[160px] flex flex-col">
-                          <h3 className="text-lg font-medium hover:text-primary transition-colors line-clamp-2">
+                          <h3 className="text-lg font-medium hover:text-primary transition-colors line-clamp-2 mb-1">
                             <a href={`/post/${post.slug}`} className="no-underline">
                               {post.title.length > 60 ? post.title.substring(0, 57) + '...' : post.title}
                             </a>
                           </h3>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-sm text-muted-foreground mb-1">
                             {new Date(post.publishedAt).toLocaleDateString()}
                           </div>
                           <div className="flex flex-wrap gap-1.5 mt-auto">
