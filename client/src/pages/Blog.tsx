@@ -16,7 +16,7 @@ export default function Blog() {
   });
 
   const allTags = Array.from(new Set(posts?.flatMap(p => p.tags) || []));
-  const recentPosts = posts?.slice(0, 5) || [];
+  const recentPosts = posts || [];
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -16,7 +16,7 @@ export default function Home() {
     queryKey: ["/api/posts"]
   });
 
-  const recentPosts = posts?.slice(0, 5) || [];
+  const recentPosts = posts?.slice(0, 3) || [];
 
   return (
     <div className="container mx-auto px-4 py-8">
