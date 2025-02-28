@@ -50,19 +50,44 @@ export function BlogPost({ post, preview = false, isPreview = false, showContent
           </div>
         </div>
 
-        <a href={postLink} className="no-underline">
+        {preview || isPreview ? (
+          <a href={postLink} className="no-underline">
+            <motion.h2 
+              variants={item}
+              className="text-xl md:text-2xl font-bold text-foreground mb-3 hover:text-primary transition-colors"
+            >
+              {post.title}
+            </motion.h2>
+          </a>
+        ) : (
           <motion.h2 
             variants={item}
-            className="text-xl md:text-2xl font-bold text-foreground mb-3 hover:text-primary transition-colors"
+            className="text-xl md:text-2xl font-bold text-foreground mb-3"
           >
             {post.title}
           </motion.h2>
-        </a>
+        )}
 
         {showContent && (
-          <div className="prose prose-slate dark:prose-invert prose-headings:text-foreground prose-p:text-foreground/90 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-primary prose-blockquote:border-opacity-50 prose-blockquote:text-foreground/80 prose-strong:text-foreground prose-code:text-foreground max-w-none">
+          <motion.div 
+            variants={item}
+            className="prose prose-slate dark:prose-invert 
+                       prose-headings:text-foreground 
+                       prose-p:text-foreground 
+                       prose-p:leading-relaxed 
+                       prose-p:text-base
+                       prose-a:text-primary 
+                       prose-a:no-underline 
+                       hover:prose-a:underline 
+                       prose-blockquote:border-l-primary 
+                       prose-blockquote:border-opacity-50 
+                       prose-blockquote:text-foreground/80 
+                       prose-strong:text-foreground 
+                       prose-code:text-foreground 
+                       max-w-none"
+          >
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
-          </div>
+          </motion.div>
         )}
       </div>
     </motion.article>
