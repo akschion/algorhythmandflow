@@ -68,13 +68,13 @@ export default function Home() {
                         whileHover={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       >
-                        <div className="p-4 rounded-lg border bg-card shadow-sm h-[200px] flex flex-col">
-                          <h3 className="text-lg font-medium hover:text-primary transition-colors mb-2 line-clamp-2">
+                        <div className="p-4 rounded-lg border bg-card shadow-sm h-[160px] flex flex-col">
+                          <h3 className="text-lg font-medium hover:text-primary transition-colors line-clamp-2">
                             <a href={`/post/${post.slug}`} className="no-underline">
-                              {post.title}
+                              {post.title.length > 60 ? post.title.substring(0, 57) + '...' : post.title}
                             </a>
                           </h3>
-                          <div className="text-sm text-muted-foreground mb-2">
+                          <div className="text-sm text-muted-foreground">
                             {new Date(post.publishedAt).toLocaleDateString()}
                           </div>
                           <div className="flex flex-wrap gap-1.5 mt-auto">
