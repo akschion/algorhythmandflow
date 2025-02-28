@@ -44,3 +44,72 @@ export function BlogPost({ post, preview = false }: BlogPostProps) {
     </Card>
   );
 }
+import { type Post } from "@shared/schema";
+import { Badge } from "@/components/ui/badge";
+import { format } from "date-fns";
+import { motion } from "framer-motion";
+
+type BlogPostProps = {
+  post: Post;
+  isPreview?: boolean;
+  showContent?: boolean;
+};
+
+export function BlogPost({ post, isPreview = false, showContent = true }: BlogPostProps) {
+  const postLink = `/post/${post.slug}`;
+  
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+  };
+
+  return (
+    <motion.article 
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className={`overflow-hidden rounded-lg border border-border bg-card shadow-sm ${isPreview ? 'h-full' : ''}`}
+    >
+      <div className="p-6">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+          <time dateTime={post.publishedAt}>
+            {format(new Date(post.publishedAt), "MMMM d, yyyy")}
+          </time>
+          <span>•</span>
+          <div className="flex flex-wrap gap-2">
+            {post.tags.map(tag => (
+              <Badge key={tag} variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        </div>
+        
+        <a href={postLink} className="no-underline">
+          <motion.h2 
+            variants={item}
+            className="text-xl md:text-2xl font-bold text-foreground mb-3 hover:text-primary transition-colors"
+          >
+            {post.title}
+          </motion.h2>
+        </a>
+
+        {showContent && (
+          <div className="prose prose-slate dark:prose-invert prose-headings:text-foreground prose-p:text-foreground/90 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-primary prose-blockquote:border-opacity-50 prose-blockquote:text-foreground/80 prose-strong:text-foreground prose-code:text-foreground max-w-none">
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          </div>
+        )}
+      </div>
+    </motion.article>
+  );
+}

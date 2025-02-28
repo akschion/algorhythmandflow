@@ -29,30 +29,30 @@ export default function About() {
               </div>
             </CardHeader>
             <CardContent className="prose dark:prose-invert max-w-none">
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-lg text-foreground leading-relaxed">
                 A passionate researcher exploring the intersections of mathematics, technology, and hip-hop culture.
                 My work focuses on applying mathematical concepts and technological innovations to understand and
                 enhance musical expression in hip-hop.
               </p>
-              <h3 className="text-xl font-semibold mt-8 mb-4">Research Interests</h3>
+              <h3 className="text-xl font-semibold mt-8 mb-4 text-foreground">Research Interests</h3>
               <ul className="space-y-4 list-none pl-0">
                 <li className="flex items-start gap-4">
                   <div className="w-1 h-1 mt-3 rounded-full bg-primary" />
-                  <p className="text-muted-foreground">
+                  <p className="text-foreground">
                     <strong className="text-foreground">Signal Processing in Music:</strong> Analyzing beat patterns
                     and rhythmic structures using advanced mathematical techniques.
                   </p>
                 </li>
                 <li className="flex items-start gap-4">
                   <div className="w-1 h-1 mt-3 rounded-full bg-primary" />
-                  <p className="text-muted-foreground">
+                  <p className="text-foreground">
                     <strong className="text-foreground">AI in Composition:</strong> Developing neural networks
                     for algorithmic music composition and style transfer.
                   </p>
                 </li>
                 <li className="flex items-start gap-4">
                   <div className="w-1 h-1 mt-3 rounded-full bg-primary" />
-                  <p className="text-muted-foreground">
+                  <p className="text-foreground">
                     <strong className="text-foreground">Machine Learning Applications:</strong> Building tools
                     for music production and analysis using cutting-edge ML techniques.
                   </p>
