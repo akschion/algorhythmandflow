@@ -5,12 +5,13 @@ import { motion } from "framer-motion";
 
 interface BlogPostProps {
   post: Post;
-  preview?: boolean;
-  isPreview?: boolean;
-  showContent?: boolean;
+  preview?: boolean; // Likely not needed for excerpt/full content logic, consider removing if not used elsewhere
+  isPreview?: boolean; // Likely not needed for excerpt/full content logic, consider removing if not used elsewhere
+  showContent?: boolean; // Prop to control showing full content or excerpt
+  showTitle?: boolean; // Prop to control showing the title
 }
 
-export function BlogPost({ post, preview = false, isPreview = false, showContent = true }: BlogPostProps) {
+export function BlogPost({ post, preview = false, isPreview = false, showContent = true, showTitle = true}: BlogPostProps) {
   const postLink = `/post/${post.slug}`;
 
   const container = {
@@ -29,7 +30,7 @@ export function BlogPost({ post, preview = false, isPreview = false, showContent
   };
 
   return (
-    <motion.article 
+    <motion.article
       variants={container}
       initial="hidden"
       animate="show"
@@ -38,7 +39,7 @@ export function BlogPost({ post, preview = false, isPreview = false, showContent
       <div className="p-6">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
           <time dateTime={post.publishedAt}>
-            {format(new Date(post.publishedAt), "MMMM d, yyyy")}
+            {format(new Date(post.publishedAt), "MMMM d, yyyy")} {/* Corrected date format */}
           </time>
           <span>•</span>
           <div className="flex flex-wrap gap-2">
@@ -50,51 +51,52 @@ export function BlogPost({ post, preview = false, isPreview = false, showContent
           </div>
         </div>
 
-        {preview || isPreview ? (
-          <a href={postLink} className="no-underline">
-            <motion.h2 
+        {showTitle && ( // Conditionally render title based on showTitle
+          (preview || isPreview) ? (
+            <a href={postLink} className="no-underline">
+              <motion.h2
+                variants={item}
+                className="text-xl md:text-2xl font-bold text-foreground mb-3 hover:text-primary transition-colors"
+              >
+                {post.title}
+              </motion.h2>
+            </a>
+          ) : (
+            <motion.h2
               variants={item}
-              className="text-xl md:text-2xl font-bold text-foreground mb-3 hover:text-primary transition-colors"
+              className="text-xl md:text-2xl font-bold text-foreground mb-3"
             >
               {post.title}
             </motion.h2>
-          </a>
-        ) : (
-          <motion.h2 
-            variants={item}
-            className="text-xl md:text-2xl font-bold text-foreground mb-3"
-          >
-            {post.title}
-          </motion.h2>
+          )
         )}
 
-        {showContent && (
-          <motion.div 
+        {showContent ? (
+          <motion.div
             variants={item}
-            className="prose prose-slate dark:prose-invert 
-                       prose-headings:text-foreground/90 
-                       prose-p:text-foreground/80 
-                       prose-p:leading-relaxed 
+            className="prose prose-slate dark:prose-invert
+                       prose-headings:text-foreground/90
+                       prose-p:text-foreground/80
+                       prose-p:leading-relaxed
                        prose-p:text-base
-                       prose-a:text-primary/90 
-                       prose-a:no-underline 
-                       hover:prose-a:underline 
-                       prose-blockquote:border-l-primary 
-                       prose-blockquote:border-opacity-50 
-                       prose-blockquote:text-foreground/80 
-                       prose-strong:text-foreground 
-                       prose-code:text-foreground 
+                       prose-a:text-primary/90
+                       prose-a:no-underline
+                       hover:prose-a:underline
+                       prose-blockquote:border-l-primary
+                       prose-blockquote:border-opacity-50
+                       prose-blockquote:text-foreground/80
+                       prose-strong:text-foreground
+                       prose-code:text-foreground
                        max-w-none"
           >
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </motion.div>
-        )}
-        {!showContent && summary && (
+        ) : (
           <motion.p
             variants={item}
             className="text-foreground/80 line-clamp-3 mb-4 text-base leading-relaxed tracking-wide"
           >
-            {summary}
+            {post.excerpt} {/* Display post.excerpt when showContent is false */}
           </motion.p>
         )}
       </div>

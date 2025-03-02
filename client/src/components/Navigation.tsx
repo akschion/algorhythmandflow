@@ -32,7 +32,7 @@ export function Navigation() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              Math × Tech × Hip-Hop
+              Algorhythm + Flow
             </motion.span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -70,7 +70,7 @@ export function Navigation() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              Math × Tech × Hip-Hop
+              Algorhythm + Flow
             </motion.span>
           </Link>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>

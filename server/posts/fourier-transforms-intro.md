@@ -1,4 +1,3 @@
-
 ---
 title: Introduction to Fourier Transforms
 slug: fourier-transforms-intro

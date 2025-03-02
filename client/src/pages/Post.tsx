@@ -39,7 +39,7 @@ export default function Post() {
           <BlogSidebar />
         </div>
         <div className="md:col-span-3">
-          <BlogPost post={post} />
+          <BlogPost post={post} showContent={true} showTitle={false} />
         </div>
       </div>
     </div>

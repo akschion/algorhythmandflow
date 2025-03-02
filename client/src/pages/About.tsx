@@ -1,5 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faBookOpen } from '@fortawesome/free-solid-svg-icons'; 
+
 
 export default function About() {
   return (
@@ -18,7 +22,7 @@ export default function About() {
                 <div className="relative w-32 h-32 mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-foreground opacity-10 rounded-full" />
                   <img
-                    src="https://images.unsplash.com/photo-1507679799987-c73779587ccf"
+                    src="/src/assets/profpic.jpg"
                     alt="Author"
                     className="rounded-full w-full h-full object-cover relative z-10"
                   />
@@ -30,11 +34,18 @@ export default function About() {
             </CardHeader>
             <CardContent className="prose dark:prose-invert max-w-none">
               <p className="text-lg text-foreground leading-relaxed">
-                A passionate researcher exploring the intersections of mathematics, technology, and hip-hop culture.
-                My work focuses on applying mathematical concepts and technological innovations to understand and
-                enhance musical expression in hip-hop.
+                Hello! My name is Akshay Chandrasekhar, and I'm a computer vision researcher. My curiosity extends broadly though to a wide variety of topics including math, music, history, geography, economics, and linguistics. I'm particularly interested in hip-hop and geometry which have shaped my focus on the tech, business, and cultural aspects of media. You can explore my research and ideas via the blog posts here or the links below!
               </p>
-              <h3 className="text-xl font-semibold mt-8 mb-4 text-foreground">Research Interests</h3>
+              <div className="flex justify-center space-x-4"> {/* Wrap the buttons in a div with the class "flex justify-center space-x-4" */}
+                <a href="https://github.com/akschion" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon className="text-2xl" icon={faGithub} />              </a>
+                <a href="mailto:algorhythmflow@gmail.com">
+                <FontAwesomeIcon className="text-2xl" icon={faEnvelope} />              </a>
+                <a href="https://arxiv.org/search/?searchtype=author&query=Akshay%20Chandrasekhar">
+                <FontAwesomeIcon className="text-2xl" icon={faBookOpen} />              </a>
+              </div>
+              
+              {/* <h3 className="text-xl font-semibold mt-8 mb-4 text-foreground">Research Interests</h3>
               <ul className="space-y-6 list-none pl-0">
                 <li className="flex items-start gap-3">
                   <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-gradient-to-br from-primary to-primary-foreground/80 flex items-center justify-center text-primary-foreground text-xs font-bold">1</div>
@@ -57,7 +68,7 @@ export default function About() {
                     for music production and analysis using cutting-edge ML techniques.
                   </div>
                 </li>
-              </ul>
+              </ul> */}
             </CardContent>
           </Card>
         </motion.div>

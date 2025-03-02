@@ -33,7 +33,7 @@ export function BlogPostList({ tag }: BlogPostListProps) {
         <motion.div
           key={post.id}
           whileHover={{ scale: 1.01 }}
-          transition={{ type: "spring", stiffness: 300 }}
+          transition={{ type: "spring", stiffness: 300 } }
         >
           <BlogPost key={post.id} post={post} preview />
         </motion.div>

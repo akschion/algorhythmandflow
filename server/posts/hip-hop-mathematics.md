@@ -1,4 +1,3 @@
-
 ---
 title: The Mathematics of Hip-Hop Rhythms
 slug: hip-hop-mathematics

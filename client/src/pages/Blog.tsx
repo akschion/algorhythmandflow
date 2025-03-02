@@ -92,7 +92,7 @@ export default function Blog() {
               transition={{ type: "spring", stiffness: 300 }}
               className="transform-gpu" // Enable hardware acceleration
             >
-              <BlogPost post={post} preview className="text-foreground/80" />
+              <BlogPost post={post} preview className="text-foreground/80" showContent={false} />
             </motion.div>
           ))}
         </div>

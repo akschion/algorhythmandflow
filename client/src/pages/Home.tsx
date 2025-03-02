@@ -40,7 +40,7 @@ export default function Home() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                Mathematics × Technology × Hip-Hop
+                Algorhythm + Flow
               </motion.h1>
               <motion.p 
                 className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl"
@@ -48,10 +48,28 @@ export default function Home() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
               >
-                Exploring the fascinating intersections of mathematical concepts, technological innovations, and hip-hop culture through academic research and analysis.
+                Documenting my research and hot takes on the interesting concepts bridging the real world and our imagination. Mostly focused on math, tech, and hip-hop, but includes random other topics as well.
               </motion.p>
             </motion.div>
           </div>
+
+          <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
+            <CardHeader>
+              <CardTitle className="text-2xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <iframe
+                width="100%"
+                height="315"
+                src="https://www.youtube.com/embed/8Ir-zFC9nFE?si=8J7Hlon2ezMsudm-"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </CardContent>
+          </Card>
 
           <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
             <CardHeader>
