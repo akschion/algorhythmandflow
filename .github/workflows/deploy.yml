@@ -19,11 +19,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate Blog Posts
-        run: npm run generate-blog
+      # - name: Generate Blog Posts
+      #   run: npm run generate-blog
 
-      - name: Build client only
-        run: npm run build:client # Use your client build script from package.json
+      - name: Build
+        run: npm run build
 
       - name: Add CNAME file
         run: echo "algorhythmandflow.com" > ./dist/public/CNAME  # Replace with your actual domain name
