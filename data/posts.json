@@ -1,0 +1,21 @@
+[
+  {
+    "title": "Introduction to Fourier Transforms",
+    "slug": "fourier-transforms-intro",
+    "excerpt": "An introduction to Fourier transforms and their applications in signal processing",
+    "tags": [
+      "math",
+      "signal-processing"
+    ]
+  },
+  {
+    "title": "The Mathematics of Hip-Hop Rhythms",
+    "slug": "hip-hop-mathematics",
+    "excerpt": "Exploring the mathematical structures behind hip-hop beats and rhythmic patterns",
+    "tags": [
+      "math",
+      "hip-hop",
+      "music-theory"
+    ]
+  }
+]
