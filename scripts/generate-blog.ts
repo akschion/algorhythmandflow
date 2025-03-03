@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
+import MarkdownIt from 'markdown-it';
 import matter from 'gray-matter';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -7,6 +8,11 @@ import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import { unified } from 'unified';
+import { fileURLToPath } from 'url'; // Import fileURLToPath from 'url'
+import { dirname } from 'path';     // Import dirname from 'path'
+
+const __filename = fileURLToPath(import.meta.url); // Get __filename
+const __dirname = dirname(__filename);             // Get __dirname
 
 const postsDir = path.join(__dirname, '..', 'server', 'posts'); // Path to your markdown files
 const outputDir = path.join(__dirname, '..', 'dist', 'public', 'blog'); // Output directory for HTML
