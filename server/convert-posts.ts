@@ -10,9 +10,13 @@ import { unified } from 'unified';
 
 async function convertPosts() {
   const postsDir = path.join(process.cwd(), 'server', 'posts');
+  const contentDir = path.join(process.cwd(), 'client', 'src', 'assets', 'content');
   const outputFile = path.join(process.cwd(), 'client', 'src', 'assets', 'posts.json');
 
   try {
+    // Ensure content directory exists
+    await fs.mkdir(contentDir, { recursive: true });
+
     const files = await fs.readdir(postsDir);
     const markdownFiles = files.filter(file => file.endsWith('.md'));
 
@@ -32,27 +36,37 @@ async function convertPosts() {
         .use(rehypeStringify)
         .process(markdownContent);
 
-      // Create post object with embedded HTML content
+      // Generate a clean filename for the HTML content
+      const htmlFileName = `${file.replace('.md', '')}.html`;
+      const contentPath = `/content/${htmlFileName}`;
+
+      // Write HTML content to separate file
+      await fs.writeFile(
+        path.join(contentDir, htmlFileName),
+        String(htmlContent)
+      );
+
+      // Create post metadata object
       const post = {
         id: file.replace('.md', ''),
         title: data.title || 'Untitled',
         slug: data.slug || file.replace('.md', ''),
         excerpt: data.excerpt || markdownContent.slice(0, 150) + '...',
-        content: String(htmlContent),
+        contentPath, // Store the path to the HTML file
         publishedAt: data.date || new Date().toISOString(),
         tags: data.tags || []
       };
 
       posts.push(post);
-      console.log(`Converted ${file} to JSON with HTML content`);
+      console.log(`Converted ${file} to HTML and saved metadata`);
     }
 
     // Sort posts by date (newest first)
     posts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
-    // Write to JSON file
+    // Write metadata to JSON file
     await fs.writeFile(outputFile, JSON.stringify(posts, null, 2));
-    console.log('Successfully wrote posts to JSON file');
+    console.log('Successfully wrote posts metadata to JSON file');
 
   } catch (error) {
     console.error('Error converting posts:', error);

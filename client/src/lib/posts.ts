@@ -21,10 +21,23 @@ export async function getPost(slug: string): Promise<Post | undefined> {
     return undefined;
   }
 
-  return {
-    ...post,
-    publishedAt: new Date(post.publishedAt)
-  };
+  try {
+    // Fetch the HTML content from the separate file
+    const response = await fetch(post.contentPath);
+    if (!response.ok) {
+      throw new Error(`Failed to load post content: ${response.statusText}`);
+    }
+    const content = await response.text();
+
+    return {
+      ...post,
+      content,
+      publishedAt: new Date(post.publishedAt)
+    };
+  } catch (error) {
+    console.error('Failed to load post content:', error);
+    return undefined;
+  }
 }
 
 // Function to load posts by tag
