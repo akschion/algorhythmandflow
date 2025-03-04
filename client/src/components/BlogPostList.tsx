@@ -3,6 +3,7 @@ import { BlogPost } from "./BlogPost";
 import { type Post } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
+import { getPosts, getPostsByTag } from "@/lib/posts";
 
 interface BlogPostListProps {
   tag?: string;
@@ -10,7 +11,8 @@ interface BlogPostListProps {
 
 export function BlogPostList({ tag }: BlogPostListProps) {
   const { data: posts, isLoading } = useQuery<Post[]>({
-    queryKey: ["/api/posts", { tag }]
+    queryKey: ["posts", { tag }],
+    queryFn: () => tag ? getPostsByTag(tag) : getPosts()
   });
 
   if (isLoading) {
@@ -33,7 +35,7 @@ export function BlogPostList({ tag }: BlogPostListProps) {
         <motion.div
           key={post.id}
           whileHover={{ scale: 1.01 }}
-          transition={{ type: "spring", stiffness: 300 } }
+          transition={{ type: "spring", stiffness: 300 }}
         >
           <BlogPost key={post.id} post={post} preview />
         </motion.div>

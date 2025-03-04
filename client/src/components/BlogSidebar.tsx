@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { type Post } from "@shared/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
+import { getPosts } from "@/lib/posts";
 
 export function BlogSidebar() {
   const { data: posts } = useQuery<Post[]>({ 
-    queryKey: ["/api/posts"] 
+    queryKey: ["posts"],
+    queryFn: getPosts
   });
 
   const recentPosts = posts?.slice(0, 3) || [];

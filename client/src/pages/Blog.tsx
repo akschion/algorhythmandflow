@@ -1,4 +1,3 @@
-
 import { BlogPost } from "@/components/BlogPost";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,12 +5,14 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import type { Post } from "@shared/schema";
+import { getPosts } from "@/lib/posts";
 
 export default function Blog() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const { data: posts } = useQuery<Post[]>({
-    queryKey: ["/api/posts"]
+    queryKey: ["posts"],
+    queryFn: getPosts
   });
 
   const allTags = Array.from(new Set(posts?.flatMap(p => p.tags) || []));
@@ -90,9 +91,9 @@ export default function Blog() {
               key={post.id}
               whileHover={{ scale: 1.01 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="transform-gpu" // Enable hardware acceleration
+              className="transform-gpu"
             >
-              <BlogPost post={post} preview className="text-foreground/80" showContent={false} />
+              <BlogPost post={post} preview showContent={false} />
             </motion.div>
           ))}
         </div>

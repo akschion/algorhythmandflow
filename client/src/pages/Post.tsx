@@ -4,11 +4,13 @@ import { BlogPost } from "@/components/BlogPost";
 import { BlogSidebar } from "@/components/BlogSidebar";
 import { type Post } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getPost } from "@/lib/posts";
 
 export default function Post() {
   const { slug } = useParams<{ slug: string }>();
-  const { data: post, isLoading } = useQuery<Post>({
-    queryKey: [`/api/posts/${slug}`]
+  const { data: post, isLoading } = useQuery<Post | undefined>({
+    queryKey: ["post", slug],
+    queryFn: () => getPost(slug)
   });
 
   if (isLoading) {
