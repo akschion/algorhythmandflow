@@ -8,7 +8,6 @@ import remarkParse from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import { unified } from 'unified';
 
-// This script generates static HTML files for each route
 async function generatePages() {
   const outputDir = path.join(process.cwd(), 'dist', 'public');
   const templatePath = path.join(process.cwd(), 'client', 'index.html');
@@ -22,6 +21,7 @@ async function generatePages() {
 
     // Read the template HTML
     const template = await fs.readFile(templatePath, 'utf-8');
+    console.log('Template loaded successfully');
 
     // Create routes to generate
     const routes = [
@@ -32,12 +32,14 @@ async function generatePages() {
 
     // Generate HTML for each route
     for (const route of routes) {
+      console.log(`Generating ${route.path}...`);
       const htmlContent = template
         .replace(/<title>.*?<\/title>/, `<title>${route.title} - Algorhythm and Flow</title>`)
-        .replace('<div id="root"></div>', `<div id="root" data-page="${route.path}"></div>`);
+        .replace('<div id="root"></div>', `<div id="root" data-page="${route.path.replace('.html', '')}"></div>`);
 
-      await fs.writeFile(path.join(outputDir, route.path), htmlContent);
-      console.log(`Generated ${route.path}`);
+      const outputPath = path.join(outputDir, route.path);
+      await fs.writeFile(outputPath, htmlContent);
+      console.log(`Generated ${route.path} at ${outputPath}`);
     }
 
     // Process and generate blog post pages
@@ -45,7 +47,8 @@ async function generatePages() {
     const markdownFiles = files.filter(file => file.endsWith('.md'));
 
     for (const file of markdownFiles) {
-      const content = await fs.readFile(path.join(postsDir, file), 'utf-8');
+      const filePath = path.join(postsDir, file);
+      const content = await fs.readFile(filePath, 'utf-8');
       const { data, content: markdownContent } = matter(content);
       const slug = data.slug || file.replace('.md', '');
 
@@ -60,21 +63,29 @@ async function generatePages() {
 
       // Create the blog content HTML file
       const contentFileName = `${slug}.html`;
+      const contentFilePath = path.join(contentDir, contentFileName);
       await fs.writeFile(
-        path.join(contentDir, contentFileName),
+        contentFilePath,
         `<div class="blog-content">${String(htmlContent)}</div>`
       );
+      console.log(`Generated blog content at ${contentFilePath}`);
 
       // Generate the post page HTML
       const postPageContent = template
         .replace(/<title>.*?<\/title>/, `<title>${data.title} - Algorhythm and Flow</title>`)
         .replace('<div id="root"></div>', `<div id="root" data-page="post" data-slug="${slug}"></div>`);
 
-      await fs.writeFile(path.join(outputDir, `post-${slug}.html`), postPageContent);
-      console.log(`Generated post page and content for ${slug}`);
+      const postPagePath = path.join(outputDir, `post-${slug}.html`);
+      await fs.writeFile(postPagePath, postPageContent);
+      console.log(`Generated post page at ${postPagePath}`);
     }
 
-    console.log('Successfully generated all static pages');
+    // List all generated files
+    const generatedFiles = await fs.readdir(outputDir);
+    console.log('\nGenerated files in output directory:');
+    console.log(generatedFiles);
+
+    console.log('\nSuccessfully generated all static pages');
   } catch (error) {
     console.error('Error generating pages:', error);
     process.exit(1);

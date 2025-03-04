@@ -23,13 +23,24 @@ jobs:
         run: npx tsx server/convert-posts.ts
 
       - name: Generate static pages
-        run: npx tsx server/convert-pages.ts
+        run: |
+          npx tsx server/convert-pages.ts
+          echo "Generated files in dist/public:"
+          ls -la dist/public/
 
       - name: Build client only
         run: npm exec -- vite build
 
+      - name: Copy 404.html
+        run: cp client/public/404.html ./dist/public/404.html
+
       - name: Add CNAME file
         run: echo "algorhythmandflow.com" > ./dist/public/CNAME
+
+      - name: List final files
+        run: |
+          echo "Final files to be deployed:"
+          ls -la ./dist/public/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
