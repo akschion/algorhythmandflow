@@ -1,3 +1,4 @@
+import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { useState } from "react";
@@ -5,7 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export function Navigation() {
+  const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+
+  const isActive = (path: string) => {
+    if (path === '/' && location === '/') return true;
+    if (path !== '/' && location.startsWith(path)) return true;
+    return false;
+  };
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -18,7 +26,7 @@ export function Navigation() {
       <div className="container flex h-14 items-center justify-between">
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <a href="/" className="mr-6 flex items-center space-x-2 pl-4">
+          <Link href="/" className="mr-6 flex items-center space-x-2 pl-4">
             <motion.span 
               className="font-bold bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent transition-opacity hover:opacity-80"
               whileHover={{ scale: 1.05 }}
@@ -26,29 +34,37 @@ export function Navigation() {
             >
               Algorhythm + Flow
             </motion.span>
-          </a>
+          </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {navItems.map(({ href, label }) => (
-              <a 
+              <Link 
                 key={href} 
                 href={href}
-                className="relative inline-block transition-all hover:text-primary"
               >
                 <motion.span
-                  className="text-foreground/60 hover:text-primary"
+                  className={`relative inline-block transition-all hover:text-primary hover:scale-105 ${
+                    isActive(href) ? 'text-primary font-semibold' : 'text-foreground/60'
+                  }`}
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
                   {label}
+                  {isActive(href) && (
+                    <motion.div
+                      className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-primary"
+                      layoutId="underline"
+                      initial={false}
+                    />
+                  )}
                 </motion.span>
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
 
         {/* Mobile Navigation */}
         <div className="md:hidden flex w-full items-center justify-between">
-          <a href="/" className="flex items-center pl-4">
+          <Link href="/" className="flex items-center pl-4">
             <motion.span 
               className="font-bold text-sm bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent"
               whileHover={{ scale: 1.05 }}
@@ -56,7 +72,7 @@ export function Navigation() {
             >
               Algorhythm + Flow
             </motion.span>
-          </a>
+          </Link>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -67,19 +83,21 @@ export function Navigation() {
             <SheetContent side="right" className="w-[80vw] sm:w-[385px]">
               <nav className="flex flex-col space-y-4 mt-6">
                 {navItems.map(({ href, label }) => (
-                  <a 
+                  <Link 
                     key={href} 
                     href={href}
                     onClick={() => setIsOpen(false)}
-                    className="block py-2 px-4 rounded-md transition-all hover:text-primary text-foreground/60"
                   >
                     <motion.span
+                      className={`block py-2 px-4 rounded-md transition-all hover:text-primary ${
+                        isActive(href) ? 'text-primary font-semibold bg-primary/10' : 'text-foreground/60'
+                      }`}
                       whileHover={{ x: 8 }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
                       {label}
                     </motion.span>
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </SheetContent>

@@ -8,14 +8,12 @@ import { getPost } from "@/lib/posts";
 
 export default function Post() {
   const { slug } = useParams<{ slug: string }>();
-
-  // Add .html extension for direct loading
-  document.title = `Post - Algorhythm and Flow`;
-
   const { data: post, isLoading, error } = useQuery<Post | undefined>({
     queryKey: ["post", slug],
     queryFn: () => getPost(slug)
   });
+
+  console.log('Post data:', post); // Debug log
 
   if (isLoading) {
     return (
@@ -43,8 +41,7 @@ export default function Post() {
     return <div>Post not found</div>;
   }
 
-  // Update document title with post title
-  document.title = `${post.title} - Algorhythm and Flow`;
+  console.log('Post content:', post.content); // Debug log
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -53,7 +50,7 @@ export default function Post() {
           <BlogSidebar />
         </div>
         <div className="md:col-span-3">
-          <BlogPost post={post} showContent={true} showTitle={true} />
+          <BlogPost post={post} showContent={true} showTitle={false} />
         </div>
       </div>
     </div>

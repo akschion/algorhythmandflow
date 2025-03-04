@@ -1,4 +1,5 @@
 import type { Post } from "@shared/schema";
+import { getBaseUrl } from "./utils";
 
 // Import posts metadata
 import postsJson from "../assets/posts.json";
@@ -21,8 +22,12 @@ export async function getPost(slug: string): Promise<Post | undefined> {
   }
 
   try {
-    // Load the pre-generated HTML content
-    const response = await fetch(post.contentPath);
+    // Add base URL for GitHub Pages
+    const baseUrl = getBaseUrl();
+    const contentUrl = `${baseUrl}${post.contentPath}`;
+
+    // Fetch HTML content from the public directory
+    const response = await fetch(contentUrl);
     if (!response.ok) {
       throw new Error(`Failed to load post content: ${response.statusText}`);
     }

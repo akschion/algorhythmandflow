@@ -11,8 +11,7 @@ interface BlogPostProps {
 }
 
 export function BlogPost({ post, preview = false, showContent = true, showTitle = true}: BlogPostProps) {
-  // Generate the static HTML path for the post
-  const postLink = `/post-${post.slug}.html`;
+  const postLink = `/post/${post.slug}`;
 
   const container = {
     hidden: { opacity: 0 },
@@ -29,6 +28,8 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
     show: { opacity: 1, y: 0 }
   };
 
+  console.log('Post content in BlogPost:', post.content); // Debug log
+
   return (
     <motion.article
       variants={container}
@@ -39,7 +40,7 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
       <div className="p-6">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
           <time dateTime={post.publishedAt.toString()}>
-            {format(new Date(post.publishedAt), "MMM d, yyyy")}
+            {format(new Date(post.publishedAt), "MMMM d, yyyy")}
           </time>
           <span>•</span>
           <div className="flex flex-wrap gap-2">
