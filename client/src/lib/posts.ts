@@ -38,9 +38,16 @@ export async function getPost(slug: string): Promise<Post | undefined> {
     // Find the main content (assuming it's in the body)
     const content = tempDiv.querySelector('body')?.innerHTML || htmlContent;
 
+    // Extract the actual content if it's a complete HTML document
+    // Look for the main content section
+    const mainContent = tempDiv.querySelector('main') || 
+                       tempDiv.querySelector('article') || 
+                       tempDiv.querySelector('.content') ||
+                       tempDiv;
+
     return {
       ...post,
-      content
+      content: mainContent.innerHTML || content
     };
   } catch (error) {
     console.error('Failed to load post content:', error);
