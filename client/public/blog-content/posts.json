@@ -1,11 +1,27 @@
 [
   {
-    "id": 1,
-    "title": "Welcome to Algorhythm and Flow",
-    "slug": "welcome-to-algorhythm-and-flow",
-    "excerpt": "An introduction to this blog about mathematics, technology, and hip-hop culture.",
-    "contentPath": "/blog-content/posts/welcome.html",
-    "publishedAt": "2024-03-04T12:00:00Z",
-    "tags": ["intro", "mathematics", "technology", "hip-hop"]
+    "id": "hip-hop-mathematics",
+    "title": "The Mathematics of Hip-Hop Rhythms",
+    "slug": "hip-hop-mathematics",
+    "excerpt": "Exploring the mathematical structures behind hip-hop beats and rhythmic patterns",
+    "contentPath": "/blog-content/hip-hop-mathematics.html",
+    "publishedAt": "2023-06-20T10:30:00.000Z",
+    "tags": [
+      "math",
+      "hip-hop",
+      "music-theory"
+    ]
+  },
+  {
+    "id": "fourier-transforms-intro",
+    "title": "Introduction to Fourier Transforms",
+    "slug": "fourier-transforms-intro",
+    "excerpt": "An introduction to Fourier transforms and their applications in signal processing",
+    "contentPath": "/blog-content/fourier-transforms-intro.html",
+    "publishedAt": "2023-05-15T12:00:00.000Z",
+    "tags": [
+      "math",
+      "signal-processing"
+    ]
   }
 ]
