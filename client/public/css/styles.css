@@ -1,0 +1,124 @@
+/* Base styles */
+:root {
+  --primary: #3b82f6;
+  --primary-foreground: #1d4ed8;
+  --muted: #6b7280;
+  --background: #ffffff;
+  --card: #ffffff;
+  --border: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #60a5fa;
+    --primary-foreground: #93c5fd;
+    --muted: #9ca3af;
+    --background: #1f2937;
+    --card: #374151;
+    --border: #4b5563;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Layout utilities */
+.container { max-width: 1200px; margin: 0 auto; }
+.min-h-screen { min-height: 100vh; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.space-x-4 > * + * { margin-left: 1rem; }
+.space-y-12 > * + * { margin-top: 3rem; }
+.grid { display: grid; }
+.gap-4 { gap: 1rem; }
+
+/* Padding and margins */
+.p-8 { padding: 2rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.pb-2 { padding-bottom: 0.5rem; }
+.mt-6 { margin-top: 1.5rem; }
+
+/* Typography */
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-4xl { font-size: 2.25rem; }
+.font-bold { font-weight: 700; }
+.text-lg { font-size: 1.125rem; }
+.leading-relaxed { line-height: 1.625; }
+
+/* Components */
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+/* Navigation */
+nav {
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border);
+}
+
+nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+/* Gradients and effects */
+.gradient-text {
+  background: linear-gradient(to right, var(--primary), var(--primary-foreground));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.bg-gradient {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.1), rgba(29, 78, 216, 0.05));
+}
+
+/* Media queries */
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md\:p-12 { padding: 3rem; }
+  .md\:text-6xl { font-size: 3.75rem; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Aspect ratio container for video */
+.aspect-video {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+}
+
+.aspect-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

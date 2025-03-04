@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Algorhythm and Flow</title>
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <div class="min-h-screen flex flex-col">
+    <nav class="border-b">
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          <a href="/" class="text-xl font-bold">Algorhythm + Flow</a>
+          <div class="space-x-4">
+            <a href="/" class="hover:text-primary">Home</a>
+            <a href="/about.html" class="hover:text-primary">About</a>
+            <a href="/blog.html" class="hover:text-primary">Blog</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <div class="container mx-auto px-4 py-8">
+        <div class="space-y-8">
+          <div class="relative rounded-2xl overflow-hidden bg-gradient">
+            <div class="p-8 md:p-12">
+              <h1 id="page-title" class="text-2xl md:text-4xl font-bold gradient-text pb-2">
+                All Posts
+              </h1>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2 class="text-xl gradient-text">Topics</h2>
+            </div>
+            <div class="card-content">
+              <div id="tags-container" class="flex flex-wrap gap-2">
+                <!-- Tags will be loaded here -->
+              </div>
+            </div>
+          </div>
+
+          <div id="posts-container" class="space-y-6">
+            <!-- Posts will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/posts.js"></script>
+  <script src="js/blog.js"></script>
+</body>
+</html>
