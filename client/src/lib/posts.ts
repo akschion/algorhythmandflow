@@ -24,9 +24,12 @@ export async function getPost(slug: string): Promise<Post | undefined> {
   try {
     // Remove the leading '/posts/' from contentPath if it exists
     const cleanPath = post.contentPath.replace(/^\/posts\//, '');
-    // Load the HTML content using dynamic import
-    const contentModule = await import(`../assets/posts/${cleanPath}`);
-    const content = contentModule.default;
+    // Fetch the HTML content directly
+    const response = await fetch(`/assets/posts/${cleanPath}`);
+    if (!response.ok) {
+      throw new Error('Failed to load post content');
+    }
+    const content = await response.text();
 
     return {
       ...post,
