@@ -57,6 +57,26 @@ export default function Home() {
           <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
             <CardHeader>
               <CardTitle className="text-2xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
+                Featured Video
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="aspect-video rounded-lg overflow-hidden">
+                <iframe 
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/8Ir-zFC9nFE?si=XbwkBYjPbhdiwMdE" 
+                  title="YouTube video player" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerPolicy="strict-origin-when-cross-origin" 
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
+            <CardHeader>
+              <CardTitle className="text-2xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
                 Recent Posts
               </CardTitle>
             </CardHeader>
