@@ -10,17 +10,28 @@
       // Skip URL rewrites in development
       if (l.hostname === 'localhost') return;
 
-      // Get the repository name from the path if on github.io
-      var segmentCount = l.hostname === 'algorhythmandflow.com' ? 0 : 1;
-      var repoName = segmentCount ? '/' + l.pathname.split('/')[1] : '';
+      // If accessing .html directly, redirect to clean URL
+      if (l.pathname.endsWith('.html')) {
+        var cleanPath = l.pathname.slice(0, -5); // remove .html
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          cleanPath +
+          (l.search || '') +
+          (l.hash || '')
+        );
+        return;
+      }
 
-      // Save the URL we're trying to reach
-      sessionStorage.redirect = l.pathname.split('/').slice(segmentCount + 1).join('/') || '/';
+      // Handle 404s by serving the matching .html file
+      var htmlPath = l.pathname;
+      if (!htmlPath.endsWith('/')) htmlPath += '/';
+      htmlPath += 'index.html';
 
-      // Redirect to the index page to let the SPA router handle it
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        repoName + '/index.html'
+        htmlPath +
+        (l.search || '') +
+        (l.hash || '')
       );
     }(window.location))
   </script>
