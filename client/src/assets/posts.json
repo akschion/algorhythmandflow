@@ -4,7 +4,7 @@
     "title": "The Mathematics of Hip-Hop Rhythms",
     "slug": "hip-hop-mathematics",
     "excerpt": "Exploring the mathematical structures behind hip-hop beats and rhythmic patterns",
-    "contentPath": "/api/blog-content/hip-hop-mathematics.html",
+    "contentPath": "/blog-content/hip-hop-mathematics.html",
     "publishedAt": "2023-06-20T10:30:00.000Z",
     "tags": [
       "math",
@@ -17,7 +17,7 @@
     "title": "Introduction to Fourier Transforms",
     "slug": "fourier-transforms-intro",
     "excerpt": "An introduction to Fourier transforms and their applications in signal processing",
-    "contentPath": "/api/blog-content/fourier-transforms-intro.html",
+    "contentPath": "/blog-content/fourier-transforms-intro.html",
     "publishedAt": "2023-05-15T12:00:00.000Z",
     "tags": [
       "math",

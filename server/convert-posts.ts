@@ -38,7 +38,7 @@ async function convertPosts() {
 
       // Generate HTML filename
       const htmlFileName = `${file.replace('.md', '')}.html`;
-      const contentPath = `/api/blog-content/${htmlFileName}`; // Use API endpoint path
+      const contentPath = `/blog-content/${htmlFileName}`; // Path relative to public directory
 
       // Write HTML content to file in public directory
       await fs.writeFile(

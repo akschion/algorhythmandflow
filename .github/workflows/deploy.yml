@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Convert markdown posts
+        run: npx tsx server/convert-posts.ts
+
       - name: Build client only
         run: npm exec -- vite build
 

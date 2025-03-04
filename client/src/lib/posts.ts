@@ -21,16 +21,12 @@ export async function getPost(slug: string): Promise<Post | undefined> {
   }
 
   try {
-    // Ensure we have an absolute URL for the content
-    const contentUrl = new URL(post.contentPath, window.location.origin).href;
-    console.log('Fetching content from:', contentUrl); // Debug log
-
-    const response = await fetch(contentUrl);
+    // Fetch HTML content from the public directory
+    const response = await fetch(post.contentPath);
     if (!response.ok) {
       throw new Error(`Failed to load post content: ${response.statusText}`);
     }
     const content = await response.text();
-    console.log('Loaded content:', content); // Debug log
 
     return {
       ...post,
