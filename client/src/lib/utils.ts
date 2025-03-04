@@ -12,10 +12,11 @@ export function getBaseUrl(): string {
 }
 
 // Get the full URL for an asset
-export function getAssetUrl(assetPath: string): string {
+export function getAssetUrl(path: string): string {
+  // Public directory assets are served at the root in both dev and prod
+  // In prod, we need to prepend the GitHub Pages base path
   const baseUrl = getBaseUrl();
-  // Remove leading slash if present to avoid double slashes
-  const cleanPath = assetPath.startsWith('/') ? assetPath.slice(1) : assetPath;
-  // In development, serve from root, in production prepend the base URL
-  return `${baseUrl}/${cleanPath}`;
+  // Always start with a forward slash and avoid double slashes
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${baseUrl}${normalizedPath}`;
 }
