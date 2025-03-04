@@ -30,20 +30,20 @@ export async function getPost(slug: string): Promise<Post | undefined> {
       throw new Error(`Failed to load post content: ${response.statusText}`);
     }
     const htmlContent = await response.text();
+    console.log('Raw HTML content:', htmlContent); // Debug log
 
-    // Extract the actual content if it's a complete HTML document
     // Create a temporary element to parse the HTML
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
+    console.log('Parsed HTML structure:', tempDiv.innerHTML); // Debug log
+
     // Find the main content section or article body
-    const mainContent = tempDiv.querySelector('main') || 
-                       tempDiv.querySelector('article') || 
-                       tempDiv.querySelector('.content') ||
-                       tempDiv;
+    const mainContent = tempDiv.querySelector('article.markdown-content');
+    console.log('Found article content:', mainContent?.innerHTML); // Debug log
 
     return {
       ...post,
-      content: mainContent.innerHTML
+      content: mainContent?.innerHTML || htmlContent
     };
   } catch (error) {
     console.error('Failed to load post content:', error);
