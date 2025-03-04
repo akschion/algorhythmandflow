@@ -22,15 +22,13 @@
         return;
       }
 
-      // Handle 404s by serving the matching .html file
-      var htmlPath = l.pathname;
-      if (!htmlPath.endsWith('/')) htmlPath += '/';
-      htmlPath += 'index.html';
-
+      // Handle 404s by redirecting to index.html
+      // This lets the React router handle the path
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        htmlPath +
-        (l.search || '') +
+        '/index.html' +
+        '?p=' + encodeURIComponent(l.pathname) +
+        (l.search ? '&q=' + encodeURIComponent(l.search) : '') +
         (l.hash || '')
       );
     }(window.location))
