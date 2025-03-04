@@ -2,7 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faBookOpen } from '@fortawesome/free-solid-svg-icons'; 
+import { faEnvelope, faBookOpen } from '@fortawesome/free-solid-svg-icons';
+import { getAssetUrl } from "@/lib/utils";
 
 export default function About() {
   return (
@@ -21,7 +22,7 @@ export default function About() {
                 <div className="relative w-32 h-32 mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-foreground opacity-10 rounded-full" />
                   <img
-                    src="/images/profpic.jpg"
+                    src={getAssetUrl("/images/profpic.jpg")}
                     alt="Author"
                     className="rounded-full w-full h-full object-cover relative z-10"
                   />

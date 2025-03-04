@@ -1,14 +1,8 @@
 import type { Post } from "@shared/schema";
+import { getBaseUrl } from "./utils";
 
 // Import posts metadata
 import postsJson from "../assets/posts.json";
-
-// Get the base URL for GitHub Pages deployment
-const getBaseUrl = () => {
-  // Check if we're in development or production
-  const isProd = import.meta.env.PROD;
-  return isProd ? '/algorhythmandflow' : '';
-};
 
 // Function to load posts from static JSON file
 export async function getPosts(): Promise<Post[]> {
@@ -28,7 +22,7 @@ export async function getPost(slug: string): Promise<Post | undefined> {
   }
 
   try {
-    // Add base URL for GitHub Pages in production
+    // Add base URL for GitHub Pages
     const baseUrl = getBaseUrl();
     const contentUrl = `${baseUrl}${post.contentPath}`;
 
