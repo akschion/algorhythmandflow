@@ -5,15 +5,17 @@
   <title>Algorhythm and Flow</title>
   <script>
     // Single Page Apps for GitHub Pages
-    var pathSegmentsToKeep = 1;
-
     var l = window.location;
+    var isGithubIO = l.hostname.includes('github.io');
+    var basePath = isGithubIO ? '/algorhythmandflow' : '';
+
+    // Redirect to the root index.html with the path preserved
     l.replace(
       l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
+      basePath + '/' +
+      l.pathname.replace(basePath, '').replace(/^\//, '') +
+      (l.search || '') +
+      (l.hash || '')
     );
   </script>
 </head>
