@@ -8,12 +8,13 @@ import {
 } from "@/components/ui/carousel";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import { BlogPost } from "@/components/BlogPost";
 import type { Post } from "@shared/schema";
+import { getPosts } from "@/lib/posts";
 
 export default function Home() {
   const { data: posts } = useQuery<Post[]>({
-    queryKey: ["/api/posts"]
+    queryKey: ["posts"],
+    queryFn: getPosts
   });
 
   const recentPosts = posts?.slice(0, 3) || [];
@@ -52,24 +53,6 @@ export default function Home() {
               </motion.p>
             </motion.div>
           </div>
-
-          <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
-            <CardHeader>
-              <CardTitle className="text-2xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <iframe
-                width="100%"
-                height="315"
-                src="https://www.youtube.com/embed/8Ir-zFC9nFE?si=8J7Hlon2ezMsudm-"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
-            </CardContent>
-          </Card>
 
           <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
             <CardHeader>

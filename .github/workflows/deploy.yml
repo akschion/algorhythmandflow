@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # Change to your default branch if different
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -26,10 +26,10 @@ jobs:
         run: npm exec -- vite build
 
       - name: Add CNAME file
-        run: echo "algorhythmandflow.com" > ./dist/public/CNAME  # Replace with your actual domain name
+        run: echo "algorhythmandflow.com" > ./dist/public/CNAME
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/public  # Matches your Vite output directory
+          folder: dist/public
           branch: gh-pages
