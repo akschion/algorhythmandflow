@@ -5,13 +5,12 @@ import { motion } from "framer-motion";
 
 interface BlogPostProps {
   post: Post;
-  preview?: boolean; // Likely not needed for excerpt/full content logic, consider removing if not used elsewhere
-  isPreview?: boolean; // Likely not needed for excerpt/full content logic, consider removing if not used elsewhere
-  showContent?: boolean; // Prop to control showing full content or excerpt
-  showTitle?: boolean; // Prop to control showing the title
+  preview?: boolean;
+  showContent?: boolean;
+  showTitle?: boolean;
 }
 
-export function BlogPost({ post, preview = false, isPreview = false, showContent = true, showTitle = true}: BlogPostProps) {
+export function BlogPost({ post, preview = false, showContent = true, showTitle = true}: BlogPostProps) {
   const postLink = `/post/${post.slug}`;
 
   const container = {
@@ -34,12 +33,12 @@ export function BlogPost({ post, preview = false, isPreview = false, showContent
       variants={container}
       initial="hidden"
       animate="show"
-      className={`overflow-hidden rounded-lg border border-border bg-card shadow-sm ${isPreview ? 'h-full' : ''}`}
+      className="overflow-hidden rounded-lg border border-border bg-card shadow-sm"
     >
       <div className="p-6">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-          <time dateTime={post.publishedAt}>
-            {format(new Date(post.publishedAt), "MMMM d, yyyy")} {/* Corrected date format */}
+          <time dateTime={post.publishedAt.toString()}>
+            {format(new Date(post.publishedAt), "MMMM d, yyyy")}
           </time>
           <span>•</span>
           <div className="flex flex-wrap gap-2">
@@ -51,8 +50,8 @@ export function BlogPost({ post, preview = false, isPreview = false, showContent
           </div>
         </div>
 
-        {showTitle && ( // Conditionally render title based on showTitle
-          (preview || isPreview) ? (
+        {showTitle && (
+          preview ? (
             <a href={postLink} className="no-underline">
               <motion.h2
                 variants={item}
@@ -88,15 +87,14 @@ export function BlogPost({ post, preview = false, isPreview = false, showContent
                        prose-strong:text-foreground
                        prose-code:text-foreground
                        max-w-none"
-          >
-            <div dangerouslySetInnerHTML={{ __html: post.content }} />
-          </motion.div>
+            dangerouslySetInnerHTML={{ __html: post.content || '' }}
+          />
         ) : (
           <motion.p
             variants={item}
             className="text-foreground/80 line-clamp-3 mb-4 text-base leading-relaxed tracking-wide"
           >
-            {post.excerpt} {/* Display post.excerpt when showContent is false */}
+            {post.excerpt}
           </motion.p>
         )}
       </div>
