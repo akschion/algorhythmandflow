@@ -34,4 +34,3 @@ jobs:
           folder: dist/public  # Matches your Vite output directory
           branch: gh-pages
           clean: true
-          repository-name: algorhythmandflow
