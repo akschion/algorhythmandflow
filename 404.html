@@ -8,27 +8,22 @@
     // MIT License
     // https://github.com/rafgraph/spa-github-pages
     (function(l) {
-      // Extract the path and query string
-      var pathname = l.pathname.replace(/^\/algorhythmandflow/, '');
-      var search = l.search;
+      // Only run this in production (GitHub Pages)
+      if (l.hostname === 'algorhythmandflow.com' || l.hostname.endsWith('github.io')) {
+        // Extract the path and query string
+        var pathname = l.pathname;
+        var search = l.search;
+        var hash = l.hash;
 
-      if (search[1] === '/') {
-        var decoded = search.slice(1).split('&').map(function(s) { 
-          return s.replace(/~and~/g, '&')
-        }).join('?');
-        window.history.replaceState(null, null,
-          l.pathname.slice(0, -1) + decoded + l.hash
+        // Save the full path for redirecting after reload
+        sessionStorage.setItem('redirect_path', pathname + search + hash);
+
+        // Redirect to the index.html
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          '/algorhythmandflow/'
         );
       }
-
-      // Save the path for redirecting after reload
-      sessionStorage.setItem('redirect_path', pathname + search + l.hash);
-
-      // Redirect to the root
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        '/algorhythmandflow/'
-      );
     }(window.location))
   </script>
 </head>
