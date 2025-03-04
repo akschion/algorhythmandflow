@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "title": "Welcome to Algorhythm and Flow",
+    "slug": "welcome-to-algorhythm-and-flow",
+    "excerpt": "An introduction to this blog about mathematics, technology, and hip-hop culture.",
+    "contentPath": "/blog-content/posts/welcome.html",
+    "publishedAt": "2024-03-04T12:00:00Z",
+    "tags": ["intro", "mathematics", "technology", "hip-hop"]
+  }
+]
