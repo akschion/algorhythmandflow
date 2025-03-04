@@ -11,12 +11,12 @@ export function getBaseUrl(): string {
   return import.meta.env.PROD ? '/algorhythmandflow' : '';
 }
 
-// Get the full URL for an asset
+// Get the full URL for a static asset in the public directory
 export function getAssetUrl(path: string): string {
-  // Public directory assets are served at the root in both dev and prod
-  // In prod, we need to prepend the GitHub Pages base path
+  // Public directory assets are always served from the root
   const baseUrl = getBaseUrl();
-  // Always start with a forward slash and avoid double slashes
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return `${baseUrl}${normalizedPath}`;
+  // Remove any leading slash from the path
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  // In development, serve from root. In production, serve from the GitHub Pages base path
+  return baseUrl ? `${baseUrl}/${cleanPath}` : `/${cleanPath}`;
 }

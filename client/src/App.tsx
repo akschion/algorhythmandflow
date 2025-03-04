@@ -10,10 +10,10 @@ import Post from "@/pages/Post";
 import About from "@/pages/About";
 import { getBaseUrl } from "./lib/utils";
 
-// Get base URL for GitHub Pages
-const base = getBaseUrl();
-
 function Router() {
+  // Get base URL for GitHub Pages
+  const base = getBaseUrl();
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
