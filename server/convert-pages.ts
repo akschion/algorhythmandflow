@@ -38,10 +38,14 @@ async function generatePages() {
         .replace('<div id="root"></div>', `<div id="root" data-page="${route.path || 'index'}"></div>`);
 
       if (route.path) {
-        // Write the HTML file directly
-        await fs.writeFile(path.join(outputDir, `${route.path}.html`), htmlContent);
+        // Create directory for the route
+        const dirPath = path.join(outputDir, route.path);
+        await fs.mkdir(dirPath, { recursive: true });
+
+        // Write index.html in the directory for clean URLs
+        await fs.writeFile(path.join(dirPath, 'index.html'), htmlContent);
       } else {
-        // For home page, write index.html
+        // For home page, write index.html in root
         await fs.writeFile(path.join(outputDir, 'index.html'), htmlContent);
       }
     }
@@ -66,20 +70,27 @@ async function generatePages() {
         .process(markdownContent);
 
       // Create the blog content HTML file
-      const contentFileName = `${slug}.html`;
       await fs.writeFile(
-        path.join(contentDir, contentFileName),
+        path.join(contentDir, `${slug}.html`),
         `<div class="blog-content">${String(htmlContent)}</div>`
       );
 
-      // Generate the post page HTML
+      // Create post directory and generate post page
+      const postDir = path.join(outputDir, 'post', slug);
+      await fs.mkdir(postDir, { recursive: true });
+
       const postPageContent = template
         .replace(/<title>.*?<\/title>/, `<title>${data.title} - Algorhythm and Flow</title>`)
         .replace('<div id="root"></div>', `<div id="root" data-page="post" data-slug="${slug}"></div>`);
 
-      // Write the HTML file in the output directory
-      await fs.writeFile(path.join(outputDir, `post-${slug}.html`), postPageContent);
+      // Write index.html in the post directory
+      await fs.writeFile(path.join(postDir, 'index.html'), postPageContent);
     }
+
+    // List all generated files
+    console.log('\nGenerated files in output directory:');
+    const files = await fs.readdir(outputDir, { recursive: true });
+    console.log(files);
 
     console.log('\nSuccessfully generated all static pages');
   } catch (error) {

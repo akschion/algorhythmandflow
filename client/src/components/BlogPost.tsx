@@ -11,8 +11,8 @@ interface BlogPostProps {
 }
 
 export function BlogPost({ post, preview = false, showContent = true, showTitle = true}: BlogPostProps) {
-  // Generate the static HTML path for the post
-  const postLink = preview ? `/post-${post.slug}.html` : undefined;
+  // Use clean URLs for post links
+  const postLink = `/post/${post.slug}`;
 
   const container = {
     hidden: { opacity: 0 },
