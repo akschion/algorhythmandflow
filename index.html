@@ -1,0 +1,50 @@
+---
+layout: default
+scripts:
+  - /js/posts.js
+  - /js/home.js
+---
+
+<div class="container mx-auto px-4 py-8">
+  <div class="space-y-12">
+    <div class="relative rounded-2xl overflow-hidden bg-gradient">
+      <div class="p-8 md:p-12">
+        <h1 class="text-4xl md:text-6xl font-bold gradient-text pb-2">
+          {{ site.title }}
+        </h1>
+        <p class="mt-6 text-lg text-muted leading-relaxed max-w-2xl">
+          {{ site.description }}
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-2xl gradient-text">Featured Video</h2>
+      </div>
+      <div class="card-content">
+        <div class="aspect-video rounded-lg overflow-hidden">
+          <iframe 
+            class="w-full h-full"
+            src="https://www.youtube.com/embed/8Ir-zFC9nFE?si=XbwkBYjPbhdiwMdE" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-2xl gradient-text">Recent Posts</h2>
+      </div>
+      <div class="card-content">
+        <div id="recent-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Posts will be loaded here by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
