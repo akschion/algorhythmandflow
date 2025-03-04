@@ -22,31 +22,15 @@
         return;
       }
 
-      // Only handle 404s for paths that don't end with .html
-      if (!l.pathname.match(/\.[a-z]{2,4}$/i)) {
-        // Check if we're on GitHub Pages with a repo name in the path
-        var segmentCount = l.hostname === 'algorhythmandflow.com' ? 0 : 1;
-        var repoName = segmentCount ? l.pathname.split('/')[1] : '';
-        var pathSegments = l.pathname.split('/').slice(segmentCount + 1);
-
-        // Build the path to the HTML file
-        var htmlPath = repoName ? '/' + repoName : '';
-        if (pathSegments.length > 0) {
-          htmlPath += '/' + pathSegments.join('/');
-          if (!htmlPath.endsWith('.html')) {
-            htmlPath += '.html';
-          }
-        } else {
-          htmlPath += '/index.html';
-        }
-
-        l.replace(
-          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          htmlPath +
-          (l.search || '') +
-          (l.hash || '')
-        );
-      }
+      // Handle 404s by redirecting to index.html
+      // This lets the React router handle the path
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        '/index.html' +
+        '?p=' + encodeURIComponent(l.pathname) +
+        (l.search ? '&q=' + encodeURIComponent(l.search) : '') +
+        (l.hash || '')
+      );
     }(window.location))
   </script>
 </head>
