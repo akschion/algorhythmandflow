@@ -33,11 +33,5 @@ jobs:
         with:
           folder: dist/public  # Matches your Vite output directory
           branch: gh-pages
-
-      - name: Debug* List gh-pages branch content AFTER deployment
-        run: |
-          echo "Contents of gh-pages branch after deployment:"
-          git clone --depth 1 --branch gh-pages file://$GITHUB_WORKSPACE gh-pages-content
-          ls -al gh-pages-content
-          ls -al gh-pages-content/assets # List assets folder content specifically
-          rm -rf gh-pages-content # Clean up debug clone
+          clean: true
+          repository-name: algorhythmandflow
