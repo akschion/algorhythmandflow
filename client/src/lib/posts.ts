@@ -1,12 +1,11 @@
 import type { Post } from "@shared/schema";
 
 // Import posts metadata
-const postsJson = await import("../assets/posts.json");
+import postsJson from "../assets/posts.json";
 
 // Function to load posts from static JSON file
 export async function getPosts(): Promise<Post[]> {
-  const posts = postsJson.default;
-  return posts.map((post: any) => ({
+  return postsJson.map((post: any) => ({
     ...post,
     publishedAt: new Date(post.publishedAt)
   }));
@@ -22,12 +21,16 @@ export async function getPost(slug: string): Promise<Post | undefined> {
   }
 
   try {
-    // Fetch the HTML content from the separate file
-    const response = await fetch(post.contentPath);
+    // Ensure we have an absolute URL for the content
+    const contentUrl = new URL(post.contentPath, window.location.origin).href;
+    console.log('Fetching content from:', contentUrl); // Debug log
+
+    const response = await fetch(contentUrl);
     if (!response.ok) {
       throw new Error(`Failed to load post content: ${response.statusText}`);
     }
     const content = await response.text();
+    console.log('Loaded content:', content); // Debug log
 
     return {
       ...post,

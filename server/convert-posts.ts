@@ -10,7 +10,7 @@ import { unified } from 'unified';
 
 async function convertPosts() {
   const postsDir = path.join(process.cwd(), 'server', 'posts');
-  const contentDir = path.join(process.cwd(), 'client', 'src', 'assets', 'content');
+  const contentDir = path.join(process.cwd(), 'client', 'public', 'blog-content');
   const outputFile = path.join(process.cwd(), 'client', 'src', 'assets', 'posts.json');
 
   try {
@@ -36,14 +36,14 @@ async function convertPosts() {
         .use(rehypeStringify)
         .process(markdownContent);
 
-      // Generate a clean filename for the HTML content
+      // Generate HTML filename
       const htmlFileName = `${file.replace('.md', '')}.html`;
-      const contentPath = `/content/${htmlFileName}`;
+      const contentPath = `/api/blog-content/${htmlFileName}`; // Use API endpoint path
 
-      // Write HTML content to separate file
+      // Write HTML content to file in public directory
       await fs.writeFile(
         path.join(contentDir, htmlFileName),
-        String(htmlContent)
+        `<div class="blog-content">${String(htmlContent)}</div>`
       );
 
       // Create post metadata object
@@ -52,7 +52,7 @@ async function convertPosts() {
         title: data.title || 'Untitled',
         slug: data.slug || file.replace('.md', ''),
         excerpt: data.excerpt || markdownContent.slice(0, 150) + '...',
-        contentPath, // Store the path to the HTML file
+        contentPath,
         publishedAt: data.date || new Date().toISOString(),
         tags: data.tags || []
       };
