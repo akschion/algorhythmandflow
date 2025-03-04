@@ -28,6 +28,8 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
     show: { opacity: 1, y: 0 }
   };
 
+  console.log('Post content in BlogPost:', post.content); // Debug log
+
   return (
     <motion.article
       variants={container}

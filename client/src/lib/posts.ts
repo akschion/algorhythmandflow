@@ -38,7 +38,7 @@ export async function getPost(slug: string): Promise<Post | undefined> {
     console.log('Parsed HTML structure:', tempDiv.innerHTML); // Debug log
 
     // Find the main content section or article body
-    const mainContent = tempDiv.querySelector('article.markdown-content');
+    const mainContent = tempDiv.querySelector('.markdown-content');
     console.log('Found article content:', mainContent?.innerHTML); // Debug log
 
     return {
