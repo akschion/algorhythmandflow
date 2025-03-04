@@ -29,7 +29,14 @@ export async function getPost(slug: string): Promise<Post | undefined> {
     if (!response.ok) {
       throw new Error(`Failed to load post content: ${response.statusText}`);
     }
-    const content = await response.text();
+    const htmlContent = await response.text();
+
+    // Extract the actual content from the HTML file
+    // Create a temporary element to parse the HTML
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+    // Find the main content (assuming it's in the body)
+    const content = tempDiv.querySelector('body')?.innerHTML || htmlContent;
 
     return {
       ...post,
