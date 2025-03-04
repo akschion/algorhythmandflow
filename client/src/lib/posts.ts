@@ -2,7 +2,10 @@ import type { Post } from "@shared/schema";
 
 // Function to load posts from static JSON file
 export async function getPosts(): Promise<Post[]> {
-  const response = await fetch('/posts.json');
+  const response = await fetch('/assets/posts.json');
+  if (!response.ok) {
+    throw new Error('Failed to load posts');
+  }
   const posts = await response.json();
   return posts.map((post: any) => ({
     ...post,
