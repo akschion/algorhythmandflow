@@ -3,6 +3,13 @@ import type { Post } from "@shared/schema";
 // Import posts metadata
 import postsJson from "../assets/posts.json";
 
+// Get the base URL for GitHub Pages deployment
+const getBaseUrl = () => {
+  // Check if we're in development or production
+  const isProd = import.meta.env.PROD;
+  return isProd ? '/algorhythmandflow' : '';
+};
+
 // Function to load posts from static JSON file
 export async function getPosts(): Promise<Post[]> {
   return postsJson.map((post: any) => ({
@@ -21,8 +28,12 @@ export async function getPost(slug: string): Promise<Post | undefined> {
   }
 
   try {
+    // Add base URL for GitHub Pages in production
+    const baseUrl = getBaseUrl();
+    const contentUrl = `${baseUrl}${post.contentPath}`;
+
     // Fetch HTML content from the public directory
-    const response = await fetch(post.contentPath);
+    const response = await fetch(contentUrl);
     if (!response.ok) {
       throw new Error(`Failed to load post content: ${response.statusText}`);
     }

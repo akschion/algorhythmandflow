@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faBookOpen } from '@fortawesome/free-solid-svg-icons'; 
 
-
 export default function About() {
   return (
     <div className="container mx-auto px-4 py-8">
@@ -22,7 +21,7 @@ export default function About() {
                 <div className="relative w-32 h-32 mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-foreground opacity-10 rounded-full" />
                   <img
-                    src="/src/assets/profpic.jpg"
+                    src="/images/profpic.jpg"
                     alt="Author"
                     className="rounded-full w-full h-full object-cover relative z-10"
                   />
@@ -36,39 +35,17 @@ export default function About() {
               <p className="text-lg text-foreground leading-relaxed">
                 Hello! My name is Akshay Chandrasekhar, and I'm a computer vision researcher. My curiosity extends broadly though to a wide variety of topics including math, music, history, geography, economics, and linguistics. I'm particularly interested in hip-hop and geometry which have shaped my focus on the tech, business, and cultural aspects of media. You can explore my research and ideas via the blog posts here or the links below!
               </p>
-              <div className="flex justify-center space-x-4"> {/* Wrap the buttons in a div with the class "flex justify-center space-x-4" */}
+              <div className="flex justify-center space-x-4">
                 <a href="https://github.com/akschion" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon className="text-2xl" icon={faGithub} />              </a>
+                  <FontAwesomeIcon className="text-2xl" icon={faGithub} />
+                </a>
                 <a href="mailto:algorhythmflow@gmail.com">
-                <FontAwesomeIcon className="text-2xl" icon={faEnvelope} />              </a>
+                  <FontAwesomeIcon className="text-2xl" icon={faEnvelope} />
+                </a>
                 <a href="https://arxiv.org/search/?searchtype=author&query=Akshay%20Chandrasekhar">
-                <FontAwesomeIcon className="text-2xl" icon={faBookOpen} />              </a>
+                  <FontAwesomeIcon className="text-2xl" icon={faBookOpen} />
+                </a>
               </div>
-              
-              {/* <h3 className="text-xl font-semibold mt-8 mb-4 text-foreground">Research Interests</h3>
-              <ul className="space-y-6 list-none pl-0">
-                <li className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-gradient-to-br from-primary to-primary-foreground/80 flex items-center justify-center text-primary-foreground text-xs font-bold">1</div>
-                  <div className="text-foreground">
-                    <strong className="text-foreground/90 font-semibold">Signal Processing in Music:</strong> Analyzing beat patterns
-                    and rhythmic structures using advanced mathematical techniques.
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-gradient-to-br from-primary to-primary-foreground/80 flex items-center justify-center text-primary-foreground text-xs font-bold">2</div>
-                  <div className="text-foreground">
-                    <strong className="text-foreground/90 font-semibold">AI in Composition:</strong> Developing neural networks
-                    for algorithmic music composition and style transfer.
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-full bg-gradient-to-br from-primary to-primary-foreground/80 flex items-center justify-center text-primary-foreground text-xs font-bold">3</div>
-                  <div className="text-foreground">
-                    <strong className="text-foreground/90 font-semibold">Machine Learning Applications:</strong> Building tools
-                    for music production and analysis using cutting-edge ML techniques.
-                  </div>
-                </li>
-              </ul> */}
             </CardContent>
           </Card>
         </motion.div>
