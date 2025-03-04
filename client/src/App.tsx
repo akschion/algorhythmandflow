@@ -1,52 +1,38 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
-import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { Navigation } from "@/components/Navigation";
-import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Blog from "@/pages/Blog";
 import Post from "@/pages/Post";
 import About from "@/pages/About";
-import React from "react";
+import { useState, useEffect } from "react";
 
-// Use hash-based routing for GitHub Pages compatibility
-const hashRouter = () => {
-  // Get the hash without the leading #
-  const currentHash = () => window.location.hash.replace("#", "") || "/";
+// Simple hash router implementation
+function useHashLocation() {
+  const [hash, setHash] = useState(window.location.hash || "#/");
 
-  return {
-    hook: () => {
-      const [path, setPath] = React.useState(currentHash());
+  useEffect(() => {
+    const handleHashChange = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
-      React.useEffect(() => {
-        // Update path when hash changes
-        const handleHashChange = () => setPath(currentHash());
-        window.addEventListener("hashchange", handleHashChange);
-        return () => window.removeEventListener("hashchange", handleHashChange);
-      }, []);
-
-      return [path, (to: string) => {
-        window.location.hash = to;
-      }];
-    }
-  };
-};
+  return hash.slice(1); // Remove the # symbol
+}
 
 function Router() {
+  const path = useHashLocation();
+  const [, slug] = path.match(/^\/post\/(.+)/) || [];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <main className="flex-1">
-        <WouterRouter hook={hashRouter().hook}>
-          <Switch>
-            <Route path="/" component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/blog" component={Blog} />
-            <Route path="/post/:slug" component={Post} />
-            <Route component={NotFound} />
-          </Switch>
-        </WouterRouter>
+        {path === "/" && <Home />}
+        {path === "/about" && <About />}
+        {path === "/blog" && <Blog />}
+        {slug && <Post slug={slug} />}
       </main>
     </div>
   );
