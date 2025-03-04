@@ -10,14 +10,13 @@ import { unified } from 'unified';
 
 async function convertPosts() {
   const postsDir = path.join(process.cwd(), 'server', 'posts');
-  const outputDir = path.join(process.cwd(), 'client', 'src', 'assets', 'posts');
+  const outputFile = path.join(process.cwd(), 'client', 'src', 'assets', 'posts.json');
 
   try {
-    // Create output directory if it doesn't exist
-    await fs.mkdir(outputDir, { recursive: true });
-
     const files = await fs.readdir(postsDir);
     const markdownFiles = files.filter(file => file.endsWith('.md'));
+
+    const posts = [];
 
     for (const file of markdownFiles) {
       const filePath = path.join(postsDir, file);
@@ -33,17 +32,28 @@ async function convertPosts() {
         .use(rehypeStringify)
         .process(markdownContent);
 
-      // Create a clean HTML document
-      const fullHtml = `
-<article class="markdown-content">
-${String(htmlContent)}
-</article>`;
+      // Create post object with embedded HTML content
+      const post = {
+        id: file.replace('.md', ''),
+        title: data.title || 'Untitled',
+        slug: data.slug || file.replace('.md', ''),
+        excerpt: data.excerpt || markdownContent.slice(0, 150) + '...',
+        content: String(htmlContent),
+        publishedAt: data.date || new Date().toISOString(),
+        tags: data.tags || []
+      };
 
-      // Write to output file
-      const outputPath = path.join(outputDir, file.replace('.md', '.html'));
-      await fs.writeFile(outputPath, fullHtml);
-      console.log(`Converted ${file} to HTML`);
+      posts.push(post);
+      console.log(`Converted ${file} to JSON with HTML content`);
     }
+
+    // Sort posts by date (newest first)
+    posts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
+    // Write to JSON file
+    await fs.writeFile(outputFile, JSON.stringify(posts, null, 2));
+    console.log('Successfully wrote posts to JSON file');
+
   } catch (error) {
     console.error('Error converting posts:', error);
   }

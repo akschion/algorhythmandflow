@@ -21,34 +21,10 @@ export async function getPost(slug: string): Promise<Post | undefined> {
     return undefined;
   }
 
-  try {
-    // Remove the leading '/posts/' from contentPath if it exists
-    const cleanPath = post.contentPath.replace(/^\/posts\//, '');
-    // Fetch the HTML content directly
-    const response = await fetch(`/assets/posts/${cleanPath}`);
-    if (!response.ok) {
-      throw new Error(`Failed to load post content: ${response.statusText}`);
-    }
-    const htmlContent = await response.text();
-    console.log('Raw HTML content:', htmlContent); // Debug log
-
-    // Create a temporary element to parse the HTML
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = htmlContent;
-    console.log('Parsed HTML structure:', tempDiv.innerHTML); // Debug log
-
-    // Find the main content section or article body
-    const mainContent = tempDiv.querySelector('.markdown-content');
-    console.log('Found article content:', mainContent?.innerHTML); // Debug log
-
-    return {
-      ...post,
-      content: mainContent?.innerHTML || htmlContent
-    };
-  } catch (error) {
-    console.error('Failed to load post content:', error);
-    return undefined;
-  }
+  return {
+    ...post,
+    publishedAt: new Date(post.publishedAt)
+  };
 }
 
 // Function to load posts by tag
@@ -62,6 +38,7 @@ export async function searchPosts(query: string): Promise<Post[]> {
   const posts = await getPosts();
   const searchTerm = query.toLowerCase();
   return posts.filter(post => 
-    post.title.toLowerCase().includes(searchTerm)
+    post.title.toLowerCase().includes(searchTerm) ||
+    post.excerpt.toLowerCase().includes(searchTerm)
   );
 }
