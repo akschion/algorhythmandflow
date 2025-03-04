@@ -37,18 +37,11 @@ async function generatePages() {
         .replace(/<title>.*?<\/title>/, `<title>${route.title} - Algorhythm and Flow</title>`)
         .replace('<div id="root"></div>', `<div id="root" data-page="${route.path || 'index'}"></div>`);
 
-      // Create directory for each route (except home)
-      const dirPath = route.path ? path.join(outputDir, route.path) : outputDir;
-      await fs.mkdir(dirPath, { recursive: true });
-
-      // Write both index.html in the directory and direct .html file
       if (route.path) {
-        // Write index.html in the directory for clean URLs
-        await fs.writeFile(path.join(dirPath, 'index.html'), htmlContent);
-        // Also write direct .html file for direct access
+        // Write the HTML file directly
         await fs.writeFile(path.join(outputDir, `${route.path}.html`), htmlContent);
       } else {
-        // For home page, just write index.html in root
+        // For home page, write index.html
         await fs.writeFile(path.join(outputDir, 'index.html'), htmlContent);
       }
     }
@@ -79,16 +72,12 @@ async function generatePages() {
         `<div class="blog-content">${String(htmlContent)}</div>`
       );
 
-      // Create post directory and generate post page
-      const postDir = path.join(outputDir, 'post', slug);
-      await fs.mkdir(postDir, { recursive: true });
-
+      // Generate the post page HTML
       const postPageContent = template
         .replace(/<title>.*?<\/title>/, `<title>${data.title} - Algorhythm and Flow</title>`)
         .replace('<div id="root"></div>', `<div id="root" data-page="post" data-slug="${slug}"></div>`);
 
-      // Write both index.html in the directory and direct .html file
-      await fs.writeFile(path.join(postDir, 'index.html'), postPageContent);
+      // Write the HTML file in the output directory
       await fs.writeFile(path.join(outputDir, `post-${slug}.html`), postPageContent);
     }
 

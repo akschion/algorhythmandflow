@@ -22,17 +22,31 @@
         return;
       }
 
-      // Handle 404s by serving the matching .html file
-      var htmlPath = l.pathname;
-      if (!htmlPath.endsWith('/')) htmlPath += '/';
-      htmlPath += 'index.html';
+      // Only handle 404s for paths that don't end with .html
+      if (!l.pathname.match(/\.[a-z]{2,4}$/i)) {
+        // Check if we're on GitHub Pages with a repo name in the path
+        var segmentCount = l.hostname === 'algorhythmandflow.com' ? 0 : 1;
+        var repoName = segmentCount ? l.pathname.split('/')[1] : '';
+        var pathSegments = l.pathname.split('/').slice(segmentCount + 1);
 
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        htmlPath +
-        (l.search || '') +
-        (l.hash || '')
-      );
+        // Build the path to the HTML file
+        var htmlPath = repoName ? '/' + repoName : '';
+        if (pathSegments.length > 0) {
+          htmlPath += '/' + pathSegments.join('/');
+          if (!htmlPath.endsWith('.html')) {
+            htmlPath += '.html';
+          }
+        } else {
+          htmlPath += '/index.html';
+        }
+
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          htmlPath +
+          (l.search || '') +
+          (l.hash || '')
+        );
+      }
     }(window.location))
   </script>
 </head>
