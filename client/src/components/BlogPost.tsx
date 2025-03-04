@@ -2,6 +2,7 @@ import { type Post } from "@shared/schema";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
+import { getBaseUrl } from "@/lib/utils";
 
 interface BlogPostProps {
   post: Post;
@@ -11,7 +12,8 @@ interface BlogPostProps {
 }
 
 export function BlogPost({ post, preview = false, showContent = true, showTitle = true}: BlogPostProps) {
-  const postLink = `/post/${post.slug}`;
+  const baseUrl = getBaseUrl();
+  const postLink = `${baseUrl}/post/${post.slug}`;
 
   const container = {
     hidden: { opacity: 0 },
@@ -28,7 +30,6 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
     show: { opacity: 1, y: 0 }
   };
 
-  console.log('Post content in BlogPost:', post.content); // Debug log
 
   return (
     <motion.article
