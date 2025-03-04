@@ -14,7 +14,7 @@ async function loadPost() {
 
   const posts = await window.blogUtils.fetchPosts();
   const post = posts.find(p => p.slug === slug);
-  
+
   if (!post) {
     document.getElementById('post-content').innerHTML = '<div class="p-6">Post not found</div>';
     return;
@@ -25,6 +25,7 @@ async function loadPost() {
 
   // Load post content
   try {
+    // Use absolute path from root for content
     const response = await fetch(post.contentPath);
     if (!response.ok) throw new Error('Failed to load post content');
     const content = await response.text();
@@ -42,9 +43,9 @@ async function loadPost() {
             ).join('')}
           </div>
         </div>
-        
+
         <h1 class="text-3xl font-bold mb-6">${post.title}</h1>
-        
+
         <div class="prose prose-lg">
           ${content}
         </div>
