@@ -4,19 +4,17 @@
   <meta charset="utf-8">
   <title>Algorhythm and Flow</title>
   <script>
-    // Single Page Apps for GitHub Pages
-    var l = window.location;
-    var isGithubIO = l.hostname.includes('github.io');
-    var basePath = isGithubIO ? '/algorhythmandflow' : '';
-
-    // Redirect to the root index.html with the path preserved
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      basePath + '/' +
-      l.pathname.replace(basePath, '').replace(/^\//, '') +
-      (l.search || '') +
-      (l.hash || '')
-    );
+    // For GitHub Pages SPA routing
+    (function(l) {
+      // Only run this script in production
+      if (l.hostname === 'algorhythmandflow.com' || l.hostname.endsWith('github.io')) {
+        // GitHub Pages serves 404.html for all paths
+        // Redirect back to index.html and let the SPA router handle it
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/'
+        );
+      }
+    }(window.location))
   </script>
 </head>
 <body>

@@ -22,12 +22,9 @@ export async function getPost(slug: string): Promise<Post | undefined> {
   }
 
   try {
-    // In production, prepend the base URL to the content path
-    const baseUrl = getBaseUrl();
-    const contentUrl = `${baseUrl}${post.contentPath}`;
-
-    // Fetch HTML content
-    const response = await fetch(contentUrl);
+    // Fetch the HTML content directly from the content path
+    // contentPath already includes the leading slash
+    const response = await fetch(post.contentPath);
     if (!response.ok) {
       throw new Error(`Failed to load post content: ${response.statusText}`);
     }
