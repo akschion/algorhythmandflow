@@ -7,19 +7,12 @@ export function cn(...inputs: ClassValue[]) {
 
 // Get the base URL for GitHub Pages deployment
 export function getBaseUrl(): string {
-  // Only add the base path if we're using github.io
-  // For custom domain (algorhythmandflow.com), use root path
-  if (import.meta.env.PROD && window.location.hostname.includes('github.io')) {
-    return '/algorhythmandflow';
-  }
-  return '';
+  return ''; // No base path needed for custom domain
 }
 
-// Get the full URL for a static asset in the public directory
+// Get the full URL for a static asset
 export function getAssetUrl(path: string): string {
-  const baseUrl = getBaseUrl();
-  // Remove any leading slash from the path
+  // Remove leading slash if present to avoid double slashes
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  // Combine base URL with clean path
-  return baseUrl ? `${baseUrl}/${cleanPath}` : `/${cleanPath}`;
+  return `/${cleanPath}`;
 }

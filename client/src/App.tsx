@@ -8,17 +8,13 @@ import Home from "@/pages/Home";
 import Blog from "@/pages/Blog";
 import Post from "@/pages/Post";
 import About from "@/pages/About";
-import { getBaseUrl } from "./lib/utils";
 
 function Router() {
-  // Get base URL for GitHub Pages
-  const base = getBaseUrl();
-
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <main className="flex-1">
-        <Switch base={base}>
+        <Switch>
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/blog" component={Blog} />
