@@ -4,20 +4,39 @@
   <meta charset="utf-8">
   <title>Algorhythm and Flow</title>
   <script>
-    // For GitHub Pages SPA routing
+    // Single Page Apps for GitHub Pages
+    // MIT License - https://github.com/rafgraph/spa-github-pages
     (function(l) {
-      // Only run this script in production
-      if (l.hostname === 'algorhythmandflow.com' || l.hostname.endsWith('github.io')) {
-        // GitHub Pages serves 404.html for all paths
-        // Redirect back to index.html and let the SPA router handle it
+      // Skip URL rewrites in development
+      if (l.hostname === 'localhost') return;
+
+      // If accessing .html directly, redirect to clean URL
+      if (l.pathname.endsWith('.html')) {
+        var cleanPath = l.pathname.slice(0, -5); // remove .html
         l.replace(
-          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/'
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          cleanPath +
+          (l.search || '') +
+          (l.hash || '')
         );
+        return;
       }
+
+      // Handle 404s by serving the matching .html file
+      var htmlPath = l.pathname;
+      if (!htmlPath.endsWith('/')) htmlPath += '/';
+      htmlPath += 'index.html';
+
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        htmlPath +
+        (l.search || '') +
+        (l.hash || '')
+      );
     }(window.location))
   </script>
 </head>
 <body>
-  Redirecting...
+  <div>Redirecting...</div>
 </body>
 </html>

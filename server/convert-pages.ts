@@ -25,21 +25,32 @@ async function generatePages() {
 
     // Create routes to generate
     const routes = [
-      { path: 'index.html', title: 'Home' },
-      { path: 'about.html', title: 'About' },
-      { path: 'blog.html', title: 'Blog' }
+      { path: '', title: 'Home' },
+      { path: 'about', title: 'About' },
+      { path: 'blog', title: 'Blog' }
     ];
 
     // Generate HTML for each route
     for (const route of routes) {
-      console.log(`Generating ${route.path}...`);
+      console.log(`Generating ${route.path || 'index'} page...`);
       const htmlContent = template
         .replace(/<title>.*?<\/title>/, `<title>${route.title} - Algorhythm and Flow</title>`)
-        .replace('<div id="root"></div>', `<div id="root" data-page="${route.path.replace('.html', '')}"></div>`);
+        .replace('<div id="root"></div>', `<div id="root" data-page="${route.path || 'index'}"></div>`);
 
-      const outputPath = path.join(outputDir, route.path);
-      await fs.writeFile(outputPath, htmlContent);
-      console.log(`Generated ${route.path} at ${outputPath}`);
+      // Create directory for each route (except home)
+      const dirPath = route.path ? path.join(outputDir, route.path) : outputDir;
+      await fs.mkdir(dirPath, { recursive: true });
+
+      // Write both index.html in the directory and direct .html file
+      if (route.path) {
+        // Write index.html in the directory for clean URLs
+        await fs.writeFile(path.join(dirPath, 'index.html'), htmlContent);
+        // Also write direct .html file for direct access
+        await fs.writeFile(path.join(outputDir, `${route.path}.html`), htmlContent);
+      } else {
+        // For home page, just write index.html in root
+        await fs.writeFile(path.join(outputDir, 'index.html'), htmlContent);
+      }
     }
 
     // Process and generate blog post pages
@@ -63,27 +74,23 @@ async function generatePages() {
 
       // Create the blog content HTML file
       const contentFileName = `${slug}.html`;
-      const contentFilePath = path.join(contentDir, contentFileName);
       await fs.writeFile(
-        contentFilePath,
+        path.join(contentDir, contentFileName),
         `<div class="blog-content">${String(htmlContent)}</div>`
       );
-      console.log(`Generated blog content at ${contentFilePath}`);
 
-      // Generate the post page HTML
+      // Create post directory and generate post page
+      const postDir = path.join(outputDir, 'post', slug);
+      await fs.mkdir(postDir, { recursive: true });
+
       const postPageContent = template
         .replace(/<title>.*?<\/title>/, `<title>${data.title} - Algorhythm and Flow</title>`)
         .replace('<div id="root"></div>', `<div id="root" data-page="post" data-slug="${slug}"></div>`);
 
-      const postPagePath = path.join(outputDir, `post-${slug}.html`);
-      await fs.writeFile(postPagePath, postPageContent);
-      console.log(`Generated post page at ${postPagePath}`);
+      // Write both index.html in the directory and direct .html file
+      await fs.writeFile(path.join(postDir, 'index.html'), postPageContent);
+      await fs.writeFile(path.join(outputDir, `post-${slug}.html`), postPageContent);
     }
-
-    // List all generated files
-    const generatedFiles = await fs.readdir(outputDir);
-    console.log('\nGenerated files in output directory:');
-    console.log(generatedFiles);
 
     console.log('\nSuccessfully generated all static pages');
   } catch (error) {
