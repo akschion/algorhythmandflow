@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build:client": "vite build",
-    "generate-blog": "tsx scripts/generate-blog.ts",
-    "build": "npm run generate-blog && npm run build:client",
+    "build": "npm run build:client",
     "deploy": "gh-pages -d dist/public -b gh-pages",
     "predeploy": "npm run build"
   },
