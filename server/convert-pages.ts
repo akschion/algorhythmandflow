@@ -37,20 +37,25 @@ async function generatePages() {
         .replace(/<title>.*?<\/title>/, `<title>${route.title} - Algorhythm and Flow</title>`)
         .replace('<div id="root"></div>', `<div id="root" data-page="${route.path || 'index'}"></div>`);
 
+      // Create directory for each route (except home)
+      const dirPath = route.path ? path.join(outputDir, route.path) : outputDir;
+      await fs.mkdir(dirPath, { recursive: true });
+
+      // Write both index.html in the directory and direct .html file
       if (route.path) {
-        // Create directory for the route
-        const dirPath = path.join(outputDir, route.path);
-        await fs.mkdir(dirPath, { recursive: true });
+        // Write index.html in the directory for clean URLs
         await fs.writeFile(path.join(dirPath, 'index.html'), htmlContent);
+        // Also write direct .html file for direct access
+        await fs.writeFile(path.join(outputDir, `${route.path}.html`), htmlContent);
       } else {
-        // For home page, write index.html in root
+        // For home page, just write index.html in root
         await fs.writeFile(path.join(outputDir, 'index.html'), htmlContent);
       }
     }
 
     // Process and generate blog post pages
-    const postFiles = await fs.readdir(postsDir);
-    const markdownFiles = postFiles.filter(file => file.endsWith('.md'));
+    const files = await fs.readdir(postsDir);
+    const markdownFiles = files.filter(file => file.endsWith('.md'));
 
     for (const file of markdownFiles) {
       const filePath = path.join(postsDir, file);
@@ -67,9 +72,10 @@ async function generatePages() {
         .use(rehypeStringify)
         .process(markdownContent);
 
-      // Write blog content HTML file
+      // Create the blog content HTML file
+      const contentFileName = `${slug}.html`;
       await fs.writeFile(
-        path.join(contentDir, `${slug}.html`),
+        path.join(contentDir, contentFileName),
         `<div class="blog-content">${String(htmlContent)}</div>`
       );
 
@@ -81,13 +87,10 @@ async function generatePages() {
         .replace(/<title>.*?<\/title>/, `<title>${data.title} - Algorhythm and Flow</title>`)
         .replace('<div id="root"></div>', `<div id="root" data-page="post" data-slug="${slug}"></div>`);
 
+      // Write both index.html in the directory and direct .html file
       await fs.writeFile(path.join(postDir, 'index.html'), postPageContent);
+      await fs.writeFile(path.join(outputDir, `post-${slug}.html`), postPageContent);
     }
-
-    // List all generated files
-    console.log('\nGenerated files in output directory:');
-    const generatedFiles = await fs.readdir(outputDir, { recursive: true });
-    console.log(generatedFiles);
 
     console.log('\nSuccessfully generated all static pages');
   } catch (error) {

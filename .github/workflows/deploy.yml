@@ -19,9 +19,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build client
-        run: npm exec -- vite build
-
       - name: Convert markdown posts
         run: npx tsx server/convert-posts.ts
 
@@ -30,6 +27,9 @@ jobs:
           npx tsx server/convert-pages.ts
           echo "Generated files in dist/public:"
           ls -la dist/public/
+
+      - name: Build client only
+        run: npm exec -- vite build
 
       - name: Copy 404.html
         run: cp client/public/404.html ./dist/public/404.html

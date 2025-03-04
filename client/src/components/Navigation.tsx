@@ -3,7 +3,6 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { getPageUrl } from "@/lib/utils";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +18,7 @@ export function Navigation() {
       <div className="container flex h-14 items-center justify-between">
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <a href={getPageUrl("/")} className="mr-6 flex items-center space-x-2 pl-4">
+          <a href="/" className="mr-6 flex items-center space-x-2 pl-4">
             <motion.span 
               className="font-bold bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent transition-opacity hover:opacity-80"
               whileHover={{ scale: 1.05 }}
@@ -32,7 +31,7 @@ export function Navigation() {
             {navItems.map(({ href, label }) => (
               <a 
                 key={href} 
-                href={getPageUrl(href)}
+                href={href}
                 className="relative inline-block transition-all hover:text-primary"
               >
                 <motion.span
@@ -49,7 +48,7 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         <div className="md:hidden flex w-full items-center justify-between">
-          <a href={getPageUrl("/")} className="flex items-center pl-4">
+          <a href="/" className="flex items-center pl-4">
             <motion.span 
               className="font-bold text-sm bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent"
               whileHover={{ scale: 1.05 }}
@@ -70,7 +69,7 @@ export function Navigation() {
                 {navItems.map(({ href, label }) => (
                   <a 
                     key={href} 
-                    href={getPageUrl(href)}
+                    href={href}
                     onClick={() => setIsOpen(false)}
                     className="block py-2 px-4 rounded-md transition-all hover:text-primary text-foreground/60"
                   >

@@ -2,7 +2,6 @@ import { type Post } from "@shared/schema";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
-import { getPageUrl } from "@/lib/utils";
 
 interface BlogPostProps {
   post: Post;
@@ -12,8 +11,8 @@ interface BlogPostProps {
 }
 
 export function BlogPost({ post, preview = false, showContent = true, showTitle = true}: BlogPostProps) {
-  // Use clean URLs for post links with base path
-  const postLink = getPageUrl(`/post/${post.slug}`);
+  // Generate the static HTML path for the post
+  const postLink = `/post-${post.slug}.html`;
 
   const container = {
     hidden: { opacity: 0 },
