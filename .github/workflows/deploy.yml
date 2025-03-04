@@ -22,6 +22,9 @@ jobs:
       - name: Convert markdown posts
         run: npx tsx server/convert-posts.ts
 
+      - name: Generate static pages
+        run: npx tsx server/convert-pages.ts
+
       - name: Build client only
         run: npm exec -- vite build
 

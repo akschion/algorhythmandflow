@@ -2,7 +2,6 @@ import { type Post } from "@shared/schema";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
-import { getBaseUrl } from "@/lib/utils";
 
 interface BlogPostProps {
   post: Post;
@@ -12,8 +11,8 @@ interface BlogPostProps {
 }
 
 export function BlogPost({ post, preview = false, showContent = true, showTitle = true}: BlogPostProps) {
-  const baseUrl = getBaseUrl();
-  const postLink = `${baseUrl}/post/${post.slug}`;
+  // Generate the static HTML path for the post
+  const postLink = `/post-${post.slug}.html`;
 
   const container = {
     hidden: { opacity: 0 },
@@ -30,7 +29,6 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
     show: { opacity: 1, y: 0 }
   };
 
-
   return (
     <motion.article
       variants={container}
@@ -41,7 +39,7 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
       <div className="p-6">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
           <time dateTime={post.publishedAt.toString()}>
-            {format(new Date(post.publishedAt), "MMMM d, yyyy")}
+            {format(new Date(post.publishedAt), "MMM d, yyyy")}
           </time>
           <span>•</span>
           <div className="flex flex-wrap gap-2">

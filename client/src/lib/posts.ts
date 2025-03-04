@@ -1,5 +1,4 @@
 import type { Post } from "@shared/schema";
-import { getBaseUrl } from "./utils";
 
 // Import posts metadata
 import postsJson from "../assets/posts.json";
@@ -22,8 +21,7 @@ export async function getPost(slug: string): Promise<Post | undefined> {
   }
 
   try {
-    // Fetch the HTML content directly from the content path
-    // contentPath already includes the leading slash
+    // Load the pre-generated HTML content
     const response = await fetch(post.contentPath);
     if (!response.ok) {
       throw new Error(`Failed to load post content: ${response.statusText}`);
