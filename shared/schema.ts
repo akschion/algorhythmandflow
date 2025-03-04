@@ -10,6 +10,7 @@ export const posts = pgTable("posts", {
   excerpt: text("excerpt").notNull(),
   publishedAt: timestamp("published_at").notNull().defaultNow(),
   tags: text("tags").array().notNull(),
+  contentPath: text("content_path"),
 });
 
 export const insertPostSchema = createInsertSchema(posts).omit({ 
