@@ -16,7 +16,23 @@ export async function getPosts(): Promise<Post[]> {
 // Function to load a single post by slug
 export async function getPost(slug: string): Promise<Post | undefined> {
   const posts = await getPosts();
-  return posts.find(post => post.slug === slug);
+  const post = posts.find(post => post.slug === slug);
+
+  if (!post) {
+    return undefined;
+  }
+
+  // Load the HTML content
+  const contentResponse = await fetch(`/assets/posts/${post.contentPath}`);
+  if (!contentResponse.ok) {
+    throw new Error('Failed to load post content');
+  }
+  const content = await contentResponse.text();
+
+  return {
+    ...post,
+    content
+  };
 }
 
 // Function to load posts by tag
@@ -30,7 +46,6 @@ export async function searchPosts(query: string): Promise<Post[]> {
   const posts = await getPosts();
   const searchTerm = query.toLowerCase();
   return posts.filter(post => 
-    post.title.toLowerCase().includes(searchTerm) ||
-    post.content.toLowerCase().includes(searchTerm)
+    post.title.toLowerCase().includes(searchTerm)
   );
 }
