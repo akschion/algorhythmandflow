@@ -8,13 +8,16 @@ export function cn(...inputs: ClassValue[]) {
 // Get the base URL for GitHub Pages deployment
 export function getBaseUrl(): string {
   const isProd = import.meta.env.PROD;
-  return isProd ? '/algorhythmandflow' : '';
+  const hostname = window.location.hostname;
+  return (isProd && (hostname === 'algorhythmandflow.com' || hostname.endsWith('github.io'))) 
+    ? '/algorhythmandflow' 
+    : '';
 }
 
 // Get the full URL for an asset, considering the base path
 export function getAssetUrl(path: string): string {
   const baseUrl = getBaseUrl();
-  // Ensure path starts with a slash
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return `${baseUrl}${normalizedPath}`;
+  // Remove leading slash if present to avoid double slashes
+  const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${baseUrl}/${normalizedPath}`;
 }

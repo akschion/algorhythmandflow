@@ -22,7 +22,7 @@ export default function About() {
                 <div className="relative w-32 h-32 mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-foreground opacity-10 rounded-full" />
                   <img
-                    src={getAssetUrl("/images/profpic.jpg")}
+                    src={getAssetUrl("images/profpic.jpg")}
                     alt="Author"
                     className="rounded-full w-full h-full object-cover relative z-10"
                   />

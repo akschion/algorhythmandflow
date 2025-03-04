@@ -12,7 +12,8 @@ import { useEffect } from "react";
 import { getBaseUrl } from "./lib/utils";
 
 function Router() {
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
+  const baseUrl = getBaseUrl();
 
   useEffect(() => {
     // Check for redirect path from 404.html
@@ -20,23 +21,22 @@ function Router() {
     if (redirectPath) {
       // Remove the stored path
       sessionStorage.removeItem('redirect_path');
-      // Navigate to the stored path
-      setLocation(redirectPath);
+      // Remove the base URL if present
+      const cleanPath = redirectPath.replace('/algorhythmandflow', '');
+      // Navigate to the cleaned path
+      setLocation(cleanPath);
     }
   }, [setLocation]);
-
-  // Get the base URL for GitHub Pages
-  const baseUrl = getBaseUrl();
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <main className="flex-1">
         <Switch>
-          <Route path={`${baseUrl}/`} component={Home} />
-          <Route path={`${baseUrl}/about`} component={About} />
-          <Route path={`${baseUrl}/blog`} component={Blog} />
-          <Route path={`${baseUrl}/post/:slug`} component={Post} />
+          <Route path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/post/:slug" component={Post} />
           <Route component={NotFound} />
         </Switch>
       </main>
