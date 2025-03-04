@@ -6,14 +6,10 @@
   <script>
     // For GitHub Pages SPA routing
     (function(l) {
-      // Only run this script in production
-      if (l.hostname === 'algorhythmandflow.com' || l.hostname.endsWith('github.io')) {
-        // GitHub Pages serves 404.html for all paths
-        // Redirect back to index.html and let the SPA router handle it
-        l.replace(
-          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/'
-        );
-      }
+      // Store the URL path for redirecting
+      sessionStorage.redirect = l.pathname + l.search + l.hash;
+      // Redirect to the root
+      l.href = l.origin;
     }(window.location))
   </script>
 </head>
