@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "wouter";
+import { BlogPost } from "@/components/BlogPost";
 import { BlogSidebar } from "@/components/BlogSidebar";
 import { type Post } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPost } from "@/lib/posts";
 
-interface PostPageProps {
-  slug: string;
-}
-
-export default function Post({ slug }: PostPageProps) {
-  const { data: post, isLoading } = useQuery<Post | undefined>({
+export default function Post() {
+  const { slug } = useParams<{ slug: string }>();
+  const { data: post, isLoading, error } = useQuery<Post | undefined>({
     queryKey: ["post", slug],
     queryFn: () => getPost(slug)
   });
+
+  console.log('Post data:', post); // Debug log
 
   if (isLoading) {
     return (
@@ -31,20 +32,26 @@ export default function Post({ slug }: PostPageProps) {
     );
   }
 
-  if (!post) {
-    return <div className="container mx-auto px-4 py-8">Post not found</div>;
+  if (error) {
+    console.error('Error loading post:', error);
+    return <div>Error loading post</div>;
   }
+
+  if (!post) {
+    return <div>Post not found</div>;
+  }
+
+  console.log('Post content:', post.content); // Debug log
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="md-col-span-1">
+        <div className="md:col-span-1">
           <BlogSidebar />
         </div>
-        <article className="md:col-span-3 prose dark:prose-invert max-w-none">
-          <h1>{post.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        </article>
+        <div className="md:col-span-3">
+          <BlogPost post={post} showContent={true} showTitle={false} />
+        </div>
       </div>
     </div>
   );
