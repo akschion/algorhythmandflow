@@ -27,7 +27,7 @@ export async function getPost(slug: string): Promise<Post | undefined> {
     // Fetch the HTML content directly
     const response = await fetch(`/assets/posts/${cleanPath}`);
     if (!response.ok) {
-      throw new Error('Failed to load post content');
+      throw new Error(`Failed to load post content: ${response.statusText}`);
     }
     const content = await response.text();
 

@@ -8,10 +8,12 @@ import { getPost } from "@/lib/posts";
 
 export default function Post() {
   const { slug } = useParams<{ slug: string }>();
-  const { data: post, isLoading } = useQuery<Post | undefined>({
+  const { data: post, isLoading, error } = useQuery<Post | undefined>({
     queryKey: ["post", slug],
     queryFn: () => getPost(slug)
   });
+
+  console.log('Post data:', post); // Debug log
 
   if (isLoading) {
     return (
@@ -30,9 +32,16 @@ export default function Post() {
     );
   }
 
+  if (error) {
+    console.error('Error loading post:', error);
+    return <div>Error loading post</div>;
+  }
+
   if (!post) {
     return <div>Post not found</div>;
   }
+
+  console.log('Post content:', post.content); // Debug log
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -41,7 +50,7 @@ export default function Post() {
           <BlogSidebar />
         </div>
         <div className="md:col-span-3">
-          <BlogPost post={post} showContent={true} showTitle={false} />
+          <BlogPost post={post} showContent={true} />
         </div>
       </div>
     </div>
