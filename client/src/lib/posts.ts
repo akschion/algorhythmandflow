@@ -31,15 +31,11 @@ export async function getPost(slug: string): Promise<Post | undefined> {
     }
     const htmlContent = await response.text();
 
-    // Extract the actual content from the HTML file
+    // Extract the actual content if it's a complete HTML document
     // Create a temporary element to parse the HTML
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
-    // Find the main content (assuming it's in the body)
-    const content = tempDiv.querySelector('body')?.innerHTML || htmlContent;
-
-    // Extract the actual content if it's a complete HTML document
-    // Look for the main content section
+    // Find the main content section or article body
     const mainContent = tempDiv.querySelector('main') || 
                        tempDiv.querySelector('article') || 
                        tempDiv.querySelector('.content') ||
@@ -47,7 +43,7 @@ export async function getPost(slug: string): Promise<Post | undefined> {
 
     return {
       ...post,
-      content: mainContent.innerHTML || content
+      content: mainContent.innerHTML
     };
   } catch (error) {
     console.error('Failed to load post content:', error);
