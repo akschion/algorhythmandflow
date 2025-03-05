@@ -48,7 +48,16 @@ async function convertPosts() {
       // Write HTML content to file in public directory
       await fs.writeFile(
         path.join(contentDir, htmlFileName),
-        `<div class="blog-content">${String(htmlContent)}</div>`
+        `<div class="blog-content">
+          <style>
+            /* Ensure consistent styling for KaTeX equations */
+            .katex { color: white !important; }
+            .katex-display { color: white !important; }
+            .katex .mord, .katex .mrel, .katex .mop, .katex .mopen, .katex .mclose, 
+            .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
+          </style>
+          ${String(htmlContent)}
+        </div>`
       );
 
       // Create post metadata object
