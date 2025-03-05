@@ -34,7 +34,7 @@ async function generatePages() {
     for (const route of routes) {
       console.log(`Generating ${route.path || 'index'} page...`);
       const htmlContent = template
-        .replace(/<title>.*?<\/title>/, `<title>${route.title} - Algorhythm and Flow</title>`)
+        .replace(/<title>.*?<\/title>/, `<title>${route.title} - Algorhythm + Flow</title>`)
         .replace('<div id="root"></div>', `<div id="root" data-page="${route.path || 'index'}"></div>`);
 
       // Create directory for each route (except home)
@@ -84,7 +84,7 @@ async function generatePages() {
       await fs.mkdir(postDir, { recursive: true });
 
       const postPageContent = template
-        .replace(/<title>.*?<\/title>/, `<title>${data.title} - Algorhythm and Flow</title>`)
+        .replace(/<title>.*?<\/title>/, `<title>${data.title} - Algorhythm + Flow</title>`)
         .replace('<div id="root"></div>', `<div id="root" data-page="post" data-slug="${slug}"></div>`);
 
       // Write both index.html in the directory and direct .html file
