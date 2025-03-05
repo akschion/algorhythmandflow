@@ -2,41 +2,25 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Algorhythm and Flow</title>
+  <title>Redirecting...</title>
   <script>
     // Single Page Apps for GitHub Pages
-    // MIT License - https://github.com/rafgraph/spa-github-pages
+    // MIT License
+    // https://github.com/rafgraph/spa-github-pages
     (function(l) {
-      // Skip URL rewrites in development
-      if (l.hostname === 'localhost') return;
-
-      // If accessing .html directly, redirect to clean URL
-      if (l.pathname.endsWith('.html')) {
-        var cleanPath = l.pathname.slice(0, -5); // remove .html
-        l.replace(
-          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          cleanPath +
-          (l.search || '') +
-          (l.hash || '')
+      if (l.search[1] === '/' ) {
+        var decoded = l.search.slice(1).split('&').map(function(s) { 
+          return s.replace(/~and~/g, '&')
+        }).join('?');
+        window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + decoded + l.hash
         );
-        return;
       }
-
-      // Handle 404s by serving the matching .html file
-      var htmlPath = l.pathname;
-      if (!htmlPath.endsWith('/')) htmlPath += '/';
-      htmlPath += 'index.html';
-
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        htmlPath +
-        (l.search || '') +
-        (l.hash || '')
-      );
     }(window.location))
   </script>
+  <meta http-equiv="refresh" content="0;URL='/'">
 </head>
 <body>
-  <div>Redirecting...</div>
+  Redirecting...
 </body>
 </html>
