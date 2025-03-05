@@ -44,7 +44,7 @@ export default function Post() {
   }
 
   // Update document title with post title
-  document.title = `${post.title} - Algorhythm and Flow`;
+  document.title = `${post.title} - Algorithm + Flow`;
 
   return (
     <div className="container mx-auto px-4 py-8">

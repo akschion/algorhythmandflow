@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Blog from "@/pages/Blog";
 import Post from "@/pages/Post";
 import About from "@/pages/About";
+import { useEffect } from "react";
 
 // Custom hook for GitHub Pages routing
 const useGitHubPagesLocation = () => {
@@ -37,6 +38,19 @@ const useGitHubPagesLocation = () => {
   return [path, navigate];
 };
 
+const useDocumentTitle = (location: string) => {
+  useEffect(() => {
+    let title = "Algorithm + Flow";
+    if (location.startsWith("/post/")) {
+      // Extract slug and potentially fetch title from data
+      const slug = location.substring("/post/".length);
+      title = `Post: ${slug}`; // Replace with actual title fetching if available
+    }
+    document.title = title;
+  }, [location]);
+};
+
+
 function Router() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -55,6 +69,8 @@ function Router() {
 }
 
 function App() {
+  const [location, navigate] = useGitHubPagesLocation();
+  useDocumentTitle(location);
   return (
     <QueryClientProvider client={queryClient}>
       <Router />
