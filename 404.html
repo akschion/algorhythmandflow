@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Algorhythm and Flow</title>
-  <script>
-    // Redirect to the home page with hash routing
-    window.location.replace('/');
-  </script>
-</head>
-<body>
-  <div>Redirecting to home page...</div>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Algorhythm and Flow</title>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // MIT License - https://github.com/rafgraph/spa-github-pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+
+        // Get the path after the domain
+        var path = l.pathname.replace(/^\/algorhythmandflow/, '');
+
+        // Store the full path in the session storage
+        sessionStorage.setItem('redirect', path);
+
+        // Redirect to the index page
+        l.replace(
+          l.protocol + '//' + l.hostname + 
+          (l.hostname.indexOf('github.io') > -1 ? '/algorhythmandflow/' : '/') +
+          '?p=' + encodeURIComponent(path)
+        );
+      }(window.location))
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
 </html>
