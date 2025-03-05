@@ -34,8 +34,12 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
       variants={container}
       initial="hidden"
       animate="show"
-      className="overflow-hidden rounded-lg border border-border bg-card shadow-sm"
+      className="overflow-hidden rounded-lg border border-border bg-gradient-to-br from-muted/30 via-card to-background relative shadow-sm"
     >
+      <div className="absolute inset-0 w-full h-full">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:14px_24px]" />
+        <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      </div>
       <div className="p-6">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
           <time dateTime={post.publishedAt.toString()}>
