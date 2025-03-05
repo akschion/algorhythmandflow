@@ -11,8 +11,8 @@ interface BlogPostProps {
 }
 
 export function BlogPost({ post, preview = false, showContent = true, showTitle = true}: BlogPostProps) {
-  // Generate the hash-based link for the post
-  const postLink = `#/post/${post.slug}`;
+  // Generate the path-based link for the post
+  const postLink = `/post/${post.slug}`;
 
   const container = {
     hidden: { opacity: 0 },

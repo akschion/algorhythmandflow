@@ -9,14 +9,38 @@ import Blog from "@/pages/Blog";
 import Post from "@/pages/Post";
 import About from "@/pages/About";
 
-// Use hash-based routing for GitHub Pages
-const useHashLocation = () => {
-  const [loc, setLoc] = useLocation();
+// Custom hook for GitHub Pages routing
+const useGitHubPagesLocation = () => {
+  const [location, setLocation] = useLocation();
 
-  const location = window.location.hash.replace("#", "") || "/";
-  const navigate = (to: string) => setLoc("#" + to);
+  // Check if we're running on GitHub Pages
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  const base = isGitHubPages ? '/algorhythmandflow' : '';
 
-  return [location, navigate];
+  // On first load, check for redirect
+  if (typeof window !== 'undefined') {
+    const params = new URLSearchParams(window.location.search);
+    const redirectPath = params.get('p');
+    if (redirectPath) {
+      // Clear the URL parameters
+      window.history.replaceState(null, null, base + redirectPath);
+      return [redirectPath, setLocation];
+    }
+
+    // Check session storage for redirect
+    const storedPath = sessionStorage.getItem('redirect');
+    if (storedPath) {
+      sessionStorage.removeItem('redirect');
+      window.history.replaceState(null, null, base + storedPath);
+      return [storedPath, setLocation];
+    }
+  }
+
+  // Remove base path from location for routing
+  const path = location.replace(base, '') || '/';
+  const navigate = (to: string) => setLocation(base + to);
+
+  return [path, navigate];
 };
 
 function Router() {
@@ -24,7 +48,7 @@ function Router() {
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <main className="flex-1">
-        <Switch hook={useHashLocation}>
+        <Switch hook={useGitHubPagesLocation}>
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/blog" component={Blog} />
