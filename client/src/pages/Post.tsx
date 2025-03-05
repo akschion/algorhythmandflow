@@ -44,7 +44,7 @@ export default function Post() {
   }
 
   // Update document title with post title (abbreviate if too long)
-  const MAX_TITLE_LENGTH = 40; // Maximum length for the title in the browser tab
+  const MAX_TITLE_LENGTH = 25; // Maximum length for the title in the browser tab
   const displayTitle = post.title.length > MAX_TITLE_LENGTH 
     ? `${post.title.substring(0, MAX_TITLE_LENGTH - 3)}...` 
     : post.title;
