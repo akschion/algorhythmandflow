@@ -44,7 +44,7 @@ const useDocumentTitle = (location: string) => {
   useEffect(() => {
     // Set default title for Home, About, and Blog pages
     if (!location.startsWith("/post/")) {
-      document.title = "Algorithm + Flow";
+      document.title = "Algorhythm + Flow";
     }
     // Post titles are handled by the Post component itself
   }, [location]);

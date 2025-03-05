@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Algorithm + Flow"
+        title="Algorhythm + Flow"
         description="Exploring the intersection of mathematics, music, and technology through academic research and creative exploration."
       />
       <div className="container mx-auto px-4 py-8">
