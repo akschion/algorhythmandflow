@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { Navigation } from "@/components/Navigation";
+import { Analytics } from "@/components/Analytics";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Blog from "@/pages/Blog";
@@ -43,14 +44,12 @@ const useDocumentTitle = (location: string) => {
   useEffect(() => {
     let title = "Algorithm + Flow";
     if (location.startsWith("/post/")) {
-      // Extract slug and potentially fetch title from data
       const slug = location.substring("/post/".length);
-      title = `Post: ${slug}`; // Replace with actual title fetching if available
+      title = `Post: ${slug}`;
     }
     document.title = title;
   }, [location]);
 };
-
 
 function Router() {
   return (
@@ -70,13 +69,15 @@ function Router() {
 }
 
 function App() {
-  const [location, navigate] = useGitHubPagesLocation();
+  const [location] = useGitHubPagesLocation();
   useDocumentTitle(location);
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <Router />
         <Toaster />
+        {/* Analytics component only tracks in production */}
+        {import.meta.env.PROD && <Analytics />}
       </QueryClientProvider>
     </HelmetProvider>
   );
