@@ -1,6 +1,10 @@
 import fs from "fs/promises";
 import path from "path";
+import { fileURLToPath } from "url";
 import matter from "gray-matter";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
@@ -9,9 +13,10 @@ import remark2rehype from 'remark-rehype';
 import { unified } from 'unified';
 
 async function convertPosts() {
-  const postsDir = path.join(process.cwd(), 'server', 'posts');
-  const contentDir = path.join(process.cwd(), 'client', 'public', 'blog-content');
-  const outputFile = path.join(process.cwd(), 'client', 'src', 'assets', 'posts.json');
+  // Use __dirname for relative path resolution in ES modules
+  const postsDir = path.join(path.dirname(__dirname), 'server', 'posts');
+  const contentDir = path.join(path.dirname(__dirname), 'client', 'public', 'blog-content');
+  const outputFile = path.join(path.dirname(__dirname), 'client', 'src', 'assets', 'posts.json');
 
   try {
     // Ensure content directory exists
@@ -73,4 +78,13 @@ async function convertPosts() {
   }
 }
 
-convertPosts().catch(console.error);
+// Run the script directly if executed from command line
+if (import.meta.url === `file://${process.argv[1]}`) {
+  convertPosts().catch(error => {
+    console.error('Failed to convert posts:', error);
+    process.exit(1);
+  });
+}
+
+// Export for potential programmatic use
+export { convertPosts };
