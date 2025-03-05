@@ -43,11 +43,14 @@ export default function About() {
                     {/* Profile picture glow effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-foreground opacity-10 rounded-full blur-md" />
                     <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-foreground opacity-10 rounded-full animate-pulse" />
-                    <img
-                      src={getAssetUrl("/images/profpic.webp")}
-                      alt="Author"
-                      className="rounded-full w-full h-full object-cover relative z-10 shadow-xl"
-                    />
+                    <picture>
+                      <source srcSet={getAssetUrl("/images/profpic.webp")} type="image/webp" />
+                      <img
+                        src={getAssetUrl("/images/profpic.jpg")}
+                        alt="Author"
+                        className="rounded-full w-full h-full object-cover relative z-10 shadow-xl"
+                      />
+                    </picture>
                   </motion.div>
                   <CardTitle className="text-3xl text-center bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
                     About Me
