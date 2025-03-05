@@ -10,11 +10,6 @@
   <circle cx="50" cy="50" r="35" fill="none" stroke="#242424" stroke-width="0.5" />
   <circle cx="50" cy="50" r="25" fill="none" stroke="#242424" stroke-width="0.5" />
   
-  <!-- Record needle/arm -->
-  <path d="M80,20 L65,35 L63,33 L76,18 Z" fill="#444444" />
-  <path d="M65,35 L60,40 L58,38 L63,33 Z" fill="#666666" />
-  <circle cx="60" cy="40" r="2" fill="#888888" />
-  
-  <!-- Enhanced mathematical sine wave - more interesting pattern -->
-  <path d="M20,50 Q27,35 35,50 Q43,65 50,50 Q57,35 65,50 Q73,65 80,50 Q83,43 86,48" fill="none" stroke="#5e9eff" stroke-width="2" />
+  <!-- Mathematical elements - just the sine wave -->
+  <path d="M25,50 Q35,35 50,50 Q65,65 75,50" fill="none" stroke="#5e9eff" stroke-width="2" />
 </svg>
