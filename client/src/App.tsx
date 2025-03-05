@@ -17,22 +17,16 @@ const useGitHubPagesLocation = () => {
   const isGitHubPages = window.location.hostname.includes('github.io');
   const base = isGitHubPages ? '/algorhythmandflow' : '';
 
-  // On first load, check for redirect
+  // On first load, check for redirect from 404.html
   if (typeof window !== 'undefined') {
+    // Check URL parameters for redirect
     const params = new URLSearchParams(window.location.search);
-    const redirectPath = params.get('p');
-    if (redirectPath) {
-      // Clear the URL parameters
-      window.history.replaceState(null, null, base + redirectPath);
-      return [redirectPath, setLocation];
-    }
-
-    // Check session storage for redirect
-    const storedPath = sessionStorage.getItem('redirect');
-    if (storedPath) {
-      sessionStorage.removeItem('redirect');
-      window.history.replaceState(null, null, base + storedPath);
-      return [storedPath, setLocation];
+    const path = params.get('p');
+    if (path) {
+      // Remove the query parameter and update the URL
+      const cleanUrl = `${base}${path}`;
+      window.history.replaceState(null, null, cleanUrl);
+      return [path, setLocation];
     }
   }
 
