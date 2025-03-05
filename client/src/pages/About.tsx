@@ -44,7 +44,7 @@ export default function About() {
                     <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-foreground opacity-10 rounded-full blur-md" />
                     <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-foreground opacity-10 rounded-full animate-pulse" />
                     <img
-                      src={getAssetUrl("/images/profpic.jpg")}
+                      src={getAssetUrl("/images/profpic.webp")}
                       alt="Author"
                       className="rounded-full w-full h-full object-cover relative z-10 shadow-xl"
                     />
