@@ -43,8 +43,12 @@ export default function Post() {
     return <div>Post not found</div>;
   }
 
-  // Update document title with post title
-  document.title = `${post.title} - Algorithm + Flow`;
+  // Update document title with post title (abbreviate if too long)
+  const MAX_TITLE_LENGTH = 40; // Maximum length for the title in the browser tab
+  const displayTitle = post.title.length > MAX_TITLE_LENGTH 
+    ? `${post.title.substring(0, MAX_TITLE_LENGTH - 3)}...` 
+    : post.title;
+  document.title = `${displayTitle} - Algorithm + Flow`;
 
   return (
     <div className="container mx-auto px-4 py-8">
