@@ -56,7 +56,7 @@ export default function Home() {
 
           <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
             <CardContent className="pt-6">
-              <div className="aspect-video rounded-lg overflow-hidden max-h-[275px] w-full">
+              <div className="aspect-video rounded-lg overflow-hidden max-h-[250px] w-full">
                 <iframe 
                   className="w-full h-full"
                   src="https://www.youtube.com/embed/8Ir-zFC9nFE?si=XbwkBYjPbhdiwMdE" 
