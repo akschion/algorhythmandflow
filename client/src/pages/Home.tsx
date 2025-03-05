@@ -55,13 +55,8 @@ export default function Home() {
           </div>
 
           <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg overflow-visible">
-            <CardHeader>
-              <CardTitle className="text-2xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
-                Featured Video
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="aspect-video rounded-lg overflow-hidden max-h-[250px] mx-auto">
+            <CardContent className="pt-6">
+              <div className="aspect-video rounded-lg overflow-hidden h-full w-full">
                 <iframe 
                   className="w-full h-full"
                   src="https://www.youtube.com/embed/8Ir-zFC9nFE?si=XbwkBYjPbhdiwMdE" 
