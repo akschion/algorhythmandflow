@@ -29,7 +29,7 @@ export default defineConfig({
     },
   },
   root: path.resolve(__dirname, "client"),
-  base: "/algorhythmandflow/", // Add this line
+  base: "/", // Changed from /algorhythmandflow/ to / for custom domain
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
