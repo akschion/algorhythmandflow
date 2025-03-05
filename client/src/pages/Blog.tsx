@@ -35,8 +35,8 @@ export default function Blog() {
   return (
     <>
       <SEO
-        title="Blog - Algorithm + Flow"
-        description="Explore articles about mathematics, music, and technology. Topics include hip-hop analytics, signal processing, and more."
+        title="Algorithm + Flow - Blog"
+        description="Explore articles about mathematics, music, and technology. Read articles, learn new things"
         type="website"
       />
       <div className="container mx-auto px-4 py-8">
