@@ -61,7 +61,7 @@ export default function Home() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="aspect-video rounded-lg overflow-hidden">
+              <div className="aspect-video rounded-lg overflow-hidden max-h-[400px] mx-auto">
                 <iframe 
                   className="w-full h-full"
                   src="https://www.youtube.com/embed/8Ir-zFC9nFE?si=XbwkBYjPbhdiwMdE" 
