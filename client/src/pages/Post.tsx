@@ -5,12 +5,10 @@ import { BlogSidebar } from "@/components/BlogSidebar";
 import { type Post } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPost } from "@/lib/posts";
+import { SEO } from "@/components/SEO";
 
 export default function Post() {
   const { slug } = useParams<{ slug: string }>();
-
-  // Add .html extension for direct loading
-  document.title = `Post - Algorhythm and Flow`;
 
   const { data: post, isLoading, error } = useQuery<Post | undefined>({
     queryKey: ["post", slug],
@@ -43,23 +41,27 @@ export default function Post() {
     return <div>Post not found</div>;
   }
 
-  // Update document title with post title (abbreviate if too long)
-  const MAX_TITLE_LENGTH = 25; // Maximum length for the title in the browser tab
-  const displayTitle = post.title.length > MAX_TITLE_LENGTH 
-    ? `${post.title.substring(0, MAX_TITLE_LENGTH - 3)}...` 
-    : post.title;
-  document.title = `${displayTitle} - Algorithm + Flow`;
-
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="md:col-span-1">
-          <BlogSidebar />
-        </div>
-        <div className="md:col-span-3">
-          <BlogPost post={post} showContent={true} showTitle={false} />
+    <>
+      <SEO
+        title={`${post.title} - Algorhythm and Flow`}
+        description={post.excerpt}
+        type="article"
+        article={{
+          publishedTime: post.publishedAt.toISOString(),
+          tags: post.tags
+        }}
+      />
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="md:col-span-1">
+            <BlogSidebar />
+          </div>
+          <div className="md:col-span-3">
+            <BlogPost post={post} showContent={true} showTitle={false} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

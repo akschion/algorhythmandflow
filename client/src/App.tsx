@@ -9,6 +9,7 @@ import Blog from "@/pages/Blog";
 import Post from "@/pages/Post";
 import About from "@/pages/About";
 import { useEffect } from "react";
+import { HelmetProvider } from 'react-helmet-async';
 
 // Custom hook for GitHub Pages routing
 const useGitHubPagesLocation = () => {
@@ -72,10 +73,12 @@ function App() {
   const [location, navigate] = useGitHubPagesLocation();
   useDocumentTitle(location);
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router />
-      <Toaster />
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <Router />
+        <Toaster />
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 }
 
