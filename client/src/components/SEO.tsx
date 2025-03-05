@@ -13,7 +13,7 @@ interface SEOProps {
 }
 
 export function SEO({ 
-  title = 'Algorhythm and Flow', 
+  title = 'Algorithm + Flow', 
   description = 'Exploring the intersection of mathematics, music, and technology through academic research and creative exploration.',
   type = 'website',
   image = '/images/math-vinyl-icon.svg',

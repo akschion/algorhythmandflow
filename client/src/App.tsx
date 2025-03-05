@@ -42,12 +42,11 @@ const useGitHubPagesLocation = () => {
 
 const useDocumentTitle = (location: string) => {
   useEffect(() => {
-    let title = "Algorithm + Flow";
-    if (location.startsWith("/post/")) {
-      const slug = location.substring("/post/".length);
-      title = `Post: ${slug}`;
+    // Set default title for Home, About, and Blog pages
+    if (!location.startsWith("/post/")) {
+      document.title = "Algorithm + Flow";
     }
-    document.title = title;
+    // Post titles are handled by the Post component itself
   }, [location]);
 };
 

@@ -35,7 +35,7 @@ export default function Blog() {
   return (
     <>
       <SEO
-        title="Blog - Algorhythm and Flow"
+        title="Blog - Algorithm + Flow"
         description="Explore articles about mathematics, music, and technology. Topics include hip-hop analytics, signal processing, and more."
         type="website"
       />
