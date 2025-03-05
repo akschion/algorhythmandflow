@@ -1,5 +1,18 @@
 [
   {
+    "id": "quantum-music-theory",
+    "title": "Quantum Music Theory: A Mathematical Framework",
+    "slug": "quantum-music-theory",
+    "excerpt": "Exploring the fascinating intersection of quantum mechanics and music theory through mathematical modeling",
+    "contentPath": "/blog-content/quantum-music-theory.html",
+    "publishedAt": "2024-03-05",
+    "tags": [
+      "math",
+      "music-theory",
+      "quantum-mechanics"
+    ]
+  },
+  {
     "id": "hip-hop-mathematics",
     "title": "The Mathematics of Hip-Hop Rhythms",
     "slug": "hip-hop-mathematics",
