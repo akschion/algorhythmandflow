@@ -102,11 +102,8 @@ export default function Home() {
                           onClick={() => window.location.href = `/post/${post.slug}`}
                           style={{ cursor: "pointer" }}
                         >
-                          <div className="absolute inset-0">
-                            <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] opacity-20" />
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.2)_100%)] opacity-5" />
-                            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-                            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
+                          <div className="absolute inset-0 w-full h-full">
+                            <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:14px_24px]" />
                           </div>
                           <div className="flex flex-col h-full relative z-10">
                             <h3 className="text-lg font-medium group-hover:text-primary transition-colors line-clamp-2 mb-1">
