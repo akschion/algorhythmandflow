@@ -106,3 +106,54 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
     </motion.article>
   );
 }
+import React from "react";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { type Post } from "@shared/schema";
+import { Link } from "react-router-dom";
+
+interface BlogPostProps {
+  post: Post;
+  featured?: boolean;
+}
+
+export function BlogPost({ post, featured = false }: BlogPostProps) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.01 }}
+      transition={{ type: "spring", stiffness: 300 }}
+      className={`group relative overflow-hidden ${featured ? "col-span-2 row-span-2" : ""}`}
+    >
+      <Link to={`/post/${post.slug}`} className="block h-full">
+        <Card className="h-full border-0 shadow-md overflow-hidden bg-gradient-to-br from-background to-muted/10">
+          {/* Decorative background patterns */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] opacity-20" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.2)_100%)] opacity-5" />
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
+          </div>
+
+          <CardContent className="p-5 relative z-10">
+            <div className="space-y-2">
+              <div className="text-sm text-muted-foreground">
+                {new Date(post.publishedAt).toLocaleDateString()}
+              </div>
+              <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
+                {post.title}
+              </h3>
+              <p className="text-muted-foreground line-clamp-2">{post.excerpt}</p>
+              <div className="flex flex-wrap gap-1.5 pt-2">
+                {post.tags.map(tag => (
+                  <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary-foreground">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
+    </motion.div>
+  );
+}
