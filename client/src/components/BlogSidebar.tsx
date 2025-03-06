@@ -14,9 +14,9 @@ export function BlogSidebar() {
 
   return (
     <div className="space-y-8 sticky top-24">
-      <Card>
+      <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg">
         <CardHeader>
-          <CardTitle>Recent Posts</CardTitle>
+          <CardTitle className="text-xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">Recent Posts</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
