@@ -33,7 +33,7 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
   return (
     <motion.article
       className={cn(
-        "relative z-10 overflow-hidden rounded-xl shadow-md",
+        "relative z-10 overflow-hidden rounded-xl shadow-md group",
         preview && "bg-gradient-to-br from-muted/50 to-background p-6"
       )}
       variants={container}
@@ -66,7 +66,7 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
             variants={item}
             className={cn(
               "text-xl md:text-2xl font-bold mb-3",
-              preview ? "text-foreground hover:text-primary transition-colors" : "text-foreground"
+              preview ? "text-foreground group-hover:text-primary transition-colors" : "text-foreground"
             )}
           >
             {post.title}
