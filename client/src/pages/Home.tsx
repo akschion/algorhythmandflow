@@ -82,7 +82,13 @@ export default function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Carousel className="w-full pb-2 px-2">
+                <Carousel 
+                  className="w-full pb-2 px-2"
+                  opts={{
+                    slidesToScroll: 1,
+                    align: "start"
+                  }}
+                >
                   <CarouselContent className="py-1">
                     {recentPosts.map(post => (
                       <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
