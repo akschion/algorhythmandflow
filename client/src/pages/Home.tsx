@@ -96,7 +96,8 @@ export default function Home() {
                           whileHover={{ scale: 1.01 }}
                           transition={{ type: "spring", stiffness: 300 }}
                           className="group relative z-10 overflow-hidden rounded-xl shadow-md 
-                             bg-gradient-to-br from-background to-muted/10 p-4 h-[160px] 
+                             bg-gradient-to-br from-muted/50 to-background p-4 h-[160px] 
+                             border-2 border-border/60 
                              before:absolute before:inset-0 before:bg-grid-white/[0.1]"
 
                           onClick={() => window.location.href = `/post/${post.slug}`}
