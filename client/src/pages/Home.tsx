@@ -89,12 +89,16 @@ export default function Home() {
                         <motion.div
                           whileHover={{ scale: 1.02 }}
                           transition={{ type: "spring", stiffness: 300 }}
+                          className="group relative z-10 overflow-hidden rounded-xl shadow-md bg-gradient-to-br from-muted/50 to-background p-4 h-[160px]"
+                          onClick={() => window.location.href = `/post/${post.slug}`}
+                          style={{ cursor: "pointer" }}
                         >
-                          <div className="p-4 rounded-lg border bg-card shadow-sm h-[160px] flex flex-col">
-                            <h3 className="text-lg font-medium hover:text-primary transition-colors line-clamp-2 mb-1">
-                              <a href={`/post/${post.slug}`} className="no-underline">
-                                {post.title.length > 60 ? post.title.substring(0, 57) + '...' : post.title}
-                              </a>
+                          <div className="absolute inset-0 w-full h-full">
+                            <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:14px_24px]" />
+                          </div>
+                          <div className="flex flex-col h-full relative z-10">
+                            <h3 className="text-lg font-medium group-hover:text-primary transition-colors line-clamp-2 mb-1">
+                              {post.title.length > 60 ? post.title.substring(0, 57) + '...' : post.title}
                             </h3>
                             <div className="text-sm text-muted-foreground mb-1">
                               {new Date(post.publishedAt).toLocaleDateString()}
