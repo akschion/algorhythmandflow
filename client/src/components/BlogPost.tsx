@@ -34,8 +34,8 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
     <motion.article
       className={cn(
         "relative z-10 overflow-hidden rounded-xl shadow-md group",
-        preview
-          ? "bg-gradient-to-br from-muted/50 to-background p-6 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"
+        preview 
+          ? "bg-gradient-to-br from-muted/50 to-background p-6" 
           : "border-2 border-white/10 p-1"
       )}
       variants={container}
@@ -45,12 +45,8 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
       style={preview ? { cursor: "pointer" } : {}}
     >
       <div className="absolute inset-0 w-full h-full">
-        {preview && (
-          <>
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
-            <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-          </>
-        )}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:14px_24px]" />
+        <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       </div>
       <div className="p-6">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
