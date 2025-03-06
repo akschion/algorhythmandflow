@@ -34,7 +34,9 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
     <motion.article
       className={cn(
         "relative z-10 overflow-hidden rounded-xl shadow-md group",
-        preview && "bg-gradient-to-br from-muted/50 to-background p-6"
+        preview 
+          ? "bg-gradient-to-br from-muted/50 to-background p-6" 
+          : "border border-border/40"
       )}
       variants={container}
       initial="hidden"
