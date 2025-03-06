@@ -36,7 +36,7 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
         "relative z-10 overflow-hidden rounded-xl shadow-md group",
         preview 
           ? "bg-gradient-to-br from-muted/50 to-background p-6" 
-          : "border-2 border-border/60 p-1"
+          : "border-2 border-white/10 p-1"
       )}
       variants={container}
       initial="hidden"
