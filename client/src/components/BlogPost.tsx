@@ -2,6 +2,7 @@ import { type Post } from "@shared/schema";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface BlogPostProps {
   post: Post;
@@ -10,7 +11,7 @@ interface BlogPostProps {
   showTitle?: boolean;
 }
 
-export function BlogPost({ post, preview = false, showContent = true, showTitle = true}: BlogPostProps) {
+export function BlogPost({ post, preview = false, showContent = true, showTitle = true }: BlogPostProps) {
   // Generate the path-based link for the post
   const postLink = `/post/${post.slug}`;
 
@@ -31,10 +32,15 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
 
   return (
     <motion.article
+      className={cn(
+        "relative z-10 overflow-hidden rounded-xl shadow-md",
+        preview && "bg-gradient-to-br from-muted/50 to-background p-6"
+      )}
       variants={container}
       initial="hidden"
       animate="show"
-      className="overflow-hidden rounded-lg border border-border bg-gradient-to-br from-muted/30 via-card to-background relative shadow-sm"
+      onClick={preview ? () => window.location.href = postLink : undefined}
+      style={preview ? { cursor: "pointer" } : {}}
     >
       <div className="absolute inset-0 w-full h-full">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:14px_24px]" />
@@ -56,23 +62,15 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
         </div>
 
         {showTitle && (
-          preview ? (
-            <a href={postLink} className="no-underline">
-              <motion.h2
-                variants={item}
-                className="text-xl md:text-2xl font-bold text-foreground mb-3 hover:text-primary transition-colors"
-              >
-                {post.title}
-              </motion.h2>
-            </a>
-          ) : (
-            <motion.h2
-              variants={item}
-              className="text-xl md:text-2xl font-bold text-foreground mb-3"
-            >
-              {post.title}
-            </motion.h2>
-          )
+          <motion.h2
+            variants={item}
+            className={cn(
+              "text-xl md:text-2xl font-bold mb-3",
+              preview ? "text-foreground hover:text-primary transition-colors" : "text-foreground"
+            )}
+          >
+            {post.title}
+          </motion.h2>
         )}
 
         {showContent ? (
