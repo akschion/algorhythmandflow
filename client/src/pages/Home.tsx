@@ -82,14 +82,14 @@ export default function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Carousel className="w-full">
-                  <CarouselContent>
+                <Carousel className="w-full pb-2 px-2">
+                  <CarouselContent className="py-1">
                     {recentPosts.map(post => (
                       <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
                         <motion.div
-                          whileHover={{ scale: 1.02 }}
+                          whileHover={{ scale: 1.01 }}
                           transition={{ type: "spring", stiffness: 300 }}
-                          className="group relative z-10 overflow-hidden rounded-xl shadow-md bg-gradient-to-br from-muted/50 to-background p-4 h-[160px]"
+                          className="group relative z-10 overflow-hidden rounded-xl shadow-md bg-gradient-to-br from-muted/80 to-background/90 p-4 h-[160px]"
                           onClick={() => window.location.href = `/post/${post.slug}`}
                           style={{ cursor: "pointer" }}
                         >
