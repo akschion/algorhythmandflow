@@ -51,12 +51,12 @@ export default function Post() {
   document.title = `${displayTitle} - Algorhythm + Flow`;
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 max-w-screen-2xl">
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-auto md:min-w-64 lg:min-w-80 xl:min-w-96">
           <BlogSidebar />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 max-w-4xl">
           <BlogPost post={post} showContent={true} showTitle={false} />
         </div>
       </div>

@@ -48,7 +48,7 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:14px_24px]" />
         <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       </div>
-      <div className="p-6">
+      <div className="p-6 md:p-8 lg:p-10">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
           <time dateTime={post.publishedAt.toString()}>
             {format(new Date(post.publishedAt), "MMM d, yyyy")}
