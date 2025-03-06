@@ -52,11 +52,11 @@ export default function Post() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-screen-2xl">
-      <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8">
-        <div className="w-full md:w-64">
+      <div className="flex flex-col md:flex-row md:justify-center gap-8">
+        <div className="w-full md:w-64 md:mr-auto">
           <BlogSidebar />
         </div>
-        <div className="flex-1 max-w-4xl">
+        <div className="flex-1 max-w-4xl mx-auto">
           <BlogPost post={post} showContent={true} showTitle={false} />
         </div>
       </div>
