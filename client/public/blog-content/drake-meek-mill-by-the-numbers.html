@@ -15,7 +15,7 @@
 <li>Unique Words – (number of words not repeated) / (total number of words)</li>
 <li>Average Syllables per Word – (total number of syllables) / (total number of words)</li>
 </ul>
-<p>The data was collected by choosing 36 songs from each rapper's discography (primarily from the most recent two to three solo projects) and inputting their lyrics (from RapGenius) into RapPad's online Blueprint tool (found at <a href="http://www.rappad.co">www.rappad.co</a>). Lyrics from featured artists and duplicate lyrics (such as hooks) were omitted. The processing engine at RapPad then calculated the desired metrics and provided a variety of statistics. The output is usually not 100% accurate, especially with respect to rhyming syllables. However, given the large sample size used and comparative nature of the analysis, the resulting metrics were deemed acceptable for this study.</p>
+<p>The data was collected by choosing 36 songs from each rapper's discography (primarily from the most recent two to three solo projects) and inputting their lyrics (from RapGenius) into RapPad's online Blueprint tool (found at www.rappad.co). Lyrics from featured artists and duplicate lyrics (such as hooks) were omitted. The processing engine at RapPad then calculated the desired metrics and provided a variety of statistics. The output is usually not 100% accurate, especially with respect to rhyming syllables. However, given the large sample size used and comparative nature of the analysis, the resulting metrics were deemed acceptable for this study.</p>
 <p>The first metric we will examine is rhyme density. Rhyme density gives us a sense of how technically skilled or "efficient" a rapper is with words. Generally, a rapper with a higher rhyme density is seen as more proficient in his or her craft. To give a sense of the numbers, Big Pun, seen as one of the most technically skilled hip-hop artists, averages a rhyme density of 0.4, while a low rhyme density is around 0.2. Selecting one song from each rapper, a sample in this case is defined as the numerical difference between those two songs' rhyme densities. To set up this two-sided hypothesis test, we have the following:</p>
 <p>𝑋 = (𝑟ℎ𝑦𝑚𝑒 𝑑𝑒𝑛𝑠𝑖𝑡𝑦 𝑜𝑓 𝐷𝑟𝑎𝑘𝑒 𝑠𝑜𝑛𝑔) − (𝑟ℎ𝑦𝑚𝑒 𝑑𝑒𝑛𝑠𝑖𝑡𝑦 𝑜𝑓 𝑀𝑒𝑒𝑘 𝑀𝑖𝑙𝑙 𝑠𝑜𝑛𝑔)<br>
 𝐻₀: 𝜇 = 0<br>
@@ -33,42 +33,12 @@
 <p>𝑛 = 36, 𝑋̅ = 0.01278, 𝑆 = 0.07984</p>
 <p>The 95% confidence interval is now (-0.0133, 0.03886), and the z-score is 0.9602. As |𝑧| &#x3C; |𝑧₍𝛼/2₎|, we do not have enough evidence to reject the null hypothesis.</p>
 <p>So far, we learned that there is not sufficient evidence to reject the claim that there is no difference between the rappers' rhyme densities or the claim that there is no difference between the rappers' ASPW. However, there is sufficient evidence to reject the claim that there is no difference between the rappers' unique word scores in favor of Meek Mill.</p>
-<table>
-<thead>
-<tr>
-<th>Song</th>
-<th>Rhyme Density</th>
-<th>Unique Words</th>
-<th>ASPW</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>R.I.C.O. (Drake)</td>
-<td>0.2671</td>
-<td>0.683</td>
-<td>1.34</td>
-</tr>
-<tr>
-<td>R.I.C.O. (Meek Mill)</td>
-<td>0.2085</td>
-<td>0.75</td>
-<td>1.3</td>
-</tr>
-<tr>
-<td>Back 2 Back</td>
-<td>0.2971</td>
-<td>0.528</td>
-<td>1.25</td>
-</tr>
-<tr>
-<td>Wanna Know</td>
-<td>0.3097</td>
-<td>0.519</td>
-<td>1.31</td>
-</tr>
-</tbody>
-</table>
+<p>| Song | Rhyme Density | Unique Words | ASPW |
+|------|---------------|--------------|------|
+| R.I.C.O. (Drake) | 0.2671 | 0.683 | 1.34 |
+| R.I.C.O. (Meek Mill) | 0.2085 | 0.75 | 1.3 |
+| Back 2 Back | 0.2971 | 0.528 | 1.25 |
+| Wanna Know | 0.3097 | 0.519 | 1.31 |</p>
 <p>To further this comparison, let's look at the song "R.I.C.O." in which both artists are featured (data above). When collaborating on this song, the two rappers had similar metrics which were also similar to their average scores. During the actual beef, Drake and Meek Mill respectively released the diss tracks "Back 2 Back" and "Wanna Know." Interestingly here, they both stepped up with higher than average rhyme densities, but they had lower than average unique words score. Meek Mill performed noticeably better compared to Drake on ASPW, but not by a significant amount. Although this is one data point, it is in favor of the statement that the rappers displayed more technical rhyming skills on the diss tracks to be competitive, yet repeated more words, perhaps in an effort to be catchier. Unfortunately, there are not enough data to support this with tests.</p>
 <p>This study begs the question if the analysis conducted is even justified. The quantifiable metrics presented tend towards measuring technical skill. However, one could argue that technical skill is not always the highest aim of a rapper. Personally, I believe that if you can fall under the category of "rapper," then you cannot shy away from these metrics. On the other hand, these results do not state anything about whether being technical is ultimately a good thing. To further this discussion of justification, I have attempted to set up a quantitative metric to determine how justified these metrics are for each rapper. To simplify this analysis, I am assuming the following: 1) the above metrics are more suited for hip-hop songs than pop songs, 2) pop songs are more popular (by sales/streams) than hip-hop songs, and 3) songs that display lower technical ability are to be considered more pop than hip-hop. Since we are shifting the context of the discussion to beyond hip-hop, we can now use the streaming data previously discounted. All streaming data were gathered from Spotify on October 17, 2015.</p>
 <p>![Drake: Rhyme Density vs. Streams graph showing a negative correlation with equation y = -18.338x + 4.7932, R² = 0.0606]</p>
@@ -81,549 +51,83 @@
 <p>This study follows the assumptions inherent in my views of how to compare rappers. The reader, however, may work within a different set of assumptions and arrive at a completely different result. Regardless, this study is intended to introduce and analyze a set of objective frameworks with which to continue discussion on this topic.</p>
 <h2>Appendix</h2>
 <h3>Meek Mill Songs</h3>
-<table>
-<thead>
-<tr>
-<th>Song</th>
-<th>Rhyme Density</th>
-<th>Unique Words</th>
-<th>ASPW</th>
-<th>Streams</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Lord Knows</td>
-<td>0.2684</td>
-<td>0.554</td>
-<td>1.3</td>
-<td>9954940</td>
-</tr>
-<tr>
-<td>Classic</td>
-<td>0.256</td>
-<td>0.689</td>
-<td>1.35</td>
-<td>5828541</td>
-</tr>
-<tr>
-<td>Jump out the Face</td>
-<td>0.2908</td>
-<td>0.678</td>
-<td>1.23</td>
-<td>12079821</td>
-</tr>
-<tr>
-<td>All Eyes on You</td>
-<td>0.3067</td>
-<td>0.574</td>
-<td>1.13</td>
-<td>66814151</td>
-</tr>
-<tr>
-<td>The Trillest</td>
-<td>0.2994</td>
-<td>0.461</td>
-<td>1.32</td>
-<td>4601380</td>
-</tr>
-<tr>
-<td>R.I.C.O.</td>
-<td>0.2085</td>
-<td>0.75</td>
-<td>1.3</td>
-<td>35648485</td>
-</tr>
-<tr>
-<td>I Got the Juice</td>
-<td>0.3536</td>
-<td>0.453</td>
-<td>1.29</td>
-<td>5938261</td>
-</tr>
-<tr>
-<td>Ambitionz</td>
-<td>0.3349</td>
-<td>0.673</td>
-<td>1.4</td>
-<td>4158196</td>
-</tr>
-<tr>
-<td>Pullin' Up</td>
-<td>0.1986</td>
-<td>0.597</td>
-<td>1.29</td>
-<td>8930723</td>
-</tr>
-<tr>
-<td>Check</td>
-<td>0.1836</td>
-<td>0.403</td>
-<td>1.28</td>
-<td>9842116</td>
-</tr>
-<tr>
-<td>Been That</td>
-<td>0.331</td>
-<td>0.606</td>
-<td>1.3</td>
-<td>4345518</td>
-</tr>
-<tr>
-<td>Bad For You</td>
-<td>0.1707</td>
-<td>0.625</td>
-<td>1.18</td>
-<td>8518873</td>
-</tr>
-<tr>
-<td>Stand Up</td>
-<td>0.3539</td>
-<td>0.568</td>
-<td>1.28</td>
-<td>2723860</td>
-</tr>
-<tr>
-<td>Cold Hearted</td>
-<td>0.2717</td>
-<td>0.565</td>
-<td>1.35</td>
-<td>3410280</td>
-</tr>
-<tr>
-<td>Dreams and Nightmares</td>
-<td>0.2957</td>
-<td>0.556</td>
-<td>1.3</td>
-<td>15610853</td>
-</tr>
-<tr>
-<td>In God We Trust</td>
-<td>0.3818</td>
-<td>0.593</td>
-<td>1.3</td>
-<td>2736118</td>
-</tr>
-<tr>
-<td>Young &#x26; Gettin' It</td>
-<td>0.2607</td>
-<td>0.655</td>
-<td>1.26</td>
-<td>6934111</td>
-</tr>
-<tr>
-<td>Traumatized</td>
-<td>0.2548</td>
-<td>0.551</td>
-<td>1.29</td>
-<td>3647946</td>
-</tr>
-<tr>
-<td>Believe It</td>
-<td>0.1789</td>
-<td>0.641</td>
-<td>1.26</td>
-<td>7756343</td>
-</tr>
-<tr>
-<td>Maybach Curtains</td>
-<td>0.2469</td>
-<td>0.748</td>
-<td>1.29</td>
-<td>2071381</td>
-</tr>
-<tr>
-<td>Amen</td>
-<td>0.226</td>
-<td>0.608</td>
-<td>1.32</td>
-<td>10020688</td>
-</tr>
-<tr>
-<td>Young Kings</td>
-<td>0.3239</td>
-<td>0.588</td>
-<td>1.25</td>
-<td>1575572</td>
-</tr>
-<tr>
-<td>Lay Up</td>
-<td>0.3644</td>
-<td>0.809</td>
-<td>1.31</td>
-<td>2590232</td>
-</tr>
-<tr>
-<td>Tony Story Pt. 2</td>
-<td>0.2923</td>
-<td>0.548</td>
-<td>1.33</td>
-<td>1721750</td>
-</tr>
-<tr>
-<td>Who You're Around</td>
-<td>0.2706</td>
-<td>0.604</td>
-<td>1.3</td>
-<td>1834182</td>
-</tr>
-<tr>
-<td>Polo &#x26; Shell Tops</td>
-<td>0.2643</td>
-<td>0.625</td>
-<td>1.25</td>
-<td>6025874</td>
-</tr>
-<tr>
-<td>Rich &#x26; Famous</td>
-<td>0.2304</td>
-<td>0.658</td>
-<td>1.34</td>
-<td>3603868</td>
-</tr>
-<tr>
-<td>Real N***** Come First</td>
-<td>0.4046</td>
-<td>0.572</td>
-<td>1.3</td>
-<td>1784535</td>
-</tr>
-<tr>
-<td>Monster</td>
-<td>0.3298</td>
-<td>0.569</td>
-<td>1.39</td>
-<td>7374446</td>
-</tr>
-<tr>
-<td>FYM</td>
-<td>0.4788</td>
-<td>0.518</td>
-<td>1.19</td>
-<td>7374446</td>
-</tr>
-<tr>
-<td>I Don't Know</td>
-<td>0.2902</td>
-<td>0.631</td>
-<td>1.31</td>
-<td>2222851</td>
-</tr>
-<tr>
-<td>Levels</td>
-<td>0.3087</td>
-<td>0.455</td>
-<td>1.27</td>
-<td>10446089</td>
-</tr>
-<tr>
-<td>House Party</td>
-<td>0.3057</td>
-<td>0.561</td>
-<td>1.31</td>
-<td>6834573</td>
-</tr>
-<tr>
-<td>Burn</td>
-<td>0.3239</td>
-<td>0.671</td>
-<td>1.3</td>
-<td>9842306</td>
-</tr>
-<tr>
-<td>Off the Corner</td>
-<td>0.2389</td>
-<td>0.635</td>
-<td>1.31</td>
-<td>5831439</td>
-</tr>
-<tr>
-<td>A1 Everything</td>
-<td>0.3834</td>
-<td>0.694</td>
-<td>1.29</td>
-<td>2030627</td>
-</tr>
-<tr>
-<td>Wanna Know</td>
-<td>0.3097</td>
-<td>0.519</td>
-<td>1.31</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
+<p>| Song | Rhyme Density | Unique Words | ASPW | Streams |
+|------|---------------|--------------|------|---------|
+| Lord Knows | 0.2684 | 0.554 | 1.3 | 9954940 |
+| Classic | 0.256 | 0.689 | 1.35 | 5828541 |
+| Jump out the Face | 0.2908 | 0.678 | 1.23 | 12079821 |
+| All Eyes on You | 0.3067 | 0.574 | 1.13 | 66814151 |
+| The Trillest | 0.2994 | 0.461 | 1.32 | 4601380 |
+| R.I.C.O. | 0.2085 | 0.75 | 1.3 | 35648485 |
+| I Got the Juice | 0.3536 | 0.453 | 1.29 | 5938261 |
+| Ambitionz | 0.3349 | 0.673 | 1.4 | 4158196 |
+| Pullin' Up | 0.1986 | 0.597 | 1.29 | 8930723 |
+| Check | 0.1836 | 0.403 | 1.28 | 9842116 |
+| Been That | 0.331 | 0.606 | 1.3 | 4345518 |
+| Bad For You | 0.1707 | 0.625 | 1.18 | 8518873 |
+| Stand Up | 0.3539 | 0.568 | 1.28 | 2723860 |
+| Cold Hearted | 0.2717 | 0.565 | 1.35 | 3410280 |
+| Dreams and Nightmares | 0.2957 | 0.556 | 1.3 | 15610853 |
+| In God We Trust | 0.3818 | 0.593 | 1.3 | 2736118 |
+| Young &#x26; Gettin' It | 0.2607 | 0.655 | 1.26 | 6934111 |
+| Traumatized | 0.2548 | 0.551 | 1.29 | 3647946 |
+| Believe It | 0.1789 | 0.641 | 1.26 | 7756343 |
+| Maybach Curtains | 0.2469 | 0.748 | 1.29 | 2071381 |
+| Amen | 0.226 | 0.608 | 1.32 | 10020688 |
+| Young Kings | 0.3239 | 0.588 | 1.25 | 1575572 |
+| Lay Up | 0.3644 | 0.809 | 1.31 | 2590232 |
+| Tony Story Pt. 2 | 0.2923 | 0.548 | 1.33 | 1721750 |
+| Who You're Around | 0.2706 | 0.604 | 1.3 | 1834182 |
+| Polo &#x26; Shell Tops | 0.2643 | 0.625 | 1.25 | 6025874 |
+| Rich &#x26; Famous | 0.2304 | 0.658 | 1.34 | 3603868 |
+| Real N***** Come First | 0.4046 | 0.572 | 1.3 | 1784535 |
+| Monster | 0.3298 | 0.569 | 1.39 | 7374446 |
+| FYM | 0.4788 | 0.518 | 1.19 | 7374446 |
+| I Don't Know | 0.2902 | 0.631 | 1.31 | 2222851 |
+| Levels | 0.3087 | 0.455 | 1.27 | 10446089 |
+| House Party | 0.3057 | 0.561 | 1.31 | 6834573 |
+| Burn | 0.3239 | 0.671 | 1.3 | 9842306 |
+| Off the Corner | 0.2389 | 0.635 | 1.31 | 5831439 |
+| A1 Everything | 0.3834 | 0.694 | 1.29 | 2030627 |
+| Wanna Know | 0.3097 | 0.519 | 1.31 | - |</p>
 <h3>Drake Songs</h3>
-<table>
-<thead>
-<tr>
-<th>Song</th>
-<th>Rhyme Density</th>
-<th>Unique Words</th>
-<th>ASPW</th>
-<th>Streams</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Worst Behavior</td>
-<td>0.4273</td>
-<td>0.577</td>
-<td>1.45</td>
-<td>40327718</td>
-</tr>
-<tr>
-<td>Legend</td>
-<td>0.23</td>
-<td>0.445</td>
-<td>1.27</td>
-<td>70947519</td>
-</tr>
-<tr>
-<td>Hotline Bling</td>
-<td>0.1366</td>
-<td>0.327</td>
-<td>1.22</td>
-<td>90448353</td>
-</tr>
-<tr>
-<td>Back 2 Back</td>
-<td>0.2971</td>
-<td>0.528</td>
-<td>1.25</td>
-<td>37065606</td>
-</tr>
-<tr>
-<td>Right Hand</td>
-<td>0.1695</td>
-<td>0.394</td>
-<td>1.23</td>
-<td>20612517</td>
-</tr>
-<tr>
-<td>Know Yourself</td>
-<td>0.2454</td>
-<td>0.478</td>
-<td>1.27</td>
-<td>92843578</td>
-</tr>
-<tr>
-<td>Energy</td>
-<td>0.247</td>
-<td>0.441</td>
-<td>1.34</td>
-<td>86716988</td>
-</tr>
-<tr>
-<td>Charged Up</td>
-<td>0.2597</td>
-<td>0.669</td>
-<td>1.32</td>
-<td>4167688</td>
-</tr>
-<tr>
-<td>10 Bands</td>
-<td>0.3297</td>
-<td>0.535</td>
-<td>1.28</td>
-<td>63499530</td>
-</tr>
-<tr>
-<td>No Tellin'</td>
-<td>0.191</td>
-<td>0.633</td>
-<td>1.36</td>
-<td>38273567</td>
-</tr>
-<tr>
-<td>Madonna</td>
-<td>0.1877</td>
-<td>0.541</td>
-<td>1.18</td>
-<td>24571811</td>
-</tr>
-<tr>
-<td>6 God</td>
-<td>0.3506</td>
-<td>0.525</td>
-<td>1.24</td>
-<td>30098238</td>
-</tr>
-<tr>
-<td>Star67</td>
-<td>0.2609</td>
-<td>0.632</td>
-<td>1.28</td>
-<td>26547465</td>
-</tr>
-<tr>
-<td>Used To</td>
-<td>0.2515</td>
-<td>0.597</td>
-<td>1.26</td>
-<td>28110525</td>
-</tr>
-<tr>
-<td>6 Man</td>
-<td>0.2109</td>
-<td>0.538</td>
-<td>1.28</td>
-<td>28547115</td>
-</tr>
-<tr>
-<td>Now &#x26; Forever</td>
-<td>0.1192</td>
-<td>0.314</td>
-<td>1.21</td>
-<td>27950827</td>
-</tr>
-<tr>
-<td>Company</td>
-<td>0.3529</td>
-<td>0.575</td>
-<td>1.27</td>
-<td>22493498</td>
-</tr>
-<tr>
-<td>You &#x26; The 6</td>
-<td>0.321</td>
-<td>0.506</td>
-<td>1.33</td>
-<td>19470777</td>
-</tr>
-<tr>
-<td>Jungle</td>
-<td>0.4219</td>
-<td>0.505</td>
-<td>1.32</td>
-<td>26198397</td>
-</tr>
-<tr>
-<td>6PM in New York</td>
-<td>0.2827</td>
-<td>0.598</td>
-<td>1.41</td>
-<td>16928948</td>
-</tr>
-<tr>
-<td>Tuscan Leather</td>
-<td>0.2472</td>
-<td>0.611</td>
-<td>1.38</td>
-<td>28402831</td>
-</tr>
-<tr>
-<td>Furthest Thing</td>
-<td>0.3569</td>
-<td>0.552</td>
-<td>1.36</td>
-<td>36036562</td>
-</tr>
-<tr>
-<td>Started From the Bottom</td>
-<td>0.122</td>
-<td>0.28</td>
-<td>1.29</td>
-<td>95319519</td>
-</tr>
-<tr>
-<td>Wu-Tang Forever</td>
-<td>0.4044</td>
-<td>0.521</td>
-<td>1.33</td>
-<td>28207114</td>
-</tr>
-<tr>
-<td>Own It</td>
-<td>0.2121</td>
-<td>0.45</td>
-<td>1.23</td>
-<td>29680041</td>
-</tr>
-<tr>
-<td>From Time</td>
-<td>0.1936</td>
-<td>0.622</td>
-<td>1.44</td>
-<td>49809419</td>
-</tr>
-<tr>
-<td>Hold On, We're Going Home</td>
-<td>0.1682</td>
-<td>0.255</td>
-<td>1.34</td>
-<td>212180607</td>
-</tr>
-<tr>
-<td>Connect</td>
-<td>0.2444</td>
-<td>0.669</td>
-<td>1.45</td>
-<td>22988580</td>
-</tr>
-<tr>
-<td>The Language</td>
-<td>0.2199</td>
-<td>0.538</td>
-<td>1.3</td>
-<td>48480625</td>
-</tr>
-<tr>
-<td>305 to My City</td>
-<td>0.2022</td>
-<td>0.588</td>
-<td>1.24</td>
-<td>20824708</td>
-</tr>
-<tr>
-<td>Too Much</td>
-<td>0.301</td>
-<td>0.675</td>
-<td>1.26</td>
-<td>33885875</td>
-</tr>
-<tr>
-<td>Pound Cake</td>
-<td>0.2834</td>
-<td>0.618</td>
-<td>1.34</td>
-<td>39721665</td>
-</tr>
-<tr>
-<td>Headlines</td>
-<td>0.2907</td>
-<td>0.479</td>
-<td>1.27</td>
-<td>65368509</td>
-</tr>
-<tr>
-<td>The Motto</td>
-<td>0.262</td>
-<td>0.715</td>
-<td>1.38</td>
-<td>61451347</td>
-</tr>
-<tr>
-<td>Best I Ever Had</td>
-<td>0.3954</td>
-<td>0.382</td>
-<td>1.29</td>
-<td>31864904</td>
-</tr>
-<tr>
-<td>Marvin's Room</td>
-<td>0.1995</td>
-<td>0.603</td>
-<td>1.26</td>
-<td>46310591</td>
-</tr>
-<tr>
-<td>R.I.C.O</td>
-<td>0.2671</td>
-<td>0.683</td>
-<td>1.34</td>
-<td>35648485</td>
-</tr>
-</tbody>
-</table>
+<p>| Song | Rhyme Density | Unique Words | ASPW | Streams |
+|------|---------------|--------------|------|---------|
+| Worst Behavior | 0.4273 | 0.577 | 1.45 | 40327718 |
+| Legend | 0.23 | 0.445 | 1.27 | 70947519 |
+| Hotline Bling | 0.1366 | 0.327 | 1.22 | 90448353 |
+| Back 2 Back | 0.2971 | 0.528 | 1.25 | 37065606 |
+| Right Hand | 0.1695 | 0.394 | 1.23 | 20612517 |
+| Know Yourself | 0.2454 | 0.478 | 1.27 | 92843578 |
+| Energy | 0.247 | 0.441 | 1.34 | 86716988 |
+| Charged Up | 0.2597 | 0.669 | 1.32 | 4167688 |
+| 10 Bands | 0.3297 | 0.535 | 1.28 | 63499530 |
+| No Tellin' | 0.191 | 0.633 | 1.36 | 38273567 |
+| Madonna | 0.1877 | 0.541 | 1.18 | 24571811 |
+| 6 God | 0.3506 | 0.525 | 1.24 | 30098238 |
+| Star67 | 0.2609 | 0.632 | 1.28 | 26547465 |
+| Used To | 0.2515 | 0.597 | 1.26 | 28110525 |
+| 6 Man | 0.2109 | 0.538 | 1.28 | 28547115 |
+| Now &#x26; Forever | 0.1192 | 0.314 | 1.21 | 27950827 |
+| Company | 0.3529 | 0.575 | 1.27 | 22493498 |
+| You &#x26; The 6 | 0.321 | 0.506 | 1.33 | 19470777 |
+| Jungle | 0.4219 | 0.505 | 1.32 | 26198397 |
+| 6PM in New York | 0.2827 | 0.598 | 1.41 | 16928948 |
+| Tuscan Leather | 0.2472 | 0.611 | 1.38 | 28402831 |
+| Furthest Thing | 0.3569 | 0.552 | 1.36 | 36036562 |
+| Started From the Bottom | 0.122 | 0.28 | 1.29 | 95319519 |
+| Wu-Tang Forever | 0.4044 | 0.521 | 1.33 | 28207114 |
+| Own It | 0.2121 | 0.45 | 1.23 | 29680041 |
+| From Time | 0.1936 | 0.622 | 1.44 | 49809419 |
+| Hold On, We're Going Home | 0.1682 | 0.255 | 1.34 | 212180607 |
+| Connect | 0.2444 | 0.669 | 1.45 | 22988580 |
+| The Language | 0.2199 | 0.538 | 1.3 | 48480625 |
+| 305 to My City | 0.2022 | 0.588 | 1.24 | 20824708 |
+| Too Much | 0.301 | 0.675 | 1.26 | 33885875 |
+| Pound Cake | 0.2834 | 0.618 | 1.34 | 39721665 |
+| Headlines | 0.2907 | 0.479 | 1.27 | 65368509 |
+| The Motto | 0.262 | 0.715 | 1.38 | 61451347 |
+| Best I Ever Had | 0.3954 | 0.382 | 1.29 | 31864904 |
+| Marvin's Room | 0.1995 | 0.603 | 1.26 | 46310591 |
+| R.I.C.O | 0.2671 | 0.683 | 1.34 | 35648485 |</p>
         </div>
