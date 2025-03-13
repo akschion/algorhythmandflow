@@ -1,5 +1,17 @@
 [
   {
+    "id": "drake-meek-mill-by-the-numbers",
+    "title": "Drake vs. Meek Mill - By the Numbers",
+    "slug": "drake-meek-mill-by-the-numbers",
+    "excerpt": "Quantitative analysis between Drake and Meek Mill",
+    "contentPath": "/blog-content/drake-meek-mill-by-the-numbers.html",
+    "publishedAt": "2025-03-13T11:30:00.000Z",
+    "tags": [
+      "statistics",
+      "hip-hop"
+    ]
+  },
+  {
     "id": "quantum-music-theory",
     "title": "Quantum Music Theory: A Mathematical Framework",
     "slug": "quantum-music-theory",
@@ -7,6 +19,7 @@
     "contentPath": "/blog-content/quantum-music-theory.html",
     "publishedAt": "2024-03-05",
     "tags": [
+      "AI generated",
       "math",
       "music-theory",
       "quantum-mechanics"
@@ -20,6 +33,7 @@
     "contentPath": "/blog-content/hip-hop-mathematics.html",
     "publishedAt": "2023-06-20T10:30:00.000Z",
     "tags": [
+      "AI generated",
       "math",
       "hip-hop",
       "music-theory"
@@ -33,6 +47,7 @@
     "contentPath": "/blog-content/fourier-transforms-intro.html",
     "publishedAt": "2023-05-15T12:00:00.000Z",
     "tags": [
+      "AI generated",
       "math",
       "signal-processing"
     ]

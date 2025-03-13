@@ -3,7 +3,7 @@ title: The Mathematics of Hip-Hop Rhythms
 slug: hip-hop-mathematics
 excerpt: Exploring the mathematical structures behind hip-hop beats and rhythmic patterns
 date: 2023-06-20T10:30:00.000Z
-tags: [math, hip-hop, music-theory]
+tags: [AI generated, math, hip-hop, music-theory]
 ---
 
 # The Mathematics of Hip-Hop Rhythms

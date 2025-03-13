@@ -3,7 +3,7 @@ title: Introduction to Fourier Transforms
 slug: fourier-transforms-intro
 excerpt: An introduction to Fourier transforms and their applications in signal processing
 date: 2023-05-15T12:00:00.000Z
-tags: [math, signal-processing]
+tags: [AI generated, math, signal-processing]
 ---
 
 # Introduction to Fourier Transforms

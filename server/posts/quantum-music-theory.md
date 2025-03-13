@@ -3,7 +3,7 @@ title: "Quantum Music Theory: A Mathematical Framework"
 slug: "quantum-music-theory"
 excerpt: "Exploring the fascinating intersection of quantum mechanics and music theory through mathematical modeling"
 date: "2024-03-05"
-tags: ["math", "music-theory", "quantum-mechanics"]
+tags: ["AI generated", "math", "music-theory", "quantum-mechanics"]
 ---
 
 # Quantum Music Theory: A Mathematical Framework
