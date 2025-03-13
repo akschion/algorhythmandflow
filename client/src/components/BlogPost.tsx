@@ -30,6 +30,13 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
     show: { opacity: 1, y: 0 }
   };
 
+  const handlePostClick = (e: React.MouseEvent) => {
+    // Only navigate if it's a preview and the click wasn't on a link or selected text
+    if (preview && !e.defaultPrevented && window.getSelection()?.toString() === '') {
+      window.location.href = postLink;
+    }
+  };
+
   return (
     <motion.article
       className={cn(
@@ -41,10 +48,10 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
       variants={container}
       initial="hidden"
       animate="show"
-      onClick={preview ? () => window.location.href = postLink : undefined}
-      style={preview ? { cursor: "pointer" } : {}}
+      onClick={handlePostClick}
+      style={preview ? { cursor: "pointer" } : undefined}
     >
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:14px_24px]" />
         <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       </div>
@@ -91,7 +98,9 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
                        prose-blockquote:text-foreground/80
                        prose-strong:text-foreground
                        prose-code:text-foreground
-                       max-w-none"
+                       max-w-none
+                       [&_*]:pointer-events-auto"
+            onClick={e => e.stopPropagation()}
             dangerouslySetInnerHTML={{ __html: post.content || '' }}
           />
         ) : (
