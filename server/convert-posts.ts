@@ -6,6 +6,7 @@ import matter from "gray-matter";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
@@ -36,6 +37,7 @@ async function convertPosts() {
       const htmlContent = await unified()
         .use(remarkParse)
         .use(remarkMath)
+        .use(remarkGfm) // Add GitHub Flavored Markdown support (including tables)
         .use(remark2rehype)
         .use(rehypeKatex)
         .use(rehypeStringify)
