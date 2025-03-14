@@ -27,33 +27,35 @@ Ignoring whether or not the allegations that Drake uses a ghostwriter are true, 
 The data was collected by choosing 36 songs from each rapper's discography (primarily from the most recent two to three solo projects) and inputting their lyrics (from RapGenius) into RapPad's online Blueprint tool (found at [www.rappad.co](https://www.rappad.co)). Lyrics from featured artists and duplicate lyrics (such as hooks) were omitted. The processing engine at RapPad then calculated the desired metrics and provided a variety of statistics. The output is usually not 100% accurate, especially with respect to rhyming syllables. However, given the large sample size used and comparative nature of the analysis, the resulting metrics were deemed acceptable for this study.
 
 The first metric we will examine is rhyme density. Rhyme density gives us a sense of how technically skilled or "efficient" a rapper is with words. Generally, a rapper with a higher rhyme density is seen as more proficient in his or her craft. To give a sense of the numbers, Big Pun, seen as one of the most technically skilled hip-hop artists, averages a rhyme density of 0.4, while a low rhyme density is around 0.2. Selecting one song from each rapper, a sample in this case is defined as the numerical difference between those two songs' rhyme densities. To set up this two-sided hypothesis test, we have the following:
-
-𝑋 = (𝑟ℎ𝑦𝑚𝑒 𝑑𝑒𝑛𝑠𝑖𝑡𝑦 𝑜𝑓 𝐷𝑟𝑎𝑘𝑒 𝑠𝑜𝑛𝑔) − (𝑟ℎ𝑦𝑚𝑒 𝑑𝑒𝑛𝑠𝑖𝑡𝑦 𝑜𝑓 𝑀𝑒𝑒𝑘 𝑀𝑖𝑙𝑙 𝑠𝑜𝑛𝑔)  
-𝐻₀: 𝜇 = 0  
-𝐻₁: 𝜇 ≠ 0  
+$$
+X = (\text{rhyme density of Drake song}) - (\text{rhyme density of Meek Mill song})
+$$
+$$
+H_0: \mu = 0, \quad H_1: \mu \neq 0
+$$
 
 Using the data generated (presented in the Appendix), we have the following statistics:
-
-𝑛 = 36, 𝑋̅ = −0.03019, 𝑆 = 0.1246
-
+$$
+n = 36, \quad \bar{X} = -0.03019, \quad S = 0.1246
+$$
 Since the sample size is large, we will assume that the sample standard deviation is approximately equivalent to the population standard deviation (𝑆 ≈ 𝜎). A Z-statistic is used to calculate the p-value. We will also use an α of 0.05.
-
-𝑍 − 𝑠𝑡𝑎𝑡𝑖𝑠𝑡𝑖𝑐 (𝑍) = (𝑋̅ − 𝜇)/(𝜎/√𝑛)  
-𝐶𝑜𝑛𝑓𝑖𝑑𝑒𝑛𝑐𝑒 𝑖𝑛𝑡𝑒𝑟𝑣𝑎𝑙 = (𝑋̅ − 𝑧₍𝛼/2₎ ∗ 𝜎/√𝑛, 𝑋̅ + 𝑧₍𝛼/2₎ ∗ 𝜎/√𝑛)
-
-Thus, we arrive at a 95% confidence interval for the average mean difference in rhyme density as (−0.07089, 0.01051). We also arrive at a z-score of -1.454. Given that 𝑧₍𝛼/2₎ = -1.96, it is evident that |𝑧| < |𝑧₍𝛼/2₎|. Thus, here we do not have enough evidence to reject the null hypothesis.
+$$
+Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}, \quad
+\text{Confidence interval} = \left(\bar{X} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \quad \bar{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}\right)
+$$
+Thus, we arrive at a 95% confidence interval for the average mean difference in rhyme density as (−0.07089, 0.01051). We also arrive at a z-score of -1.454. Given that $z_{\alpha/2}$ = -1.96, it is evident that $|z| < |z_{\alpha/2}|$. Thus, here we do not have enough evidence to reject the null hypothesis.
 
 The next metric for comparison is unique words. Unique words gives us an idea of how repetitive an artist is or their breadth of vocabulary within a song. This ignores duplicated sections of the song (such as a chorus repeated several times) in order to give a fair comparison of the songs. Within hip-hop, a lower unique words score generally detracts from a rapper's technical skills. However, within pop music, a lower unique words score may be preferred. Performing another hypothesis test similar to before (same null and alternative hypotheses) with the difference in unique words as a sample, the resulting statistics are:
-
-𝑛 = 36, 𝑋̅ = −0.07694, 𝑆 = 0.1556
-
-Continuing with the same assumptions, we now have a 95% confidence interval as (-0.1278, -0.0261) and a z-score of -2.97. In this case, |𝑧| > |𝑧₍𝛼/2₎|. We therefore have enough evidence to reject the null hypothesis.
+$$
+n = 36, \quad \bar{X} = -0.07694, \quad S = 0.1556
+$$
+Continuing with the same assumptions, we now have a 95% confidence interval as (-0.1278, -0.0261) and a z-score of -2.97. In this case, $|z| > |z_{\alpha/2}|$. We therefore have enough evidence to reject the null hypothesis.
 
 The final metric for comparison is average syllables per word (ASPW). This gives us a sense of their vocabulary and technical skill (ex. Rhyming 'cat' with 'bat' instead of 'prophecy' with 'philosophy'). Values typically range from 1 to 1.5. Again, higher ASPW scores suggest that a rapper is more technically skilled. Continuing with the same hypothesis testing process and assumptions,
-
-𝑛 = 36, 𝑋̅ = 0.01278, 𝑆 = 0.07984
-
-The 95% confidence interval is now (-0.0133, 0.03886), and the z-score is 0.9602. As |𝑧| < |𝑧₍𝛼/2₎|, we do not have enough evidence to reject the null hypothesis.
+$$
+n = 36, \quad \bar{X} = 0.01278, \quad S = 0.07984
+$$
+The 95% confidence interval is now (-0.0133, 0.03886), and the z-score is 0.9602. As $|z| < |z_{\alpha/2}|$, we do not have enough evidence to reject the null hypothesis.
 
 So far, we learned that there is not sufficient evidence to reject the claim that there is no difference between the rappers' rhyme densities or the claim that there is no difference between the rappers' ASPW. However, there is sufficient evidence to reject the claim that there is no difference between the rappers' unique word scores in favor of Meek Mill.
 

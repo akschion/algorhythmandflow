@@ -10,7 +10,9 @@ tags: [AI generated, math, signal-processing]
 
 The Fourier transform is a fundamental tool in signal processing and analysis. It decomposes a function into the frequencies that make it up.
 
-$$F(\omega) = \int_{-\infty}^{\infty} f(t)e^{-i\omega t}dt$$
+$$
+F(\omega) = \int_{-\infty}^{\infty} f(t)e^{-i\omega t}dt
+$$
 
 ## Applications in Signal Processing
 

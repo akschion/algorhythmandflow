@@ -14,7 +14,9 @@ Hip-hop music contains rich mathematical structures in its rhythmic patterns. Th
 
 Hip-hop often employs complex polyrhythms, where multiple rhythmic patterns occur simultaneously. Mathematically, we can represent these as:
 
-$$\frac{a}{b} : \frac{c}{d}$$
+$$
+\frac{a}{b} : \frac{c}{d}
+$$
 
 Where $a$, $b$, $c$, and $d$ are integers defining the rhythmic relationship.
 

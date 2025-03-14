@@ -2,7 +2,16 @@
           <style>
             /* Ensure consistent styling for KaTeX equations */
             .katex { color: white !important; }
-            .katex-display { color: white !important; }
+            .katex-display { 
+              color: white !important;
+              text-align: center !important;
+              margin: 1em 0 !important;
+            }
+            .katex-display > .katex {
+              display: inline-block !important;
+              text-align: center !important;
+              width: 100% !important;
+            }
             .katex .mord, .katex .mrel, .katex .mop, .katex .mopen, .katex .mclose, 
             .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
           </style>
