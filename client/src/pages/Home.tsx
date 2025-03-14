@@ -18,7 +18,7 @@ export default function Home() {
     queryFn: getPosts
   });
 
-  const recentPosts = posts?.slice(0, 3) || [];
+  const recentPosts = posts || [];
 
   return (
     <>
