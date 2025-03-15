@@ -39,7 +39,7 @@ export default function Blog() {
         description="Explore articles about mathematics, music, and technology. Read articles, learn new things"
         type="website"
       />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 max-w-[1400px] overflow-x-hidden">
         <div className="space-y-8">
           {/* Title Card */}
           <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary/5 via-primary/10 to-background">
