@@ -13,7 +13,7 @@ export function BlogSidebar() {
   const recentPosts = posts?.slice(0, 3) || [];
 
   return (
-    <div className="space-y-8 sticky top-24 w-full xl:w-64 flex-shrink-0">
+    <div className="lg:sticky lg:top-24">
       <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg">
         <CardHeader>
           <CardTitle className="text-xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">Recent Posts</CardTitle>

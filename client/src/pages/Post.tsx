@@ -19,16 +19,16 @@ export default function Post() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-screen-2xl">
-        <div className="flex flex-col xl:flex-row gap-8">
-          <div className="w-full xl:w-64 order-2 xl:order-1">
+      <div className="container mx-auto px-4 py-8 max-w-screen-xl">
+        <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+          <aside className="w-full lg:w-64 lg:flex-shrink-0 order-1 lg:order-2">
             <BlogSidebar />
-          </div>
-          <div className="flex-1 order-1 xl:order-2">
+          </aside>
+          <main className="flex-1 min-w-0 order-2 lg:order-1">
             <Skeleton className="h-12 w-3/4 mb-4" />
             <Skeleton className="h-6 w-1/4 mb-8" />
             <Skeleton className="h-64" />
-          </div>
+          </main>
         </div>
       </div>
     );
@@ -51,14 +51,14 @@ export default function Post() {
   document.title = `${displayTitle} - Algorhythm + Flow`;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-screen-2xl">
-      <div className="flex flex-col xl:flex-row gap-8">
-        <div className="w-full xl:w-64 order-2 xl:order-1">
+    <div className="container mx-auto px-4 py-8 max-w-screen-xl">
+      <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+        <aside className="w-full lg:w-64 lg:flex-shrink-0 order-1 lg:order-2">
           <BlogSidebar />
-        </div>
-        <div className="flex-1 order-1 xl:order-2 min-w-0">
+        </aside>
+        <main className="flex-1 min-w-0 order-2 lg:order-1">
           <BlogPost post={post} showContent={true} showTitle={false} />
-        </div>
+        </main>
       </div>
     </div>
   );
