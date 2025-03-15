@@ -11,7 +11,7 @@ export default function About() {
     <>
       <SEO
         title="Algorhythm + Flow - About"
-        description="Learn about Akshay Chandrasekhar, a computer vision researcher exploring the intersections of mathematics, music, and technology."
+        description="Learn about Akshay Chandrasekhar, a computer vision researcher exploring mathematics, music, and technology."
       />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
@@ -59,7 +59,7 @@ export default function About() {
               </CardHeader>
               <CardContent className="relative prose dark:prose-invert max-w-none">
                 <p className="text-lg text-foreground/90 leading-relaxed">
-                  Hello! My name is Akshay Chandrasekhar, and I'm a computer vision researcher. My curiosity extends broadly though to a wide variety of topics including math, music, history, geography, economics, and linguistics. I'm particularly interested in hip-hop and geometry which have shaped my focus on the tech, business, and cultural aspects of media. You can explore my research and ideas via the blog posts here or the links below!
+                  Hello! My name is Akshay Chandrasekhar, and I'm a computer vision researcher. My curiosity extends broadly though to a wide variety of topics including math, music, history, geography, economics, and linguistics. I'm particularly interested in hip-hop and geometry which have shaped my approach to the tech, business, and cultural aspects of media. You can explore my research and ideas via the blog posts here or the links below!
                 </p>
                 <motion.div 
                   className="flex justify-center space-x-4"
