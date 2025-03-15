@@ -19,41 +19,13 @@
             .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
 
             /* Center all images and ensure they appear above the grid */
-            .blog-content img {
+            .blog-content img:not(.grid-item img) {
               display: block;
               margin: 2rem auto;
               max-width: 100%;
               height: auto;
               position: relative;
               z-index: 10;
-            }
-
-            /* Image grid styling */
-            .image-grid {
-              display: grid;
-              grid-template-columns: repeat(var(--grid-cols, 1), 1fr);
-              gap: 1rem;
-              margin: 2rem 0;
-              position: relative;
-              z-index: 10;
-            }
-
-            .grid-item {
-              position: relative;
-              width: 100%;
-            }
-
-            .grid-item img {
-              margin: 0;
-              width: 100%;
-              height: auto;
-            }
-
-            /* Responsive grid */
-            @media (max-width: 768px) {
-              .image-grid {
-                grid-template-columns: 1fr !important;
-              }
             }
 
             /* Ensure all content is above the grid */
@@ -80,7 +52,73 @@
               }
             }
           </style>
-          <h1>Quantum Music Theory: A Mathematical Framework</h1>
+          <pre><code>    &#x3C;style>
+      /* Image grid styling */
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(var(--grid-cols, 1), minmax(0, 1fr));
+        gap: 1.5rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+      }
+
+      .grid-item {
+        position: relative;
+        width: 100%;
+        padding-top: 75%; /* 4:3 Aspect Ratio */
+        overflow: hidden;
+        border-radius: 0.5rem;
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .grid-item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        margin: 0;
+        transition: all 0.3s ease;
+      }
+
+      .grid-item:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Responsive breakpoints */
+      @media (max-width: 1400px) {
+        .image-grid {
+          max-width: 1000px;
+        }
+      }
+
+      @media (max-width: 1200px) {
+        .image-grid {
+          --grid-cols: min(var(--grid-cols), 2) !important;
+          max-width: 800px;
+          gap: 1.25rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .image-grid {
+          grid-template-columns: 1fr !important;
+          gap: 1rem;
+          max-width: 100%;
+        }
+
+        .grid-item {
+          padding-top: 66.67%; /* 3:2 Aspect Ratio for mobile */
+        }
+      }
+    &#x3C;/style>
+  
+</code></pre>
+<h1>Quantum Music Theory: A Mathematical Framework</h1>
 <p>Music and quantum mechanics share a surprising connection through mathematical structures. Let's explore how quantum mechanical principles can provide insights into musical harmony.</p>
 <h2>The Mathematics of Musical States</h2>
 <p>In quantum mechanics, states are represented as vectors in a Hilbert space. Similarly, we can represent musical notes as basis states:</p>

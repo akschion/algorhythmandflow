@@ -19,41 +19,13 @@
             .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
 
             /* Center all images and ensure they appear above the grid */
-            .blog-content img {
+            .blog-content img:not(.grid-item img) {
               display: block;
               margin: 2rem auto;
               max-width: 100%;
               height: auto;
               position: relative;
               z-index: 10;
-            }
-
-            /* Image grid styling */
-            .image-grid {
-              display: grid;
-              grid-template-columns: repeat(var(--grid-cols, 1), 1fr);
-              gap: 1rem;
-              margin: 2rem 0;
-              position: relative;
-              z-index: 10;
-            }
-
-            .grid-item {
-              position: relative;
-              width: 100%;
-            }
-
-            .grid-item img {
-              margin: 0;
-              width: 100%;
-              height: auto;
-            }
-
-            /* Responsive grid */
-            @media (max-width: 768px) {
-              .image-grid {
-                grid-template-columns: 1fr !important;
-              }
             }
 
             /* Ensure all content is above the grid */
@@ -80,7 +52,73 @@
               }
             }
           </style>
-          <h1>Drake vs. Meek Mill - By the Numbers</h1>
+          <pre><code>    &#x3C;style>
+      /* Image grid styling */
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(var(--grid-cols, 1), minmax(0, 1fr));
+        gap: 1.5rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+      }
+
+      .grid-item {
+        position: relative;
+        width: 100%;
+        padding-top: 75%; /* 4:3 Aspect Ratio */
+        overflow: hidden;
+        border-radius: 0.5rem;
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .grid-item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        margin: 0;
+        transition: all 0.3s ease;
+      }
+
+      .grid-item:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Responsive breakpoints */
+      @media (max-width: 1400px) {
+        .image-grid {
+          max-width: 1000px;
+        }
+      }
+
+      @media (max-width: 1200px) {
+        .image-grid {
+          --grid-cols: min(var(--grid-cols), 2) !important;
+          max-width: 800px;
+          gap: 1.25rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .image-grid {
+          grid-template-columns: 1fr !important;
+          gap: 1rem;
+          max-width: 100%;
+        }
+
+        .grid-item {
+          padding-top: 66.67%; /* 3:2 Aspect Ratio for mobile */
+        }
+      }
+    &#x3C;/style>
+  
+</code></pre>
+<h1>Drake vs. Meek Mill - By the Numbers</h1>
 <p>Hello, and welcome to my first official blog post! With all the hubbub around the Kendrick Lamar vs. Drake beef that dominated last summer and this year’s Super Bowl halftime show, I wanted to take a look back at another pivotal rap feud— Drake vs. Meek Mill. Nearly a decade ago, this rivalry ignited major conversations about ghostwriting in hip-hop and questioned Drake’s credibility in the industry with many even seeing it as a precursor to today’s beef.</p>
 <p>Historically, there wasn't much data-driven analysis of hip-hop music and artists other than basic stats like CD sales and grammy nominations (s/o to <a href="https://x.com/HipHopNumbers">Hip Hop By The Numbers</a> for later expanding the space). At the time of writing, I was captivated by a <a href="https://pudding.cool/2017/02/vocabulary/">study by Matt Daniels</a> doing rounds on the internet which examined the vocabulary size of rappers (the nascent days of natural language processing). Since I was taking a statistics class at the time and needed a project, I thought it'd be fun to try out something similar. Below is the original version of the submitted assignment (written October 23, 2015). I'd take the analysis with a grain of salt (I think I only got an A- 😂). Maybe one day I'll repurpose it for a larger audience in a less cringy manner. Nonetheless, a lot of my friends enjoyed the read (even those that weren't technically minded), and I hope you do too!</p>
 <h2>Statistical Analysis</h2>
