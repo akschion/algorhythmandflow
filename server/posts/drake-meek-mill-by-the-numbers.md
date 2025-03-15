@@ -70,7 +70,6 @@ To further this comparison, let's look at the song "R.I.C.O." in which both arti
 
 This study begs the question if the analysis conducted is even justified. The quantifiable metrics presented tend towards measuring technical skill. However, one could argue that technical skill is not always the highest aim of a rapper. Personally, I believe that if you can fall under the category of "rapper," then you cannot shy away from these metrics. On the other hand, these results do not state anything about whether being technical is ultimately a good thing. To further this discussion of justification, I have attempted to set up a quantitative metric to determine how justified these metrics are for each rapper. To simplify this analysis, I am assuming the following: 1) the above metrics are more suited for hip-hop songs than pop songs, 2) pop songs are more popular (by sales/streams) than hip-hop songs, and 3) songs that display lower technical ability are to be considered more pop than hip-hop. Since we are shifting the context of the discussion to beyond hip-hop, we can now use the streaming data previously discounted. All streaming data were gathered from Spotify on October 17, 2015.
 
-<!-- 2 x 3 -->
 ![Drake: Rhyme Density vs. Streams graph showing a negative correlation with equation y = -18.338x + 4.7932, R² = 0.0606](assets/Drake_Rhyme_Density.webp)
 
 ![Drake: Unique Words vs. Streams graph showing a negative correlation with equation y = -25.112x + 13.302, R² = 0.2328](assets/Drake_Unique_Words.webp)

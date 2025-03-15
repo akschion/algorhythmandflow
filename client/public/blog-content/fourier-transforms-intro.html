@@ -18,8 +18,25 @@
             .katex .mord, .katex .mrel, .katex .mop, .katex .mopen, .katex .mclose, 
             .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
 
-            /* Center all images and ensure they appear above the grid */
-            .blog-content img {
+            /* Grid layout for images */
+            .image-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 1rem;
+              margin: 2rem 0;
+              position: relative;
+              z-index: 10;
+            }
+
+            .image-grid img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              margin: 0;
+            }
+
+            /* Default image styling */
+            .blog-content img:not(.image-grid img) {
               display: block;
               margin: 2rem auto;
               max-width: 100%;

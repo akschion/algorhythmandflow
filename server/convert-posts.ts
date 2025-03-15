@@ -71,7 +71,7 @@ async function convertPosts() {
             const updatedPath = path.replace(/\s+/g, '_');
             return `<img src="/blog-content/assets/${updatedPath}" alt="${alt || ''}" />`;
           }).join('\n');
-          
+
           return `<div class="image-grid" style="grid-template-columns: repeat(${cols}, 1fr); grid-template-rows: repeat(${rows}, 1fr);">${processedImages}</div>`;
         }
       ).replace(
