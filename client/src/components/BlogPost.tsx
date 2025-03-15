@@ -12,51 +12,29 @@ interface BlogPostProps {
   showTitle?: boolean;
 }
 
-// Lazy load the content to improve initial page load
+// Define animation variants at the top level
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
+
+// Lazy load the content component
 const BlogContent = lazy(() => 
-  import('./BlogContent').then(module => ({ 
-    default: ({ content }: { content: string }) => (
-      <motion.div
-        variants={item}
-        className="prose prose-slate dark:prose-invert
-                  prose-headings:text-foreground/90
-                  prose-p:text-foreground/80
-                  prose-p:leading-relaxed
-                  prose-p:text-base
-                  prose-a:text-primary/90
-                  prose-a:no-underline
-                  hover:prose-a:underline
-                  prose-blockquote:border-l-primary
-                  prose-blockquote:border-opacity-50
-                  prose-blockquote:text-foreground/80
-                  prose-strong:text-foreground
-                  prose-code:text-foreground
-                  max-w-none
-                  [&_*]:pointer-events-auto"
-        onClick={e => e.stopPropagation()}
-        dangerouslySetInnerHTML={{ __html: content || '' }}
-      />
-    )
-  }))
+  import('./BlogContent')
 );
 
 export function BlogPost({ post, preview = false, showContent = true, showTitle = true }: BlogPostProps) {
   const postLink = `/post/${post.slug}`;
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  };
 
   const handlePostClick = (e: React.MouseEvent) => {
     if (preview && !e.defaultPrevented && window.getSelection()?.toString() === '') {
@@ -93,7 +71,7 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:14px_24px]" />
         <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       </div>
-      <div className="p-6 md:p-8 lg:p-10">
+      <div className="p-6 md:p-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
           <time dateTime={post.publishedAt.toString()}>
             {format(new Date(post.publishedAt), "MMM d, yyyy")}
@@ -122,12 +100,13 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
 
         {showContent ? (
           <Suspense fallback={
-            <div className="animate-pulse">
-              <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+            <div className="animate-pulse space-y-4">
+              <div className="h-4 bg-muted rounded w-3/4"></div>
               <div className="h-4 bg-muted rounded w-1/2"></div>
+              <div className="h-4 bg-muted rounded w-5/6"></div>
             </div>
           }>
-            <BlogContent content={post.content || ''} />
+            <BlogContent content={post.content || ''} variants={item} />
           </Suspense>
         ) : (
           <motion.p

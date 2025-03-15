@@ -1,10 +1,14 @@
+import { motion } from "framer-motion";
+
 interface BlogContentProps {
   content: string;
+  variants?: any;  // Animation variants passed from parent
 }
 
-export default function BlogContent({ content }: BlogContentProps) {
+export default function BlogContent({ content, variants }: BlogContentProps) {
   return (
-    <div 
+    <motion.div 
+      variants={variants}
       className="prose prose-slate dark:prose-invert
                 prose-headings:text-foreground/90
                 prose-p:text-foreground/80
