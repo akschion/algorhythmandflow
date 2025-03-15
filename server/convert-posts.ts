@@ -13,15 +13,44 @@ import remarkParse from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import { unified } from 'unified';
 
+async function copyAssets(sourceDir: string, targetDir: string) {
+  try {
+    // Create target directory if it doesn't exist
+    await fs.mkdir(targetDir, { recursive: true });
+
+    // Read all files from source directory
+    const files = await fs.readdir(sourceDir);
+
+    // Copy each file to target directory, replacing spaces with underscores
+    for (const file of files) {
+      const sourcePath = path.join(sourceDir, file);
+      const targetFileName = file.replace(/\s+/g, '_');
+      const targetPath = path.join(targetDir, targetFileName);
+
+      await fs.copyFile(sourcePath, targetPath);
+      console.log(`Copied ${file} to ${targetFileName}`);
+    }
+  } catch (error) {
+    console.error('Error copying assets:', error);
+  }
+}
+
 async function convertPosts() {
-  // Use __dirname for relative path resolution in ES modules
   const postsDir = path.join(path.dirname(__dirname), 'server', 'posts');
   const contentDir = path.join(path.dirname(__dirname), 'client', 'public', 'blog-content');
   const outputFile = path.join(path.dirname(__dirname), 'client', 'src', 'assets', 'posts.json');
 
+  // Define source and target asset directories
+  const sourceAssetsDir = path.join(postsDir, 'assets');
+  const targetAssetsDir = path.join(contentDir, 'assets');
+
   try {
-    // Ensure content directory exists
+    // Ensure content and assets directories exist
     await fs.mkdir(contentDir, { recursive: true });
+    await fs.mkdir(targetAssetsDir, { recursive: true });
+
+    // Copy assets from source to target, replacing spaces with underscores
+    await copyAssets(sourceAssetsDir, targetAssetsDir);
 
     const files = await fs.readdir(postsDir);
     const markdownFiles = files.filter(file => file.endsWith('.md'));
@@ -33,26 +62,35 @@ async function convertPosts() {
       const content = await fs.readFile(filePath, 'utf-8');
       const { data, content: markdownContent } = matter(content);
 
+      // Replace image paths in markdown content
+      const updatedContent = markdownContent.replace(
+        /!\[(.*?)\]\("?assets\/(.*?)"?\)/g,
+        (match, alt, imagePath) => {
+          const updatedImagePath = imagePath.replace(/\s+/g, '_');
+          return `![${alt}](/blog-content/assets/${updatedImagePath})`;
+        }
+      );
+
       // Convert markdown to HTML
       const htmlContent = await unified()
         .use(remarkParse)
         .use(remarkMath)
-        .use(remarkGfm) // Add GitHub Flavored Markdown support (including tables)
+        .use(remarkGfm)
         .use(remark2rehype)
         .use(rehypeKatex)
         .use(rehypeStringify)
-        .process(markdownContent);
+        .process(updatedContent);
 
       // Generate HTML filename
       const htmlFileName = `${file.replace('.md', '')}.html`;
-      const contentPath = `/blog-content/${htmlFileName}`; // Path relative to public directory
+      const contentPath = `/blog-content/${htmlFileName}`;
 
       // Write HTML content to file in public directory
       await fs.writeFile(
         path.join(contentDir, htmlFileName),
         `<div class="blog-content">
           <style>
-            /* Ensure consistent styling for KaTeX equations */
+            /* Ensure consistent styling for KaTeX equations and images */
             .katex { color: white !important; }
             .katex-display { 
               color: white !important;
@@ -66,6 +104,14 @@ async function convertPosts() {
             }
             .katex .mord, .katex .mrel, .katex .mop, .katex .mopen, .katex .mclose, 
             .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
+
+            /* Center all images by default */
+            .blog-content img {
+              display: block;
+              margin: 2rem auto;
+              max-width: 100%;
+              height: auto;
+            }
           </style>
           ${String(htmlContent)}
         </div>`
