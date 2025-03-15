@@ -62,8 +62,19 @@ async function convertPosts() {
       const content = await fs.readFile(filePath, 'utf-8');
       const { data, content: markdownContent } = matter(content);
 
-      // Replace image paths in markdown content
+      // Process grid layout comments and images
       const updatedContent = markdownContent.replace(
+        /<!--\s*(\d+)\s*x\s*(\d+)\s*-->\s*((?:!\[.*?\]\(.*?\)\s*){2,})/g,
+        (match, rows, cols, images) => {
+          const imageMatches = [...images.matchAll(/!\[(.*?)\]\("?assets\/(.*?)"?\)/g)];
+          const processedImages = imageMatches.map(([_, alt, path]) => {
+            const updatedPath = path.replace(/\s+/g, '_');
+            return `<img src="/blog-content/assets/${updatedPath}" alt="${alt || ''}" />`;
+          }).join('\n');
+          
+          return `<div class="image-grid" style="grid-template-columns: repeat(${cols}, 1fr); grid-template-rows: repeat(${rows}, 1fr);">${processedImages}</div>`;
+        }
+      ).replace(
         /!\[(.*?)\]\("?assets\/(.*?)"?\)/g,
         (match, alt, imagePath) => {
           const updatedImagePath = imagePath.replace(/\s+/g, '_');
@@ -108,8 +119,25 @@ async function convertPosts() {
             .katex .mord, .katex .mrel, .katex .mop, .katex .mopen, .katex .mclose, 
             .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
 
-            /* Center all images and ensure they appear above the grid */
-            .blog-content img {
+            /* Grid layout for images */
+            .image-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 1rem;
+              margin: 2rem 0;
+              position: relative;
+              z-index: 10;
+            }
+
+            .image-grid img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              margin: 0;
+            }
+
+            /* Default image styling */
+            .blog-content img:not(.image-grid img) {
               display: block;
               margin: 2rem auto;
               max-width: 100%;
