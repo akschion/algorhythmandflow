@@ -72,7 +72,7 @@ async function convertPosts() {
       );
 
       // Convert markdown to HTML while preserving existing HTML
-      const htmlContent = await unified()
+      let htmlContent = await unified()
         .use(remarkParse, { commonmark: true })
         .use(remarkMath)
         .use(remarkGfm)
@@ -83,6 +83,13 @@ async function convertPosts() {
         .use(rehypeKatex)
         .use(rehypeStringify, { allowDangerousHtml: true })
         .process(updatedContent);
+
+      // Fix image paths in HTML content for img tags within HTML
+      let htmlString = String(htmlContent);
+      htmlString = htmlString.replace(
+        /src="assets\/(.*?)"/g,
+        'src="/blog-content/assets/$1"'
+      );
 
       // Generate HTML filename
       const htmlFileName = `${file.replace('.md', '')}.html`;
@@ -145,7 +152,7 @@ async function convertPosts() {
               }
             }
           </style>
-          ${String(htmlContent)}
+          ${htmlString}
         </div>`
       );
 
