@@ -1,10 +1,73 @@
 <div class="blog-content">
           <style>
-            /* Ensure consistent styling for KaTeX equations */
+            /* Ensure consistent styling for KaTeX equations and images */
             .katex { color: white !important; }
-            .katex-display { color: white !important; }
+            .katex-display { 
+              color: white !important;
+              text-align: center !important;
+              margin: 1em 0 !important;
+              overflow-x: auto !important;
+              overflow-y: hidden !important;
+              padding: 1em 0 !important;
+            }
+            .katex-display > .katex {
+              display: inline-block !important;
+              text-align: center !important;
+              width: 100% !important;
+            }
             .katex .mord, .katex .mrel, .katex .mop, .katex .mopen, .katex .mclose, 
             .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
+
+            /* Grid layout for images */
+            .image-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 1rem;
+              margin: 2rem 0;
+              position: relative;
+              z-index: 10;
+            }
+
+            .image-grid img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              margin: 0;
+            }
+
+            /* Default image styling */
+            .blog-content img:not(.image-grid img) {
+              display: block;
+              margin: 2rem auto;
+              max-width: 100%;
+              height: auto;
+              position: relative;
+              z-index: 10;
+            }
+
+            /* Ensure all content is above the grid */
+            .blog-content {
+              position: relative;
+              z-index: 5;
+            }
+
+            /* Tables should also appear above the grid */
+            .blog-content table {
+              position: relative;
+              z-index: 10;
+            }
+
+            /* Handle long equations */
+            @media screen and (max-width: 768px) {
+              .katex-display {
+                font-size: 0.9em !important;
+              }
+              .katex-html {
+                max-width: 100% !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+              }
+            }
           </style>
           <h1>Quantum Music Theory: A Mathematical Framework</h1>
 <p>Music and quantum mechanics share a surprising connection through mathematical structures. Let's explore how quantum mechanical principles can provide insights into musical harmony.</p>
