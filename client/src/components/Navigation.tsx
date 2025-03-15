@@ -15,10 +15,10 @@ export function Navigation() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-background/95 via-background/80 to-muted/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center justify-between">
+      <div className="container flex h-14 max-w-screen items-center justify-between px-4">
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <a href="/" className="mr-6 flex items-center space-x-2 pl-4">
+          <a href="/" className="mr-6 flex items-center space-x-2">
             <motion.span 
               className="font-bold bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent transition-opacity hover:opacity-80"
               whileHover={{ scale: 1.05 }}
@@ -47,8 +47,8 @@ export function Navigation() {
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden flex w-full items-center justify-between">
-          <a href="/" className="flex items-center pl-4">
+        <div className="md:hidden flex w-full items-center justify-between px-4">
+          <a href="/" className="flex items-center">
             <motion.span 
               className="font-bold text-sm bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent"
               whileHover={{ scale: 1.05 }}

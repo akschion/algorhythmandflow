@@ -15,12 +15,26 @@
             .katex .mord, .katex .mrel, .katex .mop, .katex .mopen, .katex .mclose, 
             .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
 
-            /* Center all images by default */
+            /* Center all images and ensure they appear above the grid */
             .blog-content img {
               display: block;
               margin: 2rem auto;
               max-width: 100%;
               height: auto;
+              position: relative;
+              z-index: 10;
+            }
+
+            /* Ensure all content is above the grid */
+            .blog-content {
+              position: relative;
+              z-index: 5;
+            }
+
+            /* Tables should also appear above the grid */
+            .blog-content table {
+              position: relative;
+              z-index: 10;
             }
           </style>
           <h1>Drake vs. Meek Mill - By the Numbers</h1>

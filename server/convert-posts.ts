@@ -96,6 +96,9 @@ async function convertPosts() {
               color: white !important;
               text-align: center !important;
               margin: 1em 0 !important;
+              overflow-x: auto !important;
+              overflow-y: hidden !important;
+              padding: 1em 0 !important;
             }
             .katex-display > .katex {
               display: inline-block !important;
@@ -125,6 +128,18 @@ async function convertPosts() {
             .blog-content table {
               position: relative;
               z-index: 10;
+            }
+
+            /* Handle long equations */
+            @media screen and (max-width: 768px) {
+              .katex-display {
+                font-size: 0.9em !important;
+              }
+              .katex-html {
+                max-width: 100% !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+              }
             }
           </style>
           ${String(htmlContent)}
