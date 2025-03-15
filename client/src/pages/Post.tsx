@@ -19,12 +19,12 @@ export default function Post() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1">
+      <div className="container mx-auto px-4 py-8 max-w-screen-2xl">
+        <div className="flex flex-col xl:flex-row gap-8">
+          <div className="w-full xl:w-64 order-2 xl:order-1">
             <BlogSidebar />
           </div>
-          <div className="md:col-span-3">
+          <div className="flex-1 order-1 xl:order-2">
             <Skeleton className="h-12 w-3/4 mb-4" />
             <Skeleton className="h-6 w-1/4 mb-8" />
             <Skeleton className="h-64" />
@@ -52,11 +52,11 @@ export default function Post() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-screen-2xl">
-      <div className="flex flex-col md:flex-row justify-center gap-8">
-        <div className="w-full md:w-64 flex-shrink-0">
+      <div className="flex flex-col xl:flex-row gap-8">
+        <div className="w-full xl:w-64 order-2 xl:order-1">
           <BlogSidebar />
         </div>
-        <div className="flex-1 max-w-4xl">
+        <div className="flex-1 order-1 xl:order-2 min-w-0">
           <BlogPost post={post} showContent={true} showTitle={false} />
         </div>
       </div>
