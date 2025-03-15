@@ -70,8 +70,20 @@ To further this comparison, let's look at the song "R.I.C.O." in which both arti
 
 This study begs the question if the analysis conducted is even justified. The quantifiable metrics presented tend towards measuring technical skill. However, one could argue that technical skill is not always the highest aim of a rapper. Personally, I believe that if you can fall under the category of "rapper," then you cannot shy away from these metrics. On the other hand, these results do not state anything about whether being technical is ultimately a good thing. To further this discussion of justification, I have attempted to set up a quantitative metric to determine how justified these metrics are for each rapper. To simplify this analysis, I am assuming the following: 1) the above metrics are more suited for hip-hop songs than pop songs, 2) pop songs are more popular (by sales/streams) than hip-hop songs, and 3) songs that display lower technical ability are to be considered more pop than hip-hop. Since we are shifting the context of the discussion to beyond hip-hop, we can now use the streaming data previously discounted. All streaming data were gathered from Spotify on October 17, 2015.
 
-<!-- 2 x 3 -->
-![Drake: Rhyme Density vs. Streams graph showing a negative correlation with equation y = -18.338x + 4.7932, R² = 0.0606](assets/Drake_Rhyme_Density.webp)
+<div align="center" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+
+  <img src="assets/Drake_Rhyme_Density.webp" alt="Drake: Rhyme Density vs. Streams graph showing a negative correlation with equation y = -18.338x + 4.7932, R² = 0.0606" width="48%">
+  <img src="assets/Drake_Unique_Words.webp" alt="Drake: Unique Words vs. Streams graph showing a negative correlation with equation y = -25.112x + 13.302, R² = 0.2328" width="48%">
+
+  <img src="assets/Drake_ASPW.webp" alt="Drake: ASPW vs. Streams graph showing almost no correlation with equation y = 0.0564x - 0.0736, R² = 4E-07" width="48%">
+  <img src="assets/Meek_Mill_Rhyme_Density.webp" alt="Meek Mill: Rhyme Density vs. Streams graph showing a negative correlation with equation y = -27.342x + 7.9613, R² = 0.0939" width="48%">
+
+  <img src="assets/Meek_Mill_Unique_Words.webp" alt="Meek Mill: Unique Words vs. Streams graph showing a slight negative correlation with equation y = -6.832x + 4.1155, R² = 0.0095" width="48%">
+  <img src="assets/Meek_Mill_ASPW.webp" alt="Meek Mill: ASPW vs. Streams graph showing a negative correlation with equation y = -46.044x + 59.435, R² = 0.159" width="48%">
+
+</div>
+
+<!-- ![Drake: Rhyme Density vs. Streams graph showing a negative correlation with equation y = -18.338x + 4.7932, R² = 0.0606](assets/Drake_Rhyme_Density.webp)
 
 ![Drake: Unique Words vs. Streams graph showing a negative correlation with equation y = -25.112x + 13.302, R² = 0.2328](assets/Drake_Unique_Words.webp)
 
@@ -81,7 +93,7 @@ This study begs the question if the analysis conducted is even justified. The qu
 
 ![Meek Mill: Unique Words vs. Streams graph showing a slight negative correlation with equation y = -6.832x + 4.1155, R² = 0.0095](assets/Meek_Mill_Unique_Words.webp)
 
-![Meek Mill: ASPW vs. Streams graph showing a negative correlation with equation y = -46.044x + 59.435, R² = 0.159](assets/Meek_Mill_ASPW.webp)
+![Meek Mill: ASPW vs. Streams graph showing a negative correlation with equation y = -46.044x + 59.435, R² = 0.159](assets/Meek_Mill_ASPW.webp) -->
 
 The above six graphs plot the previously used metrics against streams for each rapper. Since the streaming data is positively skewed, a logarithmic transformation was applied to reduce the influence of higher outlying values (very popular singles). In addition, to account for the order of magnitude difference between Drake and Meek Mill's streams, the log of the streams were linearly transformed into scaled z-scores. To analyze these graphs, we look first at the r² values to determine the strength of the regression. Only two regression lines had a significant fit, Meek's ASPW and Drake's Unique Words. For those lines, we next look at the slope. The slope indicates the "payoff" associated with becoming more pop. In other words, it quantifies relatively how many more streams would one get for sacrificing a certain amount of technical skill. A higher slope magnitude indicates a higher opportunity cost of becoming technical and thus a tendency to utilize a pop style. Meek reducing his ASPW by 0.1 would roughly yield an increase of about 4.6 (in terms of z-score of log of streams). Using smaller words is consistent with his (more or less) trap style of rapping (Meek's version of going "pop"). Similarly, if Drake reduced his unique words score by 0.1, he would increase his streams by 2.5. Repeating words is consistent with his singing, hook-focused style of rapping (Drake's version of going "pop"). Thus, we see both would have a tendency to go towards a pop style, but in different fashions. Thus, with respect to question of whether the previous metrics are justified, the answer seems to be "for certain categories depending on the rapper." For both, it appears that rhyme density is fair game, and both perform about the same. However, the unique words metric is not very well justified for Drake as he has much to gain by performing less well in this category. The same is true with Meek Mill and his ASPW.
 
