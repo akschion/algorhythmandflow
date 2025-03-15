@@ -73,10 +73,13 @@ async function convertPosts() {
 
       // Convert markdown to HTML while preserving existing HTML
       const htmlContent = await unified()
-        .use(remarkParse)
+        .use(remarkParse, { commonmark: true })
         .use(remarkMath)
         .use(remarkGfm)
-        .use(remark2rehype, { allowDangerousHtml: true })
+        .use(remark2rehype, { 
+          allowDangerousHtml: true,
+          passThrough: ['div', 'img', 'style']
+        })
         .use(rehypeKatex)
         .use(rehypeStringify, { allowDangerousHtml: true })
         .process(updatedContent);
