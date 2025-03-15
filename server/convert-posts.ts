@@ -71,14 +71,14 @@ async function convertPosts() {
         }
       );
 
-      // Convert markdown to HTML
+      // Convert markdown to HTML while preserving existing HTML
       const htmlContent = await unified()
         .use(remarkParse)
         .use(remarkMath)
         .use(remarkGfm)
-        .use(remark2rehype)
+        .use(remark2rehype, { allowDangerousHtml: true })
         .use(rehypeKatex)
-        .use(rehypeStringify)
+        .use(rehypeStringify, { allowDangerousHtml: true })
         .process(updatedContent);
 
       // Generate HTML filename
