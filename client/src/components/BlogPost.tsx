@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { lazy, Suspense } from "react";
 
 interface BlogPostProps {
   post: Post;
@@ -11,8 +12,35 @@ interface BlogPostProps {
   showTitle?: boolean;
 }
 
+// Lazy load the content to improve initial page load
+const BlogContent = lazy(() => 
+  import('./BlogContent').then(module => ({ 
+    default: ({ content }: { content: string }) => (
+      <motion.div
+        variants={item}
+        className="prose prose-slate dark:prose-invert
+                  prose-headings:text-foreground/90
+                  prose-p:text-foreground/80
+                  prose-p:leading-relaxed
+                  prose-p:text-base
+                  prose-a:text-primary/90
+                  prose-a:no-underline
+                  hover:prose-a:underline
+                  prose-blockquote:border-l-primary
+                  prose-blockquote:border-opacity-50
+                  prose-blockquote:text-foreground/80
+                  prose-strong:text-foreground
+                  prose-code:text-foreground
+                  max-w-none
+                  [&_*]:pointer-events-auto"
+        onClick={e => e.stopPropagation()}
+        dangerouslySetInnerHTML={{ __html: content || '' }}
+      />
+    )
+  }))
+);
+
 export function BlogPost({ post, preview = false, showContent = true, showTitle = true }: BlogPostProps) {
-  // Generate the path-based link for the post
   const postLink = `/post/${post.slug}`;
 
   const container = {
@@ -31,9 +59,18 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
   };
 
   const handlePostClick = (e: React.MouseEvent) => {
-    // Only navigate if it's a preview and the click wasn't on a link or selected text
     if (preview && !e.defaultPrevented && window.getSelection()?.toString() === '') {
       window.location.href = postLink;
+    }
+  };
+
+  // Prefetch next post content on hover
+  const handleMouseEnter = () => {
+    if (preview) {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = `/blog-content/${post.slug}.html`;
+      document.head.appendChild(link);
     }
   };
 
@@ -49,6 +86,7 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
       initial="hidden"
       animate="show"
       onClick={handlePostClick}
+      onMouseEnter={handleMouseEnter}
       style={preview ? { cursor: "pointer" } : undefined}
     >
       <div className="absolute inset-0 w-full h-full pointer-events-none">
@@ -83,26 +121,14 @@ export function BlogPost({ post, preview = false, showContent = true, showTitle 
         )}
 
         {showContent ? (
-          <motion.div
-            variants={item}
-            className="prose prose-slate dark:prose-invert
-                       prose-headings:text-foreground/90
-                       prose-p:text-foreground/80
-                       prose-p:leading-relaxed
-                       prose-p:text-base
-                       prose-a:text-primary/90
-                       prose-a:no-underline
-                       hover:prose-a:underline
-                       prose-blockquote:border-l-primary
-                       prose-blockquote:border-opacity-50
-                       prose-blockquote:text-foreground/80
-                       prose-strong:text-foreground
-                       prose-code:text-foreground
-                       max-w-none
-                       [&_*]:pointer-events-auto"
-            onClick={e => e.stopPropagation()}
-            dangerouslySetInnerHTML={{ __html: post.content || '' }}
-          />
+          <Suspense fallback={
+            <div className="animate-pulse">
+              <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+              <div className="h-4 bg-muted rounded w-1/2"></div>
+            </div>
+          }>
+            <BlogContent content={post.content || ''} />
+          </Suspense>
         ) : (
           <motion.p
             variants={item}
