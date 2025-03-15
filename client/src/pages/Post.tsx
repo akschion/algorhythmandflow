@@ -21,10 +21,10 @@ export default function Post() {
     return (
       <div className="container mx-auto px-4 py-8 max-w-screen-xl">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
-          <aside className="w-full lg:w-64 lg:flex-shrink-0 order-1 lg:order-2">
+          <aside className="w-full lg:w-64 lg:flex-shrink-0 order-1">
             <BlogSidebar />
           </aside>
-          <main className="flex-1 min-w-0 order-2 lg:order-1">
+          <main className="flex-1 min-w-0 order-2">
             <Skeleton className="h-12 w-3/4 mb-4" />
             <Skeleton className="h-6 w-1/4 mb-8" />
             <Skeleton className="h-64" />
@@ -53,10 +53,10 @@ export default function Post() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-screen-xl">
       <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
-        <aside className="w-full lg:w-64 lg:flex-shrink-0 order-1 lg:order-2">
+        <aside className="w-full lg:w-64 lg:flex-shrink-0 order-1">
           <BlogSidebar />
         </aside>
-        <main className="flex-1 min-w-0 order-2 lg:order-1">
+        <main className="flex-1 min-w-0 order-2">
           <BlogPost post={post} showContent={true} showTitle={false} />
         </main>
       </div>
