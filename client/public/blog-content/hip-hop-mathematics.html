@@ -28,6 +28,34 @@
               z-index: 10;
             }
 
+            /* Image grid styling */
+            .image-grid {
+              display: grid;
+              grid-template-columns: repeat(var(--grid-cols, 1), 1fr);
+              gap: 1rem;
+              margin: 2rem 0;
+              position: relative;
+              z-index: 10;
+            }
+
+            .grid-item {
+              position: relative;
+              width: 100%;
+            }
+
+            .grid-item img {
+              margin: 0;
+              width: 100%;
+              height: auto;
+            }
+
+            /* Responsive grid */
+            @media (max-width: 768px) {
+              .image-grid {
+                grid-template-columns: 1fr !important;
+              }
+            }
+
             /* Ensure all content is above the grid */
             .blog-content {
               position: relative;

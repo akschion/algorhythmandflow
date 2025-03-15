@@ -62,8 +62,30 @@ async function convertPosts() {
       const content = await fs.readFile(filePath, 'utf-8');
       const { data, content: markdownContent } = matter(content);
 
-      // Replace image paths in markdown content
-      const updatedContent = markdownContent.replace(
+      // Handle grid layout comments and wrap images in grid containers
+      let updatedContent = markdownContent;
+      const gridRegex = /<!--\s*(\d+)\s*x\s*(\d+)\s*-->\n((?:!\[.*?\]\(.*?\)\n?)+)/g;
+
+      updatedContent = updatedContent.replace(gridRegex, (match, cols, rows, imageBlock) => {
+        const images = imageBlock.match(/!\[.*?\]\(.*?\)/g) || [];
+        const gridImages = images.map(img => {
+          const updatedImg = img.replace(
+            /!\[(.*?)\]\("?assets\/(.*?)"?\)/,
+            (m, alt, imagePath) => {
+              const updatedImagePath = imagePath.replace(/\s+/g, '_');
+              return `![${alt}](/blog-content/assets/${updatedImagePath})`;
+            }
+          );
+          return `<div class="grid-item">${updatedImg}</div>`;
+        }).join('\n');
+
+        return `<div class="image-grid" style="--grid-cols: ${cols}; --grid-rows: ${rows};">
+${gridImages}
+</div>`;
+      });
+
+      // Handle remaining single images
+      updatedContent = updatedContent.replace(
         /!\[(.*?)\]\("?assets\/(.*?)"?\)/g,
         (match, alt, imagePath) => {
           const updatedImagePath = imagePath.replace(/\s+/g, '_');
@@ -116,6 +138,34 @@ async function convertPosts() {
               height: auto;
               position: relative;
               z-index: 10;
+            }
+
+            /* Image grid styling */
+            .image-grid {
+              display: grid;
+              grid-template-columns: repeat(var(--grid-cols, 1), 1fr);
+              gap: 1rem;
+              margin: 2rem 0;
+              position: relative;
+              z-index: 10;
+            }
+
+            .grid-item {
+              position: relative;
+              width: 100%;
+            }
+
+            .grid-item img {
+              margin: 0;
+              width: 100%;
+              height: auto;
+            }
+
+            /* Responsive grid */
+            @media (max-width: 768px) {
+              .image-grid {
+                grid-template-columns: 1fr !important;
+              }
             }
 
             /* Ensure all content is above the grid */
