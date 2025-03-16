@@ -5,6 +5,7 @@ import matter from "gray-matter";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -92,6 +93,12 @@ async function convertPosts() {
         .use(rehypeStringify)
         .process(updatedContent);
 
+      // Wrap tables with a responsive container so they scroll horizontally when needed
+      const htmlContentString = String(htmlContent);
+      const finalHtmlContent = htmlContentString
+        .replace(/<table([\s\S]*?)>/g, '<div class="table-responsive"><table$1>')
+        .replace(/<\/table>/g, '</table></div>');
+
       // Generate HTML filename
       const htmlFileName = `${file.replace('.md', '')}.html`;
       const contentPath = `/blog-content/${htmlFileName}`;
@@ -103,7 +110,7 @@ async function convertPosts() {
           <style>
             /* Ensure consistent styling for KaTeX equations and images */
             .katex { color: white !important; }
-            .katex-display { 
+            .katex-display {
               color: white !important;
               text-align: center !important;
               margin: 1em 0 !important;
@@ -116,7 +123,7 @@ async function convertPosts() {
               text-align: center !important;
               width: 100% !important;
             }
-            .katex .mord, .katex .mrel, .katex .mop, .katex .mopen, .katex .mclose, 
+            .katex .mord, .katex .mrel, .katex .mop, .katex .mopen, .katex .mclose,
             .katex .mpunct, .katex .minner, .katex .mbin { color: white !important; }
 
             /* Grid layout for images */
@@ -128,14 +135,12 @@ async function convertPosts() {
               position: relative;
               z-index: 10;
             }
-
             .image-grid img {
               width: 100%;
               height: 100%;
               object-fit: cover;
               margin: 0;
             }
-
             /* Default image styling */
             .blog-content img:not(.image-grid img) {
               display: block;
@@ -145,20 +150,28 @@ async function convertPosts() {
               position: relative;
               z-index: 10;
             }
-
             /* Ensure all content is above the grid */
             .blog-content {
               position: relative;
               z-index: 5;
             }
-
-            /* Tables should also appear above the grid */
+            /* Tables should also appear above the grid and be centered */
             .blog-content table {
               position: relative;
               z-index: 10;
+              margin: auto;
+              text-align: center;
             }
-
-            /* Handle long equations */
+            .blog-content table th,
+            .blog-content table td {
+              text-align: center;
+            }
+            /* Responsive table container for horizontal scrolling */
+            .table-responsive {
+              overflow-x: auto;
+              -webkit-overflow-scrolling: touch;
+            }
+            /* Handle long equations on smaller screens */
             @media screen and (max-width: 768px) {
               .katex-display {
                 font-size: 0.9em !important;
@@ -170,7 +183,7 @@ async function convertPosts() {
               }
             }
           </style>
-          ${String(htmlContent)}
+          ${finalHtmlContent}
         </div>`
       );
 
