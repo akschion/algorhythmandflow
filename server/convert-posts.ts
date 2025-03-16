@@ -65,17 +65,6 @@ async function convertPosts() {
 
       // Process grid layout comments and images
       const updatedContent = markdownContent.replace(
-        /<!--\s*(\d+)\s*x\s*(\d+)\s*-->\s*((?:!\[.*?\]\(.*?\)\s*){2,})/g,
-        (match, rows, cols, images) => {
-          const imageMatches = [...images.matchAll(/!\[(.*?)\]\("?assets\/(.*?)"?\)/g)];
-          const processedImages = imageMatches.map(([_, alt, path]) => {
-            const updatedPath = path.replace(/\s+/g, '_');
-            return `<img src="/blog-content/assets/${updatedPath}" alt="${alt || ''}" />`;
-          }).join('\n');
-
-          return `<div class="image-grid" style="grid-template-columns: repeat(${cols}, 1fr); grid-template-rows: repeat(${rows}, 1fr);">${processedImages}</div>`;
-        }
-      ).replace(
         /!\[(.*?)\]\("?assets\/(.*?)"?\)/g,
         (match, alt, imagePath) => {
           const updatedImagePath = imagePath.replace(/\s+/g, '_');
