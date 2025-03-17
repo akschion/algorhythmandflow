@@ -1,7 +1,7 @@
 ---
 title: Drake vs. Meek Mill - By the Numbers
 slug: drake-meek-mill-by-the-numbers
-excerpt: Quantitative analysis between Drake and Meek Mill
+excerpt: A quantitative comparison between Drake and Meek Mill
 date: 2025-03-13T11:30:00.000Z
 tags: [hip-hop, statistics]
 ---
@@ -10,7 +10,7 @@ tags: [hip-hop, statistics]
 
 Hello, and welcome to my first official blog post! With all the hubbub around the Kendrick Lamar vs. Drake beef that dominated last summer and this year’s Super Bowl halftime show, I wanted to take a look back at another pivotal rap feud— Drake vs. Meek Mill. Nearly a decade ago, this rivalry ignited major conversations about ghostwriting in hip-hop and questioned Drake’s credibility in the industry with many even seeing it as a precursor to today’s beef.
 
-Historically, there wasn't much data-driven analysis of hip-hop music and artists other than basic stats like CD sales and grammy nominations (s/o to [Hip Hop By The Numbers](https://x.com/HipHopNumbers) for later expanding the space). At the time of writing, I was captivated by a [study by Matt Daniels](https://pudding.cool/2017/02/vocabulary/) doing rounds on the internet which examined the vocabulary size of rappers (the nascent days of natural language processing). Since I was taking a statistics class at the time and needed a project, I thought it'd be fun to try out something similar. Below is the original version of the submitted assignment (written October 23, 2015). I'd take the analysis with a grain of salt (I think I only got an A- 😂) and also keep in mind that it wasn't written for a broader blog audience. Nonetheless, a lot of my friends enjoyed the read (even those that weren't technically minded), and I hope you do too!
+Historically, there wasn't much data-driven analysis of hip-hop music and artists other than basic stats like CD sales and grammy nominations (s/o to [Hip Hop By The Numbers](https://x.com/HipHopNumbers) for later expanding the space). At the time of writing, I was captivated by a [study by Matt Daniels](https://pudding.cool/2017/02/vocabulary/) doing rounds on the internet which examined the vocabulary size of rappers (the nascent days of natural language processing). Since I was taking a statistics class at the time and needed a project, I thought it'd be fun to try out something similar. Below is the original version of the submitted assignment (written October 23, 2015). I'd take the analysis with a grain of salt (I think I only got an A- 😂). Nonetheless, a lot of my friends enjoyed the read (even those that weren't technically minded), and I hope you do too!
 
 ## Statistical Analysis
 
