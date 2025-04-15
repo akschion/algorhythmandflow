@@ -63,19 +63,13 @@ async function convertPosts() {
       const content = await fs.readFile(filePath, 'utf-8');
       const { data, content: markdownContent } = matter(content);
 
-      // Process grid layout comments and images with caption support
+      // Process grid layout comments and images - replace asset paths
+      console.log("Processing markdown content...");
       const updatedContent = markdownContent.replace(
-        /!\[(.*?)\]\("?assets\/(.*?)"?(?:\s*"(.*?)")?\)/g,
+        /!\[(.*?)\]\("?assets\/(.*?)"?(?:\s+"(.*?)")?\)/g,
         (match, alt, imagePath, caption) => {
           const updatedImagePath = imagePath.replace(/\s+/g, '_');
-          if (caption) {
-            return `<figure class="image-with-caption">
-  <img src="/blog-content/assets/${updatedImagePath}" alt="${alt}" />
-  <figcaption>${caption}</figcaption>
-</figure>`;
-          } else {
-            return `![${alt}](/blog-content/assets/${updatedImagePath})`;
-          }
+          return `![${alt}](/blog-content/assets/${updatedImagePath}${caption ? ` "${caption}"` : ''})`;
         }
       );
 
@@ -89,8 +83,44 @@ async function convertPosts() {
         .use(rehypeStringify)
         .process(updatedContent);
 
+      // Collect captions for images during preprocessing
+      const imageCaptions = new Map();
+      let captionIndex = 0;
+      
+      // Extract captions during markdown preprocessing
+      markdownContent.replace(
+        /!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)/g,
+        (match, alt, imagePath, caption) => {
+          if (caption) {
+            // Store the caption with a unique identifier
+            const imgPath = imagePath.includes('assets/') 
+              ? `/blog-content/assets/${imagePath.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
+              : imagePath;
+            imageCaptions.set(imgPath, { alt, caption, index: captionIndex++ });
+          }
+          return match; // Return unchanged for this pass
+        }
+      );
+
       // Wrap tables with a responsive container so they scroll horizontally when needed
-      const htmlContentString = String(htmlContent);
+      let htmlContentString = String(htmlContent);
+      
+      // Process HTML to add captions to images after conversion
+      if (imageCaptions.size > 0) {
+        for (const [imgSrc, { alt, caption }] of imageCaptions.entries()) {
+          // Find the image tag in the HTML and replace it with a figure + caption
+          const imgRegex = new RegExp(`<img([^>]*?)src="${imgSrc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
+          htmlContentString = htmlContentString.replace(
+            imgRegex,
+            `<figure class="image-with-caption">
+              <img$1src="${imgSrc}"$2>
+              <figcaption>${caption}</figcaption>
+            </figure>`
+          );
+        }
+      }
+      
+      // Final HTML processing
       const finalHtmlContent = htmlContentString
         .replace(/<table([\s\S]*?)>/g, '<div class="table-responsive"><table$1>')
         .replace(/<\/table>/g, '</table></div>');
@@ -141,12 +171,17 @@ async function convertPosts() {
             .blog-content img:not(.image-grid img) {
               display: block;
               margin: 2rem auto;
-              max-width: 100%;
-              max-height: 600px; /* Set a maximum height */
+              max-width: 100%; /* Will fill container when small */
               width: auto;
               height: auto;
               position: relative;
               z-index: 10;
+            }
+            
+            @media (min-width: 800px) {
+              .blog-content img:not(.image-grid img) {
+                max-width: 750px; /* Max width in pixels when container is large enough */
+              }
             }
             
             /* Image with caption styling */
@@ -156,12 +191,19 @@ async function convertPosts() {
               align-items: center;
               margin: 2rem auto;
               text-align: center;
+              width: 100%;
             }
             
             .image-with-caption img {
-              max-width: 85%; /* Slightly smaller than full width */
-              max-height: 600px;
+              max-width: 100%; /* Fill container when small */
+              width: auto;
               margin: 0 0 0.5rem 0;
+            }
+            
+            @media (min-width: 800px) {
+              .image-with-caption img {
+                max-width: 750px; /* Max width in pixels when container is large enough */
+              }
             }
             
             .image-with-caption figcaption {
