@@ -72,7 +72,7 @@ This study begs the question if the analysis conducted is even justified. The qu
 
 ![Drake: Rhyme Density vs. Streams graph showing a negative correlation with equation y = -18.338x + 4.7932, R² = 0.0606](assets/Drake_Rhyme_Density.webp "This is a caption yo|maxwidth=500px")
 
-![Drake: Unique Words vs. Streams graph showing a negative correlation with equation y = -25.112x + 13.302, R² = 0.2328](assets/Drake_Unique_Words.webp)
+![Drake: Unique Words vs. Streams graph showing a negative correlation with equation y = -25.112x + 13.302, R² = 0.2328](assets/Drake_Unique_Words.webp "|maxwidth=100%")
 
 ![Drake: ASPW vs. Streams graph showing almost no correlation with equation y = 0.0564x - 0.0736, R² = 4E-07](assets/Drake_ASPW.webp)
 

@@ -94,42 +94,56 @@ async function convertPosts() {
       while ((imgMatch = imgRegex.exec(markdownContent)) !== null) {
         const [fullMatch, alt, path, captionRaw] = imgMatch;
         
-        // Parse caption and optional max-width if present
-        // Format: "Caption text|maxwidth=500px" or just "Caption text"
-        let caption = captionRaw;
+        // Parse caption and optional max-width
+        // Format can be: "Caption text|maxwidth=500px" or "|maxwidth=500px" or just "Caption text"
+        let caption = '';
         let maxWidth = null;
         
-        if (caption) {
-          if (caption.includes('|maxwidth=')) {
-            const parts = caption.split('|maxwidth=');
-            caption = parts[0].trim();
+        // Check if we have any caption text or maxwidth
+        if (captionRaw) {
+          if (captionRaw.includes('|maxwidth=')) {
+            const parts = captionRaw.split('|maxwidth=');
+            caption = parts[0].trim(); // This could be empty if format was "|maxwidth=500px"
             maxWidth = parts[1].trim();
+          } else {
+            caption = captionRaw.trim();
           }
           
           const imgPath = path.includes('assets/') 
             ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
             : path;
             
-          // Build style attribute for custom max-width if specified
-          const styleAttr = maxWidth ? ` style="max-width: ${maxWidth};"` : '';
+          // Build style attribute for max-width - default to 100% if not specified
+          const styleAttr = ` style="max-width: ${maxWidth || '100%'};"`;
           
-          // Find the image in processed HTML and wrap it with caption
+          // Find the image in processed HTML
           const imgHtmlRegex = new RegExp(`<img([^>]*?)src="${imgPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
           
-          // Replace the full raw caption in title attribute (that includes maxwidth) with just the caption text
-          htmlContentString = htmlContentString.replace(
-            new RegExp(`title="${captionRaw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'g'),
-            `title="${caption}"`
-          );
+          // Replace the full raw caption in title attribute with just the caption text (if any)
+          if (captionRaw) {
+            htmlContentString = htmlContentString.replace(
+              new RegExp(`title="${captionRaw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'g'),
+              caption ? `title="${caption}"` : ''
+            );
+          }
           
-          // Now apply the figure and caption
-          htmlContentString = htmlContentString.replace(
-            imgHtmlRegex,
-            `<figure class="image-with-caption">
-              <img$1src="${imgPath}"${styleAttr}$2>
-              <figcaption>${caption}</figcaption>
-            </figure>`
-          );
+          // Only add figcaption if there's actual caption text
+          if (caption) {
+            // Apply figure with caption
+            htmlContentString = htmlContentString.replace(
+              imgHtmlRegex,
+              `<figure class="image-with-caption">
+                <img$1src="${imgPath}"${styleAttr}$2>
+                <figcaption>${caption}</figcaption>
+              </figure>`
+            );
+          } else {
+            // Just apply the max-width to the img without a caption
+            htmlContentString = htmlContentString.replace(
+              imgHtmlRegex,
+              `<img$1src="${imgPath}"${styleAttr}$2>`
+            );
+          }
         }
       }
       
@@ -210,7 +224,7 @@ async function convertPosts() {
             .image-with-caption img {
               max-width: 100%; /* Fill container when small */
               width: auto;
-              margin: 0 0 0.5rem 0;
+              margin: 0; /* No margin on the image */
             }
             
             @media (min-width: 800px) {
@@ -223,7 +237,7 @@ async function convertPosts() {
               font-size: 1rem; /* Normal size font */
               font-style: italic;
               color: white; /* White text for better contrast */
-              margin-top: 0.5rem;
+              margin-top: 0.2rem; /* Reduced margin between image and caption */
               max-width: 85%;
               text-align: center;
             }
