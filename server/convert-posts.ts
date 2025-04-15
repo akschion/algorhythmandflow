@@ -113,8 +113,8 @@ async function convertPosts() {
             ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
             : path;
             
-          // Build style attribute for max-width - default to 100% if not specified
-          const styleAttr = ` style="max-width: ${maxWidth || '100%'};"`;
+          // Build style attribute for max-width if specified
+          const styleAttr = maxWidth ? ` style="max-width: ${maxWidth}; width: 100%;"` : '';
           
           // Find the image in processed HTML
           const imgHtmlRegex = new RegExp(`<img([^>]*?)src="${imgPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
@@ -195,20 +195,14 @@ async function convertPosts() {
               margin: 0;
             }
             /* Default image styling */
-            .blog-content img:not(.image-grid img) {
+            .blog-content img:not(.image-grid img):not(.image-with-caption img) {
               display: block;
               margin: 2rem auto;
-              max-width: 100%; /* Will fill container when small */
-              width: auto;
+              width: 100%; /* Make responsive by default */
+              max-width: 750px; /* Maximum width on large screens */
               height: auto;
               position: relative;
               z-index: 10;
-            }
-            
-            @media (min-width: 800px) {
-              .blog-content img:not(.image-grid img) {
-                max-width: 750px; /* Max width in pixels when container is large enough */
-              }
             }
             
             /* Image with caption styling */
@@ -222,22 +216,16 @@ async function convertPosts() {
             }
             
             .image-with-caption img {
-              max-width: 100%; /* Fill container when small */
-              width: auto;
+              width: 100%; /* Make it responsive by default */
+              height: auto;
               margin: 0; /* No margin on the image */
-            }
-            
-            @media (min-width: 800px) {
-              .image-with-caption img {
-                max-width: 750px; /* Max width in pixels when container is large enough */
-              }
             }
             
             .image-with-caption figcaption {
               font-size: 1rem; /* Normal size font */
               font-style: italic;
               color: white; /* White text for better contrast */
-              margin-top: 0.2rem; /* Reduced margin between image and caption */
+              margin-top: 0.2rem; /* Small margin between image and caption */
               max-width: 85%;
               text-align: center;
             }
