@@ -87,24 +87,46 @@ async function convertPosts() {
       let htmlContentString = String(htmlContent);
       
       // Process HTML to add captions to images after conversion
-      // Look for all markdown image patterns with captions in original content
-      const captionMatches = markdownContent.matchAll(/!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)/g);
+      // Instead of using matchAll which causes TypeScript error, use a regular expression to find all matches
+      const imgRegex = /!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)/g;
+      let imgMatch;
       
-      // Process each image caption match
-      for (const match of captionMatches) {
-        const [fullMatch, alt, path, caption] = match;
+      while ((imgMatch = imgRegex.exec(markdownContent)) !== null) {
+        const [fullMatch, alt, path, captionRaw] = imgMatch;
+        
+        // Parse caption and optional max-width if present
+        // Format: "Caption text|maxwidth=500px" or just "Caption text"
+        let caption = captionRaw;
+        let maxWidth = null;
         
         if (caption) {
+          if (caption.includes('|maxwidth=')) {
+            const parts = caption.split('|maxwidth=');
+            caption = parts[0].trim();
+            maxWidth = parts[1].trim();
+          }
+          
           const imgPath = path.includes('assets/') 
             ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
             : path;
             
+          // Build style attribute for custom max-width if specified
+          const styleAttr = maxWidth ? ` style="max-width: ${maxWidth};"` : '';
+          
           // Find the image in processed HTML and wrap it with caption
-          const imgRegex = new RegExp(`<img([^>]*?)src="${imgPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
+          const imgHtmlRegex = new RegExp(`<img([^>]*?)src="${imgPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
+          
+          // Replace the full raw caption in title attribute (that includes maxwidth) with just the caption text
           htmlContentString = htmlContentString.replace(
-            imgRegex,
+            new RegExp(`title="${captionRaw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'g'),
+            `title="${caption}"`
+          );
+          
+          // Now apply the figure and caption
+          htmlContentString = htmlContentString.replace(
+            imgHtmlRegex,
             `<figure class="image-with-caption">
-              <img$1src="${imgPath}"$2>
+              <img$1src="${imgPath}"${styleAttr}$2>
               <figcaption>${caption}</figcaption>
             </figure>`
           );
@@ -198,9 +220,9 @@ async function convertPosts() {
             }
             
             .image-with-caption figcaption {
-              font-size: 0.9rem;
+              font-size: 1rem; /* Normal size font */
               font-style: italic;
-              color: var(--muted-foreground, #888);
+              color: white; /* White text for better contrast */
               margin-top: 0.5rem;
               max-width: 85%;
               text-align: center;
