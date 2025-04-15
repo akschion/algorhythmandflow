@@ -95,42 +95,41 @@ async function convertPosts() {
         const [fullMatch, alt, path, captionRaw] = imgMatch;
         
         // Parse caption and optional max-width if present
-        // Format: "Caption text|maxwidth=500px" or just "Caption text"
+        // Format: "Caption text" "maxwidth=500px" or just "Caption text"
         let caption = captionRaw;
         let maxWidth = null;
         
-        if (caption) {
-          if (caption.includes('|maxwidth=')) {
-            const parts = caption.split('|maxwidth=');
-            caption = parts[0].trim();
-            maxWidth = parts[1].trim();
-          }
-          
-          const imgPath = path.includes('assets/') 
-            ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
-            : path;
-            
-          // Build style attribute for custom max-width if specified
-          const styleAttr = maxWidth ? ` style="max-width: ${maxWidth};"` : '';
-          
-          // Find the image in processed HTML and wrap it with caption
-          const imgHtmlRegex = new RegExp(`<img([^>]*?)src="${imgPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
-          
-          // Replace the full raw caption in title attribute (that includes maxwidth) with just the caption text
-          htmlContentString = htmlContentString.replace(
-            new RegExp(`title="${captionRaw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'g'),
-            `title="${caption}"`
-          );
-          
-          // Now apply the figure and caption
-          htmlContentString = htmlContentString.replace(
-            imgHtmlRegex,
-            `<figure class="image-with-caption">
-              <img$1src="${imgPath}"${styleAttr}$2>
-              <figcaption>${caption}</figcaption>
-            </figure>`
-          );
+        // Look for a maxwidth directive after the image
+        // Matches: ![alt](path) "caption" "maxwidth=500px"
+        const maxWidthMatch = markdownContent.substring(imgMatch.index).match(/\]\([^)]+\)(?:\s+"[^"]*")?\s+"maxwidth=([^"]+)"/);
+        if (maxWidthMatch) {
+          maxWidth = maxWidthMatch[1];
         }
+        
+        const imgPath = path.includes('assets/') 
+          ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
+          : path;
+          
+        // Build style attribute for custom max-width if specified
+        const styleAttr = maxWidth ? ` style="max-width: ${maxWidth};"` : '';
+        
+        // Find the image in processed HTML and wrap it with caption
+        const imgHtmlRegex = new RegExp(`<img([^>]*?)src="${imgPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
+        
+        // Replace the full raw caption in title attribute (that includes maxwidth) with just the caption text
+        htmlContentString = htmlContentString.replace(
+          new RegExp(`title="${captionRaw ? captionRaw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') : ''}"`, 'g'),
+          `title="${caption || ''}"`
+        );
+        
+        // Now apply the figure and caption
+        htmlContentString = htmlContentString.replace(
+          imgHtmlRegex,
+          `<figure class="image-with-caption">
+            <img$1src="${imgPath}"${styleAttr}$2>
+            <figcaption>${caption || ''}</figcaption>
+          </figure>`
+        );
       }
       
       // Final HTML processing
@@ -184,17 +183,11 @@ async function convertPosts() {
             .blog-content img:not(.image-grid img) {
               display: block;
               margin: 2rem auto;
-              max-width: 100%; /* Will fill container when small */
+              max-width: 100%; /* Default to 100% width always */
               width: auto;
               height: auto;
               position: relative;
               z-index: 10;
-            }
-            
-            @media (min-width: 800px) {
-              .blog-content img:not(.image-grid img) {
-                max-width: 750px; /* Max width in pixels when container is large enough */
-              }
             }
             
             /* Image with caption styling */
@@ -208,22 +201,16 @@ async function convertPosts() {
             }
             
             .image-with-caption img {
-              max-width: 100%; /* Fill container when small */
+              max-width: 100%; /* Default to 100% width always */
               width: auto;
-              margin: 0 0 0.5rem 0;
-            }
-            
-            @media (min-width: 800px) {
-              .image-with-caption img {
-                max-width: 750px; /* Max width in pixels when container is large enough */
-              }
+              margin: 0 0 0.25rem 0; /* Reduced spacing between image and caption */
             }
             
             .image-with-caption figcaption {
               font-size: 1rem; /* Normal size font */
               font-style: italic;
               color: white; /* White text for better contrast */
-              margin-top: 0.5rem;
+              margin-top: 0.25rem; /* Reduced spacing */
               max-width: 85%;
               text-align: center;
             }
