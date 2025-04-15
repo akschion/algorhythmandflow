@@ -83,37 +83,28 @@ async function convertPosts() {
         .use(rehypeStringify)
         .process(updatedContent);
 
-      // Collect captions for images during preprocessing
-      const imageCaptions = new Map();
-      let captionIndex = 0;
-      
-      // Extract captions during markdown preprocessing
-      markdownContent.replace(
-        /!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)/g,
-        (match, alt, imagePath, caption) => {
-          if (caption) {
-            // Store the caption with a unique identifier
-            const imgPath = imagePath.includes('assets/') 
-              ? `/blog-content/assets/${imagePath.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
-              : imagePath;
-            imageCaptions.set(imgPath, { alt, caption, index: captionIndex++ });
-          }
-          return match; // Return unchanged for this pass
-        }
-      );
-
       // Wrap tables with a responsive container so they scroll horizontally when needed
       let htmlContentString = String(htmlContent);
       
       // Process HTML to add captions to images after conversion
-      if (imageCaptions.size > 0) {
-        for (const [imgSrc, { alt, caption }] of imageCaptions.entries()) {
-          // Find the image tag in the HTML and replace it with a figure + caption
-          const imgRegex = new RegExp(`<img([^>]*?)src="${imgSrc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
+      // Look for all markdown image patterns with captions in original content
+      const captionMatches = markdownContent.matchAll(/!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)/g);
+      
+      // Process each image caption match
+      for (const match of captionMatches) {
+        const [fullMatch, alt, path, caption] = match;
+        
+        if (caption) {
+          const imgPath = path.includes('assets/') 
+            ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
+            : path;
+            
+          // Find the image in processed HTML and wrap it with caption
+          const imgRegex = new RegExp(`<img([^>]*?)src="${imgPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
           htmlContentString = htmlContentString.replace(
             imgRegex,
             `<figure class="image-with-caption">
-              <img$1src="${imgSrc}"$2>
+              <img$1src="${imgPath}"$2>
               <figcaption>${caption}</figcaption>
             </figure>`
           );
