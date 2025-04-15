@@ -63,9 +63,36 @@ async function convertPosts() {
       const content = await fs.readFile(filePath, 'utf-8');
       const { data, content: markdownContent } = matter(content);
 
-      // Process grid layout comments and images - replace asset paths
+      // Pre-process markdown to capture captions and maxwidth specifications
+      // This processes the format ![alt](path) "caption" "maxwidth=value"
       console.log("Processing markdown content...");
-      const updatedContent = markdownContent.replace(
+      let processedMarkdown = markdownContent;
+      
+      // First, find and store image metadata with maxwidth directives
+      const imageMetadata: {[key: string]: {caption?: string, maxWidth?: string}} = {};
+      const imageWithMaxWidthRegex = /!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\s+"maxwidth=([^"]+)"/g;
+      let maxWidthMatch;
+      
+      while ((maxWidthMatch = imageWithMaxWidthRegex.exec(markdownContent)) !== null) {
+        const [fullMatch, alt, path, caption, maxWidth] = maxWidthMatch;
+        const imgKey = path.includes('assets/') 
+          ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
+          : path;
+        
+        imageMetadata[imgKey] = {
+          caption,
+          maxWidth
+        };
+        
+        // Replace it with normal markdown image with caption only
+        processedMarkdown = processedMarkdown.replace(
+          fullMatch,
+          `![${alt}](${path}${caption ? ` "${caption}"` : ''})`
+        );
+      }
+      
+      // Process asset paths
+      const updatedContent = processedMarkdown.replace(
         /!\[(.*?)\]\("?assets\/(.*?)"?(?:\s+"(.*?)")?\)/g,
         (match, alt, imagePath, caption) => {
           const updatedImagePath = imagePath.replace(/\s+/g, '_');
@@ -94,21 +121,25 @@ async function convertPosts() {
       while ((imgMatch = imgRegex.exec(markdownContent)) !== null) {
         const [fullMatch, alt, path, captionRaw] = imgMatch;
         
-        // Parse caption and optional max-width if present
-        // Format: "Caption text" "maxwidth=500px" or just "Caption text"
-        let caption = captionRaw;
-        let maxWidth = null;
+        // Parse caption and apply max-width if found in our metadata
+        let caption = captionRaw || '';
         
-        // Look for a maxwidth directive after the image
-        // Matches: ![alt](path) "caption" "maxwidth=500px"
-        const maxWidthMatch = markdownContent.substring(imgMatch.index).match(/\]\([^)]+\)(?:\s+"[^"]*")?\s+"maxwidth=([^"]+)"/);
-        if (maxWidthMatch) {
-          maxWidth = maxWidthMatch[1];
-        }
-        
+        // Get the normalized image path
         const imgPath = path.includes('assets/') 
           ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
           : path;
+          
+        // Check if we have stored metadata for this image
+        let maxWidth = null;
+        if (imageMetadata[imgPath]) {
+          // Use the stored maxWidth if available (from our pre-processing)
+          maxWidth = imageMetadata[imgPath].maxWidth;
+          
+          // If no caption was provided in the regular syntax, but we found one in the metadata, use that
+          if (!caption && imageMetadata[imgPath].caption) {
+            caption = imageMetadata[imgPath].caption;
+          }
+        }
           
         // Build style attribute for custom max-width if specified
         const styleAttr = maxWidth ? ` style="max-width: ${maxWidth};"` : '';
