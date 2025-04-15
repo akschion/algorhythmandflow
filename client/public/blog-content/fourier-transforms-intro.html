@@ -37,11 +37,17 @@
             .blog-content img:not(.image-grid img) {
               display: block;
               margin: 2rem auto;
-              max-width: 100%; /* Default to 100% width always */
+              max-width: 100%; /* Will fill container when small */
               width: auto;
               height: auto;
               position: relative;
               z-index: 10;
+            }
+            
+            @media (min-width: 800px) {
+              .blog-content img:not(.image-grid img) {
+                max-width: 750px; /* Max width in pixels when container is large enough */
+              }
             }
             
             /* Image with caption styling */
@@ -55,16 +61,22 @@
             }
             
             .image-with-caption img {
-              max-width: 100%; /* Default to 100% width always */
+              max-width: 100%; /* Fill container when small */
               width: auto;
-              margin: 0 0 0.25rem 0; /* Reduced spacing between image and caption */
+              margin: 0 0 0.5rem 0;
+            }
+            
+            @media (min-width: 800px) {
+              .image-with-caption img {
+                max-width: 750px; /* Max width in pixels when container is large enough */
+              }
             }
             
             .image-with-caption figcaption {
               font-size: 1rem; /* Normal size font */
               font-style: italic;
               color: white; /* White text for better contrast */
-              margin-top: 0.25rem; /* Reduced spacing */
+              margin-top: 0.5rem;
               max-width: 85%;
               text-align: center;
             }

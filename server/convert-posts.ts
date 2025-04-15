@@ -63,36 +63,9 @@ async function convertPosts() {
       const content = await fs.readFile(filePath, 'utf-8');
       const { data, content: markdownContent } = matter(content);
 
-      // Pre-process markdown to capture captions and maxwidth specifications
-      // This processes the format ![alt](path) "caption" "maxwidth=value"
+      // Process grid layout comments and images - replace asset paths
       console.log("Processing markdown content...");
-      let processedMarkdown = markdownContent;
-      
-      // First, find and store image metadata with maxwidth directives
-      const imageMetadata: {[key: string]: {caption?: string, maxWidth?: string}} = {};
-      const imageWithMaxWidthRegex = /!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\s+"maxwidth=([^"]+)"/g;
-      let maxWidthMatch;
-      
-      while ((maxWidthMatch = imageWithMaxWidthRegex.exec(markdownContent)) !== null) {
-        const [fullMatch, alt, path, caption, maxWidth] = maxWidthMatch;
-        const imgKey = path.includes('assets/') 
-          ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
-          : path;
-        
-        imageMetadata[imgKey] = {
-          caption,
-          maxWidth
-        };
-        
-        // Replace it with normal markdown image with caption only
-        processedMarkdown = processedMarkdown.replace(
-          fullMatch,
-          `![${alt}](${path}${caption ? ` "${caption}"` : ''})`
-        );
-      }
-      
-      // Process asset paths
-      const updatedContent = processedMarkdown.replace(
+      const updatedContent = markdownContent.replace(
         /!\[(.*?)\]\("?assets\/(.*?)"?(?:\s+"(.*?)")?\)/g,
         (match, alt, imagePath, caption) => {
           const updatedImagePath = imagePath.replace(/\s+/g, '_');
@@ -121,46 +94,43 @@ async function convertPosts() {
       while ((imgMatch = imgRegex.exec(markdownContent)) !== null) {
         const [fullMatch, alt, path, captionRaw] = imgMatch;
         
-        // Parse caption and apply max-width if found in our metadata
-        let caption = captionRaw || '';
-        
-        // Get the normalized image path
-        const imgPath = path.includes('assets/') 
-          ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
-          : path;
-          
-        // Check if we have stored metadata for this image
+        // Parse caption and optional max-width if present
+        // Format: "Caption text|maxwidth=500px" or just "Caption text"
+        let caption = captionRaw;
         let maxWidth = null;
-        if (imageMetadata[imgPath]) {
-          // Use the stored maxWidth if available (from our pre-processing)
-          maxWidth = imageMetadata[imgPath].maxWidth;
-          
-          // If no caption was provided in the regular syntax, but we found one in the metadata, use that
-          if (!caption && imageMetadata[imgPath].caption) {
-            caption = imageMetadata[imgPath].caption;
+        
+        if (caption) {
+          if (caption.includes('|maxwidth=')) {
+            const parts = caption.split('|maxwidth=');
+            caption = parts[0].trim();
+            maxWidth = parts[1].trim();
           }
-        }
           
-        // Build style attribute for custom max-width if specified
-        const styleAttr = maxWidth ? ` style="max-width: ${maxWidth};"` : '';
-        
-        // Find the image in processed HTML and wrap it with caption
-        const imgHtmlRegex = new RegExp(`<img([^>]*?)src="${imgPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
-        
-        // Replace the full raw caption in title attribute (that includes maxwidth) with just the caption text
-        htmlContentString = htmlContentString.replace(
-          new RegExp(`title="${captionRaw ? captionRaw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') : ''}"`, 'g'),
-          `title="${caption || ''}"`
-        );
-        
-        // Now apply the figure and caption
-        htmlContentString = htmlContentString.replace(
-          imgHtmlRegex,
-          `<figure class="image-with-caption">
-            <img$1src="${imgPath}"${styleAttr}$2>
-            <figcaption>${caption || ''}</figcaption>
-          </figure>`
-        );
+          const imgPath = path.includes('assets/') 
+            ? `/blog-content/assets/${path.split('assets/')[1].replace(/\s+/g, '_').replace(/["']/g, '')}`
+            : path;
+            
+          // Build style attribute for custom max-width if specified
+          const styleAttr = maxWidth ? ` style="max-width: ${maxWidth};"` : '';
+          
+          // Find the image in processed HTML and wrap it with caption
+          const imgHtmlRegex = new RegExp(`<img([^>]*?)src="${imgPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"([^>]*?)>`, 'g');
+          
+          // Replace the full raw caption in title attribute (that includes maxwidth) with just the caption text
+          htmlContentString = htmlContentString.replace(
+            new RegExp(`title="${captionRaw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'g'),
+            `title="${caption}"`
+          );
+          
+          // Now apply the figure and caption
+          htmlContentString = htmlContentString.replace(
+            imgHtmlRegex,
+            `<figure class="image-with-caption">
+              <img$1src="${imgPath}"${styleAttr}$2>
+              <figcaption>${caption}</figcaption>
+            </figure>`
+          );
+        }
       }
       
       // Final HTML processing
@@ -214,11 +184,17 @@ async function convertPosts() {
             .blog-content img:not(.image-grid img) {
               display: block;
               margin: 2rem auto;
-              max-width: 100%; /* Default to 100% width always */
+              max-width: 100%; /* Will fill container when small */
               width: auto;
               height: auto;
               position: relative;
               z-index: 10;
+            }
+            
+            @media (min-width: 800px) {
+              .blog-content img:not(.image-grid img) {
+                max-width: 750px; /* Max width in pixels when container is large enough */
+              }
             }
             
             /* Image with caption styling */
@@ -232,16 +208,22 @@ async function convertPosts() {
             }
             
             .image-with-caption img {
-              max-width: 100%; /* Default to 100% width always */
+              max-width: 100%; /* Fill container when small */
               width: auto;
-              margin: 0 0 0.25rem 0; /* Reduced spacing between image and caption */
+              margin: 0 0 0.5rem 0;
+            }
+            
+            @media (min-width: 800px) {
+              .image-with-caption img {
+                max-width: 750px; /* Max width in pixels when container is large enough */
+              }
             }
             
             .image-with-caption figcaption {
               font-size: 1rem; /* Normal size font */
               font-style: italic;
               color: white; /* White text for better contrast */
-              margin-top: 0.25rem; /* Reduced spacing */
+              margin-top: 0.5rem;
               max-width: 85%;
               text-align: center;
             }

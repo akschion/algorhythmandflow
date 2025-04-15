@@ -37,11 +37,17 @@
             .blog-content img:not(.image-grid img) {
               display: block;
               margin: 2rem auto;
-              max-width: 100%; /* Default to 100% width always */
+              max-width: 100%; /* Will fill container when small */
               width: auto;
               height: auto;
               position: relative;
               z-index: 10;
+            }
+            
+            @media (min-width: 800px) {
+              .blog-content img:not(.image-grid img) {
+                max-width: 750px; /* Max width in pixels when container is large enough */
+              }
             }
             
             /* Image with caption styling */
@@ -55,16 +61,22 @@
             }
             
             .image-with-caption img {
-              max-width: 100%; /* Default to 100% width always */
+              max-width: 100%; /* Fill container when small */
               width: auto;
-              margin: 0 0 0.25rem 0; /* Reduced spacing between image and caption */
+              margin: 0 0 0.5rem 0;
+            }
+            
+            @media (min-width: 800px) {
+              .image-with-caption img {
+                max-width: 750px; /* Max width in pixels when container is large enough */
+              }
             }
             
             .image-with-caption figcaption {
               font-size: 1rem; /* Normal size font */
               font-style: italic;
               color: white; /* White text for better contrast */
-              margin-top: 0.25rem; /* Reduced spacing */
+              margin-top: 0.5rem;
               max-width: 85%;
               text-align: center;
             }
@@ -112,10 +124,7 @@
 <p>This refers to the task of creating the boxes for the painting. Given a grid size of width x height, we want to partition the space into axis-aligned rectangles aesthetically. Here are some of the ideas I came up with to solve the task.</p>
 <h3>Recursive Partition</h3>
 <p>This is probably most straightforward way to partion a space into rectangles from a computer science perspective. The approach involves drawing a line (or parallel lines) randomly to split a space, and then recursively splitting each of those new spaces. This forms a tree which you keep going down until the heart pleases. There are numerous example implementations of this including <a href="https://fogleman.tumblr.com/post/11959143268/procedurally-generating-images-in-the-style-of">this post</a>, <a href="https://scipython.com/blog/computer-generated-mondrian-art-2/">this post</a>, and <a href="https://github.com/ronikaufman/mondrian_generator">this repo</a>. They aren't bad, but I'm not a big fan of this approach. Most of the examples I see from this feel too organized and inorganic. Coloring choice can help in this regard to feel more like the paintings, but for me having boxes that are perfect subsets of a larger boxes just gives the vibe of a comp sci assignment rather than a work of art.</p>
-<p><figure class="image-with-caption">
-            <img src="/blog-content/assets/recursive_partition.png" alt="Recursive Partition">
-            <figcaption></figcaption>
-          </figure></p>
+<p><img src="/blog-content/assets/recursive_partition.png" alt="Recursive Partition"></p>
 <h3>Gamified Algorithm</h3>
 <p>The idea is to seed a distribution of points in the grid, and have an unsupervised learning process play out to carve out boxes following some optimization (each box competing against another). One way this could look is to run a clustering algorithm like <a href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm">expectation maximization (EM)</a> to try and have boxes fight like hungry hippos over the random points. Another is making an axis-aligned <a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi diagrams</a> that carve out space for clusters of points. Finally, maybe some genetic algorithm akin to playing the game Risk where an initial set of boxes (maybe from recursive partitioning), compete to conquer each other's areas. But wait, wasn't I hating on learning algorithms in the first section? Yes, but to me these feel different primarily because they're unsupervised (no labeled data). Therefore, their learning is more well-understood, there is a lot of manual tuning to adjust to proper aesthetics, and evolution of learning kind of poetically follows the more relatable game theory of life (or maybe it's not that deep and I have particular preferences). Although I liked this line of thinking a lot, I found it difficult to implement. For one, most of the name algorithms don't work well for axis-aligned constraints as well as with something like Gaussian distributions. Second, the point of optimization from each box's perspective is to win, but we wouldn't want scenarios like one box taking over the whole grid. Third, it was challenging to come up with rules on how boxes could expand or boxes could merge while maintaing desired aesthetics. Perhaps I might come back to this approach sometime.</p>
 <h3>Tetris blocking</h3>
