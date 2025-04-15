@@ -63,12 +63,19 @@ async function convertPosts() {
       const content = await fs.readFile(filePath, 'utf-8');
       const { data, content: markdownContent } = matter(content);
 
-      // Process grid layout comments and images
+      // Process grid layout comments and images with caption support
       const updatedContent = markdownContent.replace(
-        /!\[(.*?)\]\("?assets\/(.*?)"?\)/g,
-        (match, alt, imagePath) => {
+        /!\[(.*?)\]\("?assets\/(.*?)"?(?:\s*"(.*?)")?\)/g,
+        (match, alt, imagePath, caption) => {
           const updatedImagePath = imagePath.replace(/\s+/g, '_');
-          return `![${alt}](/blog-content/assets/${updatedImagePath})`;
+          if (caption) {
+            return `<figure class="image-with-caption">
+  <img src="/blog-content/assets/${updatedImagePath}" alt="${alt}" />
+  <figcaption>${caption}</figcaption>
+</figure>`;
+          } else {
+            return `![${alt}](/blog-content/assets/${updatedImagePath})`;
+          }
         }
       );
 
@@ -135,9 +142,35 @@ async function convertPosts() {
               display: block;
               margin: 2rem auto;
               max-width: 100%;
+              max-height: 600px; /* Set a maximum height */
+              width: auto;
               height: auto;
               position: relative;
               z-index: 10;
+            }
+            
+            /* Image with caption styling */
+            .image-with-caption {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              margin: 2rem auto;
+              text-align: center;
+            }
+            
+            .image-with-caption img {
+              max-width: 85%; /* Slightly smaller than full width */
+              max-height: 600px;
+              margin: 0 0 0.5rem 0;
+            }
+            
+            .image-with-caption figcaption {
+              font-size: 0.9rem;
+              font-style: italic;
+              color: var(--muted-foreground, #888);
+              margin-top: 0.5rem;
+              max-width: 85%;
+              text-align: center;
             }
             /* Ensure all content is above the grid */
             .blog-content {

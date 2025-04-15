@@ -1,5 +1,17 @@
 [
   {
+    "id": "making-a-mondrian",
+    "title": "Making a Mondrian, Old School Generative Art",
+    "slug": "making-a-mondrian",
+    "excerpt": "Designing an algorithm to generate aesthetic art pieces in the abstract style of Mondrian",
+    "contentPath": "/blog-content/making-a-mondrian.html",
+    "publishedAt": "2025-04-15T10:30:00.000Z",
+    "tags": [
+      "generative art",
+      "algorithm"
+    ]
+  },
+  {
     "id": "drake-meek-mill-by-the-numbers",
     "title": "Drake vs. Meek Mill - By the Numbers",
     "slug": "drake-meek-mill-by-the-numbers",
