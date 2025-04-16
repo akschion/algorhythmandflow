@@ -34,13 +34,39 @@
               margin: 0;
             }
             /* Default image styling */
-            .blog-content img:not(.image-grid img) {
+            .blog-content img:not(.image-grid img):not(.image-with-caption img) {
               display: block;
               margin: 2rem auto;
-              max-width: 100%;
+              width: 100%; /* Make responsive by default */
+              max-width: 750px; /* Maximum width on large screens */
               height: auto;
               position: relative;
               z-index: 10;
+            }
+            
+            /* Image with caption styling */
+            .image-with-caption {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              margin: 2rem auto;
+              text-align: center;
+              width: 100%;
+            }
+            
+            .image-with-caption img {
+              width: 100%; /* Make it responsive by default */
+              height: auto;
+              margin: 0; /* No margin on the image */
+            }
+            
+            .image-with-caption figcaption {
+              font-size: 1rem; /* Normal size font */
+              font-style: italic;
+              color: white; /* White text for better contrast */
+              margin-top: 0.3rem; /* Small margin between image and caption */
+              max-width: 85%;
+              text-align: center;
             }
             /* Ensure all content is above the grid */
             .blog-content {

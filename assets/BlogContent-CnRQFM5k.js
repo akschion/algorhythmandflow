@@ -1,4 +1,4 @@
-import{j as r,m as n}from"./index-C3NImvAg.js";function s({content:e,variants:o}){return r.jsx(n.div,{variants:o,className:`prose prose-slate dark:prose-invert
+import{j as r,m as n}from"./index-D3aW42zH.js";function s({content:e,variants:o}){return r.jsx(n.div,{variants:o,className:`prose prose-slate dark:prose-invert
                 prose-headings:text-foreground/90
                 prose-p:text-foreground/80
                 prose-p:leading-relaxed
