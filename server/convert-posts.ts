@@ -225,7 +225,7 @@ async function convertPosts() {
               font-size: 1rem; /* Normal size font */
               font-style: italic;
               color: white; /* White text for better contrast */
-              margin-top: 0.2rem; /* Small margin between image and caption */
+              margin-top: 0.3rem; /* Small margin between image and caption */
               max-width: 85%;
               text-align: center;
             }
