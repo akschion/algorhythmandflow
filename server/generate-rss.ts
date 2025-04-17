@@ -26,7 +26,7 @@ async function generateRSS() {
   // ————————
 
   const postsDir = path.join(__dirname, '../server/posts');
-  const outFile = path.join(__dirname, '../client/rss.xml');
+  const outFile = path.join(__dirname, '../client/public/rss.xml');
 
   // 1) Read all .md files
   const files = (await fs.readdir(postsDir)).filter((f) => f.endsWith('.md'));
