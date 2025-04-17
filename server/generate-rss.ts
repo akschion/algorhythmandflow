@@ -22,7 +22,7 @@ async function generateRSS() {
   const feedTitle = 'Algorhythm + Flow';
   const feedDescription = 'By Akshay Chandrasekhar. Documenting my research and hot takes on the interesting concepts bridging the real world and our imagination. Mostly focused on math, tech, and hip-hop, but includes other random topics as well.';
   const ttlMinutes = 60; // How long in minutes to cache the feed
-  const iconPath = '/math-vinyl-icon.svg'; // public asset for channel image
+  const iconPath = '/math-vinyl-icon.png'; // public asset for channel image
   // ————————
 
   const outFile = path.join(path.dirname(__dirname), 'client', 'public', 'rss.xml');
@@ -58,10 +58,10 @@ async function generateRSS() {
 
       return `    <item>
       <title><![CDATA[${post.title}]]></title>
-      <link>${siteUrl}/${post.slug}</link>
+      <link>${siteUrl}/post/${post.slug}</link>
       <description><![CDATA[${post.excerpt}]]></description>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
-      <guid>${siteUrl}/${post.slug}</guid>
+      <guid>${siteUrl}/post/${post.slug}</guid>
 ${categoriesXml}
     </item>`;
     })
