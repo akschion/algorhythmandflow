@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title><![CDATA[Algorhythm + Flow]]></title>
+    <atom:link href="https://algorhythmandflow.com/rss.xml" rel="self" type="application/rss+xml" />
+    <link>https://algorhythmandflow.com</link>
+    <description><![CDATA[By Akshay Chandrasekhar. Documenting my research and hot takes on the interesting concepts bridging the real world and our imagination. Mostly focused on math, tech, and hip-hop, but includes other random topics as well.]]></description>
+    <language>en-us</language>
+    <pubDate>Thu, 17 Apr 2025 00:36:14 GMT</pubDate>
+    <lastBuildDate>Thu, 17 Apr 2025 00:36:14 GMT</lastBuildDate>
+    <ttl>60</ttl>
+    <image>
+      <url>https://algorhythmandflow.com/math-vinyl-icon.svg</url>
+      <title><![CDATA[Algorhythm + Flow]]></title>
+      <link>https://algorhythmandflow.com</link>
+    </image>
+    <item>
+      <title><![CDATA[Making a Mondrian, Old School Generative Art]]></title>
+      <link>https://algorhythmandflow.com/making-a-mondrian</link>
+      <description><![CDATA[Designing an algorithm to generate aesthetic art pieces in the abstract style of Mondrian]]></description>
+      <pubDate>Tue, 15 Apr 2025 10:30:00 GMT</pubDate>
+      <guid>https://algorhythmandflow.com/making-a-mondrian</guid>
+      <category><![CDATA[generative art]]></category>
+      <category><![CDATA[algorithm]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Drake vs. Meek Mill - By the Numbers]]></title>
+      <link>https://algorhythmandflow.com/drake-meek-mill-by-the-numbers</link>
+      <description><![CDATA[Quantitative analysis between Drake and Meek Mill]]></description>
+      <pubDate>Thu, 13 Mar 2025 11:30:00 GMT</pubDate>
+      <guid>https://algorhythmandflow.com/drake-meek-mill-by-the-numbers</guid>
+      <category><![CDATA[hip-hop]]></category>
+      <category><![CDATA[statistics]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Quantum Music Theory: A Mathematical Framework]]></title>
+      <link>https://algorhythmandflow.com/quantum-music-theory</link>
+      <description><![CDATA[Exploring the fascinating intersection of quantum mechanics and music theory through mathematical modeling]]></description>
+      <pubDate>Tue, 05 Mar 2024 00:00:00 GMT</pubDate>
+      <guid>https://algorhythmandflow.com/quantum-music-theory</guid>
+      <category><![CDATA[AI generated]]></category>
+      <category><![CDATA[math]]></category>
+      <category><![CDATA[music-theory]]></category>
+      <category><![CDATA[quantum-mechanics]]></category>
+    </item>
+    <item>
+      <title><![CDATA[The Mathematics of Hip-Hop Rhythms]]></title>
+      <link>https://algorhythmandflow.com/hip-hop-mathematics</link>
+      <description><![CDATA[Exploring the mathematical structures behind hip-hop beats and rhythmic patterns]]></description>
+      <pubDate>Tue, 20 Jun 2023 10:30:00 GMT</pubDate>
+      <guid>https://algorhythmandflow.com/hip-hop-mathematics</guid>
+      <category><![CDATA[AI generated]]></category>
+      <category><![CDATA[math]]></category>
+      <category><![CDATA[hip-hop]]></category>
+      <category><![CDATA[music-theory]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Introduction to Fourier Transforms]]></title>
+      <link>https://algorhythmandflow.com/fourier-transforms-intro</link>
+      <description><![CDATA[An introduction to Fourier transforms and their applications in signal processing]]></description>
+      <pubDate>Mon, 15 May 2023 12:00:00 GMT</pubDate>
+      <guid>https://algorhythmandflow.com/fourier-transforms-intro</guid>
+      <category><![CDATA[AI generated]]></category>
+      <category><![CDATA[math]]></category>
+      <category><![CDATA[signal-processing]]></category>
+    </item>
+  </channel>
+</rss>

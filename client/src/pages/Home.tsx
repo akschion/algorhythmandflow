@@ -55,7 +55,7 @@ export default function Home() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
                 >
-                  Documenting my research and hot takes on the interesting concepts bridging the real world and our imagination. Mostly focused on math, tech, and hip-hop, but includes random other topics as well.
+                  Documenting my research and hot takes on the interesting concepts bridging the real world and our imagination. Mostly focused on math, tech, and hip-hop, but includes other random topics as well.
                 </motion.p>
               </motion.div>
             </div>

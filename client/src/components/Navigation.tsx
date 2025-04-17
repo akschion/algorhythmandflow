@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
+import { Menu, Rss } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -43,24 +43,44 @@ export function Navigation() {
                 </motion.span>
               </a>
             ))}
+            <a
+              href="/rss.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center transition-all hover:text-primary"
+            >
+              <Rss className="h-5 w-5 text-foreground/60 hover:text-primary" />
+              <span className="sr-only">RSS Feed</span>
+            </a>
           </nav>
         </div>
 
         {/* Mobile Navigation */}
         <div className="flex w-full items-center justify-between md:hidden">
-          <a href="/" className="flex items-center">
-            <motion.span 
-              className="font-bold text-sm bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          <div className="flex items-center space-x-4">
+            <a href="/" className="flex items-center">
+              <motion.span 
+                className="font-bold text-sm bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                Algorhythm + Flow
+              </motion.span>
+            </a>
+            <a
+              href="/rss.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center transition-all hover:text-primary"
             >
-              Algorhythm + Flow
-            </motion.span>
-          </a>
+              <Rss className="h-5 w-5 text-foreground/60 hover:text-primary" />
+              <span className="sr-only">RSS Feed</span>
+            </a>
+          </div>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5 text-foreground/60 hover:text-primary" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
