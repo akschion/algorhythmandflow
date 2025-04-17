@@ -24,7 +24,7 @@ There are two main components to create such paintings: box formation and colori
 This refers to the task of creating the boxes for the painting. Given a grid size of width x height, we want to partition the space into axis-aligned rectangles aesthetically (with minimum side length of 1 unit). Here are some of the ideas I came up with to solve the task.
 
 ### Recursive Partition
-This is probably most straightforward way to split a space into rectangles from a computer science perspective. The approach involves drawing an axis-aligned line (or parallel lines) randomly to split a space, and then recursively splitting each of those new spaces. This forms a tree where at each level you have a rectangle that is further subdivided. There are numerous example implementations of this including [Fogleman](https://fogleman.tumblr.com/post/11959143268/procedurally-generating-images-in-the-style-of), [christian](https://scipython.com/blog/computer-generated-mondrian-art-2/), and [ronikaufman](https://github.com/ronikaufman/mondrian_generator). It's a pretty decent algorithm, but I'm not quite satisfied with this approach. Many of the examples I see from this feel too organized and inorganic and don't do well with higher amounts of color. By avoiding explicitly designing such hierarchical and planned structures, I think we can achieve a more human touch. However, it may be unavoidable to occur to some degree with any algorithm, especially at smaller grid sizes.
+This is probably most straightforward way to split a space into rectangles from a computer science perspective. The approach involves drawing an axis-aligned line (or parallel lines) randomly to split a space, and then recursively splitting each of those new spaces. This forms a tree where at each level you have a rectangle that is further subdivided. There are numerous example implementations of this including [Fogleman](https://fogleman.tumblr.com/post/11959143268/procedurally-generating-images-in-the-style-of), [christian](https://scipython.com/blog/computer-generated-mondrian-art-2/), and [ronikaufman](https://github.com/ronikaufman/mondrian_generator). It's a pretty decent algorithm, but I'm not fully satisfied with this approach. Several of the examples I see from this feel too organized and inorganic and don't do well with higher amounts of color. By going beyond recursively planned structures, I think we can achieve a more human touch. However, it's important to note that it may arise naturally to some degree with any algorithm, especially at smaller grid sizes.
 
 ![Recursive Partition](assets/recursive_partition.png "Recursive partition example (courtesy of Fogleman). Each smaller rectangle is a split from a larger rectangle|maxwidth=350px")
 
@@ -56,8 +56,8 @@ It should be noted that a graph coloring is not unique (most algorithms terminat
 I made a lot of fuss about aesthetics, but how would I actually define them? To me, it's kind of like in Severance with the numbers where certain arrangments of boxes and colors can hit you with a really distinctive vibe, and you know a banger (or ugly one) when you see it. After a lot of playing around though, these are the aesthetic guidelines I seemed to have converged to in my tuning:
 
 - Every space must be a rectangle
-- The box structure/arrangement should be ideally unbiased
-- The box partition structure should ideally not be describable by a simple tree (i.e. hierarchical structure), especially in larger grid sizes
+- The box structure/arrangement should be unbiased
+- The box partition design should not be limited to simple recursive structures
 - The box aspect ratios should be mostly square-ish with some variation
 - There should be elements of randomness in the generation
 - Good color distributions minimize the amount that colored boxes touch each other without relying on more relative white coloring. Same color boxes (other than white) should rarely share a border.
