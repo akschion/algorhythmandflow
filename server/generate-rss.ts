@@ -25,8 +25,8 @@ async function generateRSS() {
   const iconPath = '/math-vinyl-icon.svg'; // public asset for channel image
   // ————————
 
-  const postsDir = path.join(__dirname, '../server/posts');
-  const outFile = path.join(__dirname, '../client/public/rss.xml');
+  const outFile = path.join(path.dirname(__dirname), 'client', 'public', 'rss.xml');
+  const postsDir = path.join(path.dirname(__dirname), 'server', 'posts');
 
   // 1) Read all .md files
   const files = (await fs.readdir(postsDir)).filter((f) => f.endsWith('.md'));
