@@ -110,7 +110,7 @@ export default function Research() {
               </h1>
               {selectedTags.length === 0 && (
                 <p className="mt-3 text-foreground/70 text-base md:text-lg leading-relaxed max-w-2xl">
-                  A list of my published and unpublished research work
+                  A list of my published and unpublished research papers
                 </p>
               )}
             </div>
