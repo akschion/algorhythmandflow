@@ -68,7 +68,7 @@ export default function Research() {
     <>
       <SEO
         title="Algorhythm + Flow - Research"
-        description="Research papers on mathematics, music, and technology."
+        description="Research papers in math, computer science, and AI by Akshay Chandrasekhar."
         type="website"
       />
       <div className="container mx-auto px-4 py-8 max-w-[1400px] overflow-x-hidden">
@@ -84,7 +84,7 @@ export default function Research() {
                 Research Papers
               </h1>
               <p className="mt-3 text-foreground/70 text-base md:text-lg leading-relaxed max-w-2xl">
-                A collection of my academic work spanning mathematics, music, and their intersections. Feel free to read and reach out with any thoughts.
+                Some of my published and unpublished research papers.
               </p>
             </div>
           </div>
