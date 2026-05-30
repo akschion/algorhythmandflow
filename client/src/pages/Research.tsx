@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { SEO } from "@/components/SEO";
 import { Star } from "lucide-react";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import katex from "katex";
 
 interface Paper {
@@ -11,6 +14,7 @@ interface Paper {
   abstract: string;
   conference: string;
   filename: string;
+  tags?: string[];
 }
 
 async function getPapers(): Promise<Paper[]> {
@@ -59,10 +63,27 @@ const item = {
 };
 
 export default function Research() {
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
   const { data: papers, isLoading } = useQuery<Paper[]>({
     queryKey: ["papers"],
     queryFn: getPapers
   });
+
+  const allTags = Array.from(new Set(papers?.flatMap(p => p.tags ?? []) || []));
+
+  const filteredPapers = papers?.filter(paper =>
+    selectedTags.length === 0 ||
+    selectedTags.every(tag => paper.tags?.includes(tag))
+  ) || [];
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags(prev =>
+      prev.includes(tag)
+        ? prev.filter(t => t !== tag)
+        : [...prev, tag]
+    );
+  };
 
   return (
     <>
@@ -82,13 +103,51 @@ export default function Research() {
             </div>
             <div className="relative p-6 md:p-8">
               <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent pb-2">
-                Research Papers
+                {selectedTags.length > 0
+                  ? `Papers tagged: ${selectedTags.join(", ")}`
+                  : "Research Papers"
+                }
               </h1>
-              <p className="mt-3 text-foreground/70 text-base md:text-lg leading-relaxed max-w-2xl">
-                A list of my published and unpublished research work
-              </p>
+              {selectedTags.length === 0 && (
+                <p className="mt-3 text-foreground/70 text-base md:text-lg leading-relaxed max-w-2xl">
+                  A list of my published and unpublished research work
+                </p>
+              )}
             </div>
           </div>
+
+          {/* Topics Filter */}
+          <Card className="bg-gradient-to-br from-muted/50 to-background border-none shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-xl bg-gradient-to-br from-primary to-primary-foreground bg-clip-text text-transparent">
+                Topics
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2">
+                {allTags.map(tag => (
+                  <button
+                    key={tag}
+                    onClick={() => toggleTag(tag)}
+                    className="no-underline focus:outline-none rounded-full"
+                  >
+                    <Badge
+                      variant={selectedTags.includes(tag) ? "default" : "secondary"}
+                      className={`
+                        transition-colors duration-200
+                        ${selectedTags.includes(tag)
+                          ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                          : 'hover:bg-primary hover:text-primary-foreground'
+                        }
+                      `}
+                    >
+                      {tag}
+                    </Badge>
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Papers List */}
           {isLoading ? (
@@ -109,7 +168,7 @@ export default function Research() {
               initial="hidden"
               animate="show"
             >
-              {papers?.map((paper) => (
+              {filteredPapers.map((paper) => (
                 <motion.article
                   key={paper.filename}
                   variants={item}
@@ -142,9 +201,34 @@ export default function Research() {
                           </p>
                         )}
 
-                        <p className="text-foreground/80 text-base leading-relaxed tracking-wide line-clamp-3">
+                        <p className="text-foreground/80 text-base leading-relaxed tracking-wide line-clamp-3 mb-4">
                           <LatexText text={paper.abstract} />
                         </p>
+
+                        {paper.tags && paper.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-2" onClick={e => e.stopPropagation()}>
+                            {paper.tags.map(tag => (
+                              <button
+                                key={tag}
+                                onClick={() => toggleTag(tag)}
+                                className="no-underline focus:outline-none rounded-full"
+                              >
+                                <Badge
+                                  variant={selectedTags.includes(tag) ? "default" : "secondary"}
+                                  className={`
+                                    transition-colors duration-200
+                                    ${selectedTags.includes(tag)
+                                      ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                                      : 'hover:bg-primary hover:text-primary-foreground'
+                                    }
+                                  `}
+                                >
+                                  {tag}
+                                </Badge>
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
 
                       {paper.conference && (
