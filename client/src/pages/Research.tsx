@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { SEO } from "@/components/SEO";
+import { Star } from "lucide-react";
 import katex from "katex";
 
 interface Paper {
@@ -20,7 +21,6 @@ async function getPapers(): Promise<Paper[]> {
 }
 
 function renderLatex(text: string): string {
-  // Replace $$...$$ (display) first, then $...$ (inline)
   let result = text;
   result = result.replace(/\$\$([^$]+)\$\$/g, (_, math) => {
     try {
@@ -123,25 +123,35 @@ export default function Research() {
                   </div>
 
                   <div className="relative p-2 md:p-4">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                      <time dateTime={paper.date}>
-                        {format(new Date(paper.date), "MMM d, yyyy")}
-                      </time>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                          <time dateTime={paper.date}>
+                            {format(new Date(paper.date), "MMM d, yyyy")}
+                          </time>
+                        </div>
+
+                        <h2 className="text-xl md:text-2xl font-bold mb-1 text-foreground group-hover:text-primary transition-colors">
+                          <LatexText text={paper.title} />
+                        </h2>
+
+                        {paper.conference && (
+                          <p className="text-sm text-muted-foreground mb-3">
+                            <em><LatexText text={paper.conference} /></em>
+                          </p>
+                        )}
+
+                        <p className="text-foreground/80 text-base leading-relaxed tracking-wide line-clamp-3">
+                          <LatexText text={paper.abstract} />
+                        </p>
+                      </div>
+
+                      {paper.conference && (
+                        <div className="flex-shrink-0 mt-1">
+                          <Star className="h-4 w-4 text-primary opacity-70 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                      )}
                     </div>
-
-                    <h2 className="text-xl md:text-2xl font-bold mb-1 text-foreground group-hover:text-primary transition-colors">
-                      <LatexText text={paper.title} />
-                    </h2>
-
-                    {paper.conference && (
-                      <p className="text-sm text-muted-foreground mb-3">
-                        <em><LatexText text={paper.conference} /></em>
-                      </p>
-                    )}
-
-                    <p className="text-foreground/80 text-base leading-relaxed tracking-wide line-clamp-3">
-                      <LatexText text={paper.abstract} />
-                    </p>
                   </div>
                 </motion.article>
               ))}
