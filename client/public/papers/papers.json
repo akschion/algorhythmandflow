@@ -1,0 +1,9 @@
+[
+  {
+    "title": "Your Paper Title Here",
+    "date": "2025-05-30",
+    "abstract": "Write your abstract here. This will appear on the card on the Research page.",
+    "conference": "Conference or Journal Name (leave empty string if not published)",
+    "filename": "your-paper.pdf"
+  }
+]

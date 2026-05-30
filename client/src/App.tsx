@@ -9,6 +9,7 @@ import Home from "@/pages/Home";
 import Blog from "@/pages/Blog";
 import Post from "@/pages/Post";
 import About from "@/pages/About";
+import Research from "@/pages/Research";
 import { useEffect } from "react";
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -58,6 +59,7 @@ function Router() {
         <Switch hook={useGitHubPagesLocation}>
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
+          <Route path="/research" component={Research} />
           <Route path="/blog" component={Blog} />
           <Route path="/post/:slug" component={Post} />
           <Route component={NotFound} />
