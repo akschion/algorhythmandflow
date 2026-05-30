@@ -13,7 +13,7 @@ interface Paper {
 }
 
 async function getPapers(): Promise<Paper[]> {
-  const response = await fetch("/papers/papers.json");
+  const response = await fetch("/research/research.json");
   if (!response.ok) throw new Error("Failed to load papers");
   const papers: Paper[] = await response.json();
   return papers.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -115,7 +115,7 @@ export default function Research() {
                   whileHover={{ scale: 1.01 }}
                   transition={{ type: "spring", stiffness: 300 }}
                   className="relative overflow-hidden rounded-xl shadow-md bg-gradient-to-br from-muted/40 to-background p-6 group transform-gpu cursor-pointer"
-                  onClick={() => window.open(`/papers/${paper.filename}`, "_blank")}
+                  onClick={() => window.open(`/research/${paper.filename}`, "_blank")}
                 >
                   <div className="absolute inset-0 w-full h-full pointer-events-none">
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:14px_24px]" />
