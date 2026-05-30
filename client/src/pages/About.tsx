@@ -10,8 +10,9 @@ export default function About() {
   return (
     <>
       <SEO
-        title="Algorhythm + Flow - About"
-        description="Learn about Akshay Chandrasekhar, a computer vision researcher exploring mathematics, music, and technology."
+        title="About Akshay Chandrasekhar | Algorhythm + Flow"
+        description="Akshay Chandrasekhar is a computer vision researcher with broad interests in mathematics, hip-hop, geometry, linguistics, and the cultural intersections of technology and music."
+        url="/about"
       />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">

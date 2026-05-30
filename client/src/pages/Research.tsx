@@ -67,9 +67,10 @@ export default function Research() {
   return (
     <>
       <SEO
-        title="Algorhythm + Flow - Research"
-        description="Research papers in math, computer science, and AI by Akshay Chandrasekhar."
+        title="Research | Akshay Chandrasekhar — Algorhythm + Flow"
+        description="Academic research papers in computer vision, mathematics, and AI by Akshay Chandrasekhar. Covering topics from geometry to machine learning."
         type="website"
+        url="/research"
       />
       <div className="container mx-auto px-4 py-8 max-w-[1400px] overflow-x-hidden">
         <div className="space-y-8">
@@ -84,7 +85,7 @@ export default function Research() {
                 Research Papers
               </h1>
               <p className="mt-3 text-foreground/70 text-base md:text-lg leading-relaxed max-w-2xl">
-                Some of my published and unpublished research papers.
+                A list of my published and unpublished research work
               </p>
             </div>
           </div>

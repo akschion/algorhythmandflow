@@ -23,8 +23,9 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Algorhythm + Flow"
-        description="Exploring the intersection of mathematics, music, and technology through academic research and creative exploration."
+        title="Algorhythm + Flow | Akshay Chandrasekhar"
+        description="Personal site of Akshay Chandrasekhar — computer vision researcher exploring the intersection of mathematics, music, and technology through academic research and creative writing."
+        url="/"
       />
       <div className="container mx-auto px-4 py-8">
         <div className="space-y-12">

@@ -35,9 +35,10 @@ export default function Blog() {
   return (
     <>
       <SEO
-        title="Algorhythm + Flow - Blog"
-        description="Explore articles about mathematics, music, and technology. Read articles, learn new things"
+        title="Blog | Akshay Chandrasekhar — Algorhythm + Flow"
+        description="Essays and articles by Akshay Chandrasekhar on mathematics, hip-hop, computer vision, geometry, and the cultural intersections of technology and music."
         type="website"
+        url="/blog"
       />
       <div className="container mx-auto px-4 py-8 max-w-[1400px] overflow-x-hidden">
         <div className="space-y-8">
