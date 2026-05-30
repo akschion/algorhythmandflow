@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
-import { FileText } from "lucide-react";
 import { SEO } from "@/components/SEO";
+import katex from "katex";
 
 interface Paper {
   title: string;
@@ -17,6 +17,35 @@ async function getPapers(): Promise<Paper[]> {
   if (!response.ok) throw new Error("Failed to load papers");
   const papers: Paper[] = await response.json();
   return papers.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+function renderLatex(text: string): string {
+  // Replace $$...$$ (display) first, then $...$ (inline)
+  let result = text;
+  result = result.replace(/\$\$([^$]+)\$\$/g, (_, math) => {
+    try {
+      return katex.renderToString(math, { displayMode: true, throwOnError: false });
+    } catch {
+      return `$$${math}$$`;
+    }
+  });
+  result = result.replace(/\$([^$\n]+)\$/g, (_, math) => {
+    try {
+      return katex.renderToString(math, { displayMode: false, throwOnError: false });
+    } catch {
+      return `$${math}$`;
+    }
+  });
+  return result;
+}
+
+function LatexText({ text, className }: { text: string; className?: string }) {
+  return (
+    <span
+      className={className}
+      dangerouslySetInnerHTML={{ __html: renderLatex(text) }}
+    />
+  );
 }
 
 const container = {
@@ -94,36 +123,25 @@ export default function Research() {
                   </div>
 
                   <div className="relative p-2 md:p-4">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                          <time dateTime={paper.date}>
-                            {format(new Date(paper.date), "MMM d, yyyy")}
-                          </time>
-                        </div>
-
-                        <h2 className="text-xl md:text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                          {paper.title}
-                        </h2>
-
-                        <p className="text-foreground/80 text-base leading-relaxed tracking-wide mb-4">
-                          {paper.abstract}
-                        </p>
-
-                        {paper.conference && (
-                          <p className="text-sm text-muted-foreground">
-                            <em>{paper.conference}</em>
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="flex-shrink-0 mt-1">
-                        <div className="flex items-center gap-1.5 text-sm text-primary font-medium opacity-70 group-hover:opacity-100 transition-opacity">
-                          <FileText className="h-4 w-4" />
-                          <span className="hidden sm:inline">PDF</span>
-                        </div>
-                      </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                      <time dateTime={paper.date}>
+                        {format(new Date(paper.date), "MMM d, yyyy")}
+                      </time>
                     </div>
+
+                    <h2 className="text-xl md:text-2xl font-bold mb-1 text-foreground group-hover:text-primary transition-colors">
+                      <LatexText text={paper.title} />
+                    </h2>
+
+                    {paper.conference && (
+                      <p className="text-sm text-muted-foreground mb-3">
+                        <em><LatexText text={paper.conference} /></em>
+                      </p>
+                    )}
+
+                    <p className="text-foreground/80 text-base leading-relaxed tracking-wide line-clamp-3">
+                      <LatexText text={paper.abstract} />
+                    </p>
                   </div>
                 </motion.article>
               ))}
