@@ -148,7 +148,7 @@ export default function Research() {
 
                       {paper.conference && (
                         <div className="flex-shrink-0 mt-1">
-                          <Star className="h-4 w-4 text-primary opacity-70 group-hover:opacity-100 transition-opacity" />
+                          <Star fill="currentColor" className="h-4 w-4 text-primary opacity-70 group-hover:opacity-100 transition-opacity" />
                         </div>
                       )}
                     </div>
