@@ -33,5 +33,13 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "client/index.html"),
+        about: path.resolve(__dirname, "client/about/index.html"),
+        blog: path.resolve(__dirname, "client/blog/index.html"),
+        research: path.resolve(__dirname, "client/research/index.html"),
+      },
+    },
   },
 });

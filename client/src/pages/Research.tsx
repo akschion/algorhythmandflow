@@ -91,7 +91,7 @@ export default function Research() {
         title="Research | Akshay Chandrasekhar — Algorhythm + Flow"
         description="Academic research papers in computer vision, mathematics, and AI by Akshay Chandrasekhar. Covering topics from geometry to machine learning."
         type="website"
-        url="/research"
+        url="/research/"
       />
       <div className="container mx-auto px-4 py-8 max-w-[1400px] overflow-x-hidden">
         <div className="space-y-8">
